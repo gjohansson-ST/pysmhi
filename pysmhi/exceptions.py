@@ -2,4 +2,8 @@
 
 
 class SMHIError(Exception):
-    """Error from Nord Pool api."""
+    """Error from SMHI api."""
+
+
+class SmhiForecastException(SMHIError):
+    """Exception getting forecast."""
