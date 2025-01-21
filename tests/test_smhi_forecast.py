@@ -1,23 +1,22 @@
 """Tests for SMHI forecast."""
 
-import aresponses
-from aresponses import ResponsesMockServer
-import pytest
+import json
 import pathlib
 from typing import Any
-import json
-import aiohttp
 
+import aiohttp
+import pytest
+from aresponses import ResponsesMockServer
 from syrupy.assertion import SnapshotAssertion
 
-from pysmhi.smhi_forecast import SMHIForecast, SMHIPointForecast
+from pysmhi.smhi_forecast import SMHIPointForecast
 
 
 @pytest.fixture
 async def mock_data() -> dict[str, Any]:
     """Mock web response."""
-    data = pathlib.Path("tests/data.json").read_text()
-    json_data:dict[str,Any] = json.loads(data)
+    data = pathlib.Path("tests/data.json").read_text()  # pylint: disable=unspecified-encoding
+    json_data: dict[str, Any] = json.loads(data)
     return json_data
 
 

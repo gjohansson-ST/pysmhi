@@ -46,6 +46,7 @@ ruff = "0.8.4"
 safety = "3.2.14"
 yamllint = "1.35.1"
 syrupy = "4.8.0"
+pylint-per-file-ignores = "^1.4.0"
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/gjohansson-ST/pysmhi/issues"
@@ -93,12 +94,31 @@ warn_return_any = true
 warn_unused_configs = true
 warn_unused_ignores = true
 
-[tool.pylint.MASTER]
+[tool.pylint.MAIN]
+py-version = "3.13"
+
 ignore = [
-  "tests",
   "examples"
 ]
 ignore-paths = "examples.*"
+
+load-plugins = [
+    "pylint.extensions.code_style",
+    "pylint.extensions.typing",
+    "pylint_per_file_ignores",
+]
+persistent = false
+extension-pkg-allow-list = [
+    "av.audio.stream",
+    "av.logging",
+    "av.stream",
+    "ciso8601",
+    "orjson",
+    "cv2",
+]
+fail-on = [
+    "I",
+]
 
 [tool.pylint.BASIC]
 good-names = [
@@ -356,6 +376,10 @@ disable = [
     "used-before-assignment",
     "using-final-decorator-in-unsupported-version",
     "wrong-exception-operation",
+]
+
+per-file-ignores = [
+    "/tests/:redefined-outer-name,use-implicit-booleaness-not-comparison",
 ]
 
 [tool.pylint.SIMILARITIES]

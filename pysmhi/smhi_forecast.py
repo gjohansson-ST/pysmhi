@@ -3,13 +3,13 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import TypedDict, Any
+from typing import Any, TypedDict
 
 from aiohttp import ClientSession
 
-from .smhi import SmhiAPI
 from .const import API_POINT_FORECAST
-from .exceptions import SmhiForecastException, SMHIError
+from .exceptions import SMHIError, SmhiForecastException
+from .smhi import SmhiAPI
 
 
 class SMHIForecast(TypedDict, total=False):
@@ -90,12 +90,13 @@ class SMHIPointForecast:
         latitude: str,
         session: ClientSession | None = None,
     ) -> None:
+        """Init the SMHI forecast."""
         self._longitude = str(round(float(longitude), 6))
         self._latitude = str(round(float(latitude), 6))
         self._api = SmhiAPI(session)
 
     async def async_get_daily_forecast(self) -> list[SMHIForecast]:
-        """Returns a list of forecasts by day."""
+        """Return a list of forecasts by day."""
         try:
             json_data = await self._api.async_get_data(
                 API_POINT_FORECAST.format(self._longitude, self._latitude),
@@ -105,7 +106,7 @@ class SMHIPointForecast:
         return get_daily_forecast(json_data)
 
     async def async_get_hourly_forecast(self) -> list[SMHIForecast]:
-        """Returns a list of forecasts by hour."""
+        """Return a list of forecasts by hour."""
         try:
             json_data = await self._api.async_get_data(
                 API_POINT_FORECAST.format(self._longitude, self._latitude),
@@ -121,7 +122,7 @@ def get_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
     sorted_forecasts = sorted(forecasts, key=lambda x: x["valid_time"])
 
     daily_forecasts = [sorted_forecasts[0]]
-    pmean:list[float] = []
+    pmean: list[float] = []
     for forecast in sorted_forecasts[1:]:
         if forecast["valid_time"].hour == 12:
             new_forecast = SMHIForecast(**forecast)
@@ -140,9 +141,9 @@ def get_bidaily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
     sorted_forecasts = sorted(forecasts, key=lambda x: x["valid_time"])
 
     daily_forecasts = [sorted_forecasts[0]]
-    pmean:list[float] = []
+    pmean: list[float] = []
     for forecast in sorted_forecasts[1:]:
-        if forecast["valid_time"].hour == 12 or forecast["valid_time"].hour == 0:
+        if forecast["valid_time"].hour in {12, 0}:
             new_forecast = SMHIForecast(**forecast)
             new_forecast["total_precipitation"] = sum(pmean)
             daily_forecasts.append(new_forecast)
@@ -157,7 +158,6 @@ def get_hourly_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
     """Get hourly forecast."""
     forecasts = _create_forecast(data)
     sorted_forecasts = sorted(forecasts, key=lambda x: x["valid_time"])
-    print(sorted_forecasts)
 
     hourly_forecasts = [sorted_forecasts[0]]
     previous_valid_time = sorted_forecasts[0]["valid_time"]
