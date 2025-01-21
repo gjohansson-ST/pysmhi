@@ -34,13 +34,17 @@ class SmhiAPI:
             async with self._session.get(url, timeout=self._timeout) as resp:
                 resp.raise_for_status()
                 data: dict[str, Any] = await resp.json()
-                return data
+
         except Exception as error:  # noqa:BLE001
             LOGGER.debug("Error, status: %s, error: %s", resp.status, str(error))
             ex = error
+            if retry > 0:
+                LOGGER.debug(
+                    "Retry %d on path %s from error %s", 4 - retry, url, str(ex)
+                )
+                await asyncio.sleep(7)
+                return await self.async_get_data(url, retry - 1)
 
-        if retry > 0:
-            LOGGER.debug("Retry %d on path %s from error %s", 4 - retry, url, str(ex))
-            await asyncio.sleep(7)
-            return await self.async_get_data(url, retry - 1)
-        raise SMHIError from ex
+            raise SMHIError from ex
+
+        return data
