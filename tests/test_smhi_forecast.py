@@ -2,14 +2,23 @@
 
 import json
 import pathlib
+from collections.abc import AsyncGenerator
 from typing import Any
+from unittest.mock import patch
 
 import aiohttp
 import pytest
 from aresponses import ResponsesMockServer
 from syrupy.assertion import SnapshotAssertion
 
-from pysmhi.smhi_forecast import SMHIPointForecast
+from pysmhi import SmhiForecastException, SMHIPointForecast
+
+
+@pytest.fixture(autouse=True)
+async def mock_sleep() -> AsyncGenerator[None]:
+    """Mock no sleeping."""
+    with patch("asyncio.sleep"):
+        yield
 
 
 @pytest.fixture
@@ -20,7 +29,6 @@ async def mock_data() -> dict[str, Any]:
     return json_data
 
 
-@pytest.mark.asyncio
 async def test_api(
     aresponses: ResponsesMockServer,
     mock_data: dict[str, Any],
@@ -44,3 +52,22 @@ async def test_api(
 
         assert daily_forecast == snapshot(name="daily_forecast")
         assert hourly_forecast == snapshot(name="hourly_forecast")
+
+
+async def test_api_failure(aresponses: ResponsesMockServer) -> None:
+    """Test api."""
+    response = aresponses.Response(status=500, reason="Internal Server Error")
+    aresponses.add(
+        "opendata-download-metfcst.smhi.se",
+        "/api/category/pmp3g/version/2/geotype/point/lon/16.15035/lat/58.570784/data.json",
+        "GET",
+        response=response,
+        repeat=4,
+    )
+
+    async with aiohttp.ClientSession() as session:
+        forecast = SMHIPointForecast("16.15035", "58.570784", session)
+        with pytest.raises(SmhiForecastException):
+            await forecast.async_get_daily_forecast()
+        with pytest.raises(SmhiForecastException):
+            await forecast.async_get_hourly_forecast()
