@@ -77,3 +77,26 @@ async def test_api_failure(aresponses: ResponsesMockServer) -> None:
             await forecast.async_get_twice_daily_forecast()
         with pytest.raises(SmhiForecastException):
             await forecast.async_get_hourly_forecast()
+
+
+async def test_malformed_data(
+    aresponses: ResponsesMockServer,
+    mock_data: dict[str, Any],
+) -> None:
+    """Test api."""
+    mock_data["referenceTime"] = ""
+    aresponses.add(
+        "opendata-download-metfcst.smhi.se",
+        "/api/category/pmp3g/version/2/geotype/point/lon/16.15035/lat/58.570784/data.json",
+        "GET",
+        response=mock_data,
+        repeat=1,
+    )
+
+    async with aiohttp.ClientSession() as session:
+        forecast = SMHIPointForecast("16.15035", "58.570784", session)
+        with pytest.raises(
+            SmhiForecastException,
+            match="No time series, approved time or reference time in data",
+        ):
+            await forecast.async_get_daily_forecast()

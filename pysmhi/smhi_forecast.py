@@ -7,7 +7,7 @@ from typing import Any, TypedDict
 
 from aiohttp import ClientSession
 
-from .const import API_POINT_FORECAST
+from .const import API_POINT_FORECAST, LOGGER
 from .exceptions import SMHIError, SmhiForecastException
 from .smhi import SmhiAPI
 
@@ -97,32 +97,55 @@ class SMHIPointForecast:
 
     async def async_get_daily_forecast(self) -> list[SMHIForecast]:
         """Return a list of forecasts by day."""
+        LOGGER.debug("Getting daily forecast")
         try:
             json_data = await self._api.async_get_data(
                 API_POINT_FORECAST.format(self._longitude, self._latitude),
             )
         except SMHIError as error:
+            LOGGER.debug("Error getting daily forecast: %s", str(error))
             raise SmhiForecastException from error
+        LOGGER.debug(
+            "Got daily forecast with approved time %s and reference time %s",
+            json_data.get("approvedTime"),
+            json_data.get("referenceTime"),
+        )
         return get_daily_forecast(json_data)
 
     async def async_get_twice_daily_forecast(self) -> list[SMHIForecast]:
         """Return a list of forecasts by day."""
+        LOGGER.debug("Getting twice daily forecast")
         try:
             json_data = await self._api.async_get_data(
                 API_POINT_FORECAST.format(self._longitude, self._latitude),
             )
         except SMHIError as error:
+            LOGGER.debug("Error getting twice daily forecast: %s", str(error))
             raise SmhiForecastException from error
+
+        LOGGER.debug(
+            "Got twice daily forecast with approved time %s and reference time %s",
+            json_data.get("approvedTime"),
+            json_data.get("referenceTime"),
+        )
         return get_twice_daily_forecast(json_data)
 
     async def async_get_hourly_forecast(self) -> list[SMHIForecast]:
         """Return a list of forecasts by hour."""
+        LOGGER.debug("Getting hourly forecast")
         try:
             json_data = await self._api.async_get_data(
                 API_POINT_FORECAST.format(self._longitude, self._latitude),
             )
         except SMHIError as error:
+            LOGGER.debug("Error getting hourly forecast: %s", str(error))
             raise SmhiForecastException from error
+
+        LOGGER.debug(
+            "Got hourly forecast with approved time %s and reference time %s",
+            json_data.get("approvedTime"),
+            json_data.get("referenceTime"),
+        )
         return get_hourly_forecast(json_data)
 
 
@@ -176,6 +199,11 @@ def get_hourly_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
             hourly_forecasts.append(forecast)
             previous_valid_time = forecast["valid_time"]
             continue
+        LOGGER.debug(
+            "Breaking as time difference is not 1 hour between %s and %s",
+            forecast["valid_time"],
+            previous_valid_time,
+        )
         break
     return hourly_forecasts
 
@@ -186,6 +214,16 @@ def _create_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
     forecasts: list[SMHIForecast] = []
 
     previous_valid_time = None
+
+    if (
+        not data.get("timeSeries")
+        or not data.get("approvedTime")
+        or not data.get("referenceTime")
+    ):
+        LOGGER.debug("No time series, approved time or reference time in data")
+        raise SmhiForecastException(
+            "No time series, approved time or reference time in data"
+        )
 
     for forecast in data["timeSeries"]:
         valid_time = datetime.strptime(forecast["validTime"], "%Y-%m-%dT%H:%M:%S%z")
@@ -229,4 +267,6 @@ def _create_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
         )
         forecasts.append(forecast)
         previous_valid_time = valid_time
+
+    LOGGER.debug("Returning forecasts with length: %s", len(forecasts))
     return forecasts
