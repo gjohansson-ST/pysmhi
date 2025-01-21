@@ -105,6 +105,16 @@ class SMHIPointForecast:
             raise SmhiForecastException from error
         return get_daily_forecast(json_data)
 
+    async def async_get_twice_daily_forecast(self) -> list[SMHIForecast]:
+        """Return a list of forecasts by day."""
+        try:
+            json_data = await self._api.async_get_data(
+                API_POINT_FORECAST.format(self._longitude, self._latitude),
+            )
+        except SMHIError as error:
+            raise SmhiForecastException from error
+        return get_twice_daily_forecast(json_data)
+
     async def async_get_hourly_forecast(self) -> list[SMHIForecast]:
         """Return a list of forecasts by hour."""
         try:
@@ -135,7 +145,7 @@ def get_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
     return daily_forecasts
 
 
-def get_bidaily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
+def get_twice_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
     """Get bi-daily forecast."""
     forecasts = _create_forecast(data)
     sorted_forecasts = sorted(forecasts, key=lambda x: x["valid_time"])
