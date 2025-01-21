@@ -1,6 +1,7 @@
 """Tests for SMHI forecast."""
 
 import json
+import math
 import pathlib
 from collections.abc import AsyncGenerator
 from typing import Any
@@ -65,12 +66,14 @@ async def test_api_failure(aresponses: ResponsesMockServer) -> None:
         "/api/category/pmp3g/version/2/geotype/point/lon/16.15035/lat/58.570784/data.json",
         "GET",
         response=response,
-        repeat=4,
+        repeat=math.inf,
     )
 
     async with aiohttp.ClientSession() as session:
         forecast = SMHIPointForecast("16.15035", "58.570784", session)
         with pytest.raises(SmhiForecastException):
             await forecast.async_get_daily_forecast()
+        with pytest.raises(SmhiForecastException):
+            await forecast.async_get_twice_daily_forecast()
         with pytest.raises(SmhiForecastException):
             await forecast.async_get_hourly_forecast()
