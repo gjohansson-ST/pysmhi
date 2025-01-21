@@ -20,9 +20,8 @@
           "ms-python.vscode-pylance",
           "charliermarsh.ruff",
           "ms-python.pylint",
-          "visualstudioexptteam.vscodeintellicode",
+          "visualstudioexptteam.vscodeintellicode"
         ],
-
         "settings": {
           "[python]": {
             "editor.defaultFormatter": "charliermarsh.ruff"
@@ -42,7 +41,7 @@
               "path": "/usr/bin/zsh"
             }
           },
-          "terminal.integrated.defaultProfile.linux": "zsh",
+          "terminal.integrated.defaultProfile.linux": "zsh"
         }
       }
     },
