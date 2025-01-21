@@ -17,35 +17,32 @@
           "GitHub.vscode-github-actions",
           "ryanluker.vscode-coverage-gutters",
           "GitHub.copilot",
-          "ms-python.vscode-pylance"
+          "ms-python.vscode-pylance",
+          "charliermarsh.ruff",
+          "ms-python.pylint",
+          "visualstudioexptteam.vscodeintellicode",
         ],
+
         "settings": {
           "[python]": {
-            "editor.defaultFormatter": "charliermarsh.ruff",
-            "editor.formatOnSave": true,
-            "editor.codeActionsOnSave": {
-              "source.fixAll": "explicit",
-              "source.organizeImports": "explicit"
+            "editor.defaultFormatter": "charliermarsh.ruff"
+          },
+          "python.experiments.optOutFrom": ["pythonTestAdapter"],
+          "python.defaultInterpreterPath": "/home/vscode/.local/ha-venv/bin/python",
+          "python.pythonPath": "/home/vscode/.local/ha-venv/bin/python",
+          "python.terminal.activateEnvInCurrentTerminal": true,
+          "python.testing.pytestArgs": ["--no-cov"],
+          "pylint.importStrategy": "fromEnvironment",
+          "editor.formatOnPaste": false,
+          "editor.formatOnSave": true,
+          "editor.formatOnType": true,
+          "files.trimTrailingWhitespace": true,
+          "terminal.integrated.profiles.linux": {
+            "zsh": {
+              "path": "/usr/bin/zsh"
             }
           },
-          "coverage-gutters.customizable.context-menu": true,
-          "coverage-gutters.customizable.status-bar-toggler-watchCoverageAndVisibleEditors-enabled": true,
-          "coverage-gutters.showGutterCoverage": false,
-          "coverage-gutters.showLineCoverage": true,
-          "coverage-gutters.xmlname": "coverage.xml",
-          "python.analysis.extraPaths": ["${workspaceFolder}"],
-          "python.defaultInterpreterPath": ".venv/bin/python",
-          "python.formatting.provider": "ruff",
-          "python.linting.enabled": true,
-          "python.linting.mypyEnabled": true,
-          "python.linting.pylintEnabled": true,
-          "python.testing.cwd": "${workspaceFolder}",
-          "python.testing.pytestArgs": ["--cov-report=xml"],
-          "python.testing.pytestEnabled": true,
-          "ruff.importStrategy": "fromEnvironment",
-          "ruff.interpreter": [".venv/bin/python"],
-          "files.trimTrailingWhitespace": true,
-          "terminal.integrated.defaultProfile.linux": "zsh"
+          "terminal.integrated.defaultProfile.linux": "zsh",
         }
       }
     },
@@ -59,5 +56,5 @@
     },
     "image": "mcr.microsoft.com/devcontainers/python:1-3.13",
     "name": "pysmhi",
-    "updateContentCommand": ". ${NVM_DIR}/nvm.sh && nvm install && nvm use && npm install && poetry install && poetry check"
+    "updateContentCommand": ". ${NVM_DIR}/nvm.sh && nvm install node && nvm use node && npm install && poetry install && poetry check"
   }
