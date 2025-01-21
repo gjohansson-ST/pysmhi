@@ -389,7 +389,7 @@ ignore-imports = true
 max-line-length = 88
 
 [tool.pytest.ini_options]
-#addopts = "--cov"
+addopts = "--cov"
 testpaths = [
     "tests",
 ]
