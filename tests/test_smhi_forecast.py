@@ -58,9 +58,34 @@ async def test_api(
         assert hourly_forecast == snapshot(name="hourly_forecast")
 
 
-async def test_api_failure(aresponses: ResponsesMockServer) -> None:
+@pytest.mark.parametrize(
+    ("status", "reason", "match"),
+    [
+        (
+            500,
+            "Internal Server Error",
+            "500, message='Internal Server Error', "
+            "url='https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/16.15035/lat/58.570784/data.json'",
+        ),
+        (
+            404,
+            "Not found",
+            "404, message='Not found', "
+            "url='https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/16.15035/lat/58.570784/data.json'",
+        ),
+        (
+            429,
+            "Too Many Requests",
+            "429, message='Too Many Requests', "
+            "url='https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/16.15035/lat/58.570784/data.json'",
+        ),
+    ],
+)
+async def test_api_failure(
+    aresponses: ResponsesMockServer, status: int, reason: str, match: str
+) -> None:
     """Test api."""
-    response = aresponses.Response(status=500, reason="Internal Server Error")
+    response = aresponses.Response(status=status, reason=reason)
     aresponses.add(
         "opendata-download-metfcst.smhi.se",
         "/api/category/pmp3g/version/2/geotype/point/lon/16.15035/lat/58.570784/data.json",
@@ -71,11 +96,20 @@ async def test_api_failure(aresponses: ResponsesMockServer) -> None:
 
     async with aiohttp.ClientSession() as session:
         forecast = SMHIPointForecast("16.15035", "58.570784", session)
-        with pytest.raises(SmhiForecastException):
+        with pytest.raises(
+            SmhiForecastException,
+            match=match,
+        ):
             await forecast.async_get_daily_forecast()
-        with pytest.raises(SmhiForecastException):
+        with pytest.raises(
+            SmhiForecastException,
+            match=match,
+        ):
             await forecast.async_get_twice_daily_forecast()
-        with pytest.raises(SmhiForecastException):
+        with pytest.raises(
+            SmhiForecastException,
+            match=match,
+        ):
             await forecast.async_get_hourly_forecast()
 
 

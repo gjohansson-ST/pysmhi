@@ -35,16 +35,15 @@ class SmhiAPI:
                 resp.raise_for_status()
                 data: dict[str, Any] = await resp.json()
 
-        except Exception as error:  # noqa:BLE001
+        except Exception as error:
             LOGGER.debug("Error, status: %s, error: %s", resp.status, str(error))
-            ex = error
             if retry > 0:
                 LOGGER.debug(
-                    "Retry %d on path %s from error %s", 4 - retry, url, str(ex)
+                    "Retry %d on path %s from error %s", 4 - retry, url, str(error)
                 )
                 await asyncio.sleep(7)
                 return await self.async_get_data(url, retry - 1)
 
-            raise SMHIError from ex
+            raise SMHIError from error
 
         return data
