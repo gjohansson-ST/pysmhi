@@ -182,3 +182,24 @@ async def test_malformed_data(
             match="No time series, approved time or reference time in data",
         ):
             await forecast.async_get_daily_forecast()
+
+
+async def test_six_digits_rounding(
+    aresponses: ResponsesMockServer,
+    mock_data: dict[str, Any],
+) -> None:
+    """Test api."""
+    aresponses.add(
+        "opendata-download-metfcst.smhi.se",
+        "/api/category/pmp3g/version/2/geotype/point/lon/16.123457/lat/58.123457/data.json",
+        "GET",
+        response=mock_data,
+        repeat=math.inf,
+    )
+
+    async with aiohttp.ClientSession() as session:
+        forecast = SMHIPointForecast("16.1234567", "58.1234567", session)
+        assert forecast._latitude == "58.123457"  # noqa: SLF001
+        assert forecast._longitude == "16.123457"  # noqa: SLF001
+        await forecast.async_get_daily_forecast()
+        assert len(aresponses.history) == 1
