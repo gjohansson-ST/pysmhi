@@ -158,13 +158,12 @@ def get_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
     daily_forecasts[0]["total_precipitation"] = 0
     pmean: list[float] = []
     for forecast in sorted_forecasts[1:]:
+        pmean.append(forecast["mean_precipitation"])
         if forecast["valid_time"].hour == 12:
             new_forecast = SMHIForecast(**forecast)
             new_forecast["total_precipitation"] = sum(pmean)
             daily_forecasts.append(new_forecast)
             pmean = []
-        else:
-            pmean.append(forecast["mean_precipitation"])
 
     return daily_forecasts
 
@@ -256,11 +255,18 @@ def _create_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
             wind_speed=float(temp_forecast["ws"]),
             visibility=float(temp_forecast["vis"]),
             wind_gust=float(temp_forecast["gust"]),
-            min_precipitation=float(temp_forecast["pmin"]) / hours_between_forecast,
-            mean_precipitation=float(temp_forecast["pmean"]) / hours_between_forecast,
-            median_precipitation=float(temp_forecast["pmedian"])
-            / hours_between_forecast,
-            max_precipitation=float(temp_forecast["pmax"]) / hours_between_forecast,
+            min_precipitation=round(
+                float(temp_forecast["pmin"]) * hours_between_forecast, 2
+            ),
+            mean_precipitation=round(
+                float(temp_forecast["pmean"]) * hours_between_forecast, 2
+            ),
+            median_precipitation=round(
+                float(temp_forecast["pmedian"]) / hours_between_forecast, 2
+            ),
+            max_precipitation=round(
+                float(temp_forecast["pmax"]) * hours_between_forecast, 2
+            ),
             frozen_precipitation=temp_forecast["spp"]
             if temp_forecast["spp"] != -9
             else 0,
