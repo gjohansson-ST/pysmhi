@@ -203,3 +203,45 @@ async def test_six_digits_rounding(
         assert forecast._longitude == "16.123457"  # noqa: SLF001
         await forecast.async_get_daily_forecast()
         assert len(aresponses.history) == 1
+
+
+async def test_total_precipitation(
+    aresponses: ResponsesMockServer,
+    mock_data: dict[str, Any],
+) -> None:
+    """Test api."""
+    aresponses.add(
+        "opendata-download-metfcst.smhi.se",
+        "/api/category/pmp3g/version/2/geotype/point/lon/16.123457/lat/58.123457/data.json",
+        "GET",
+        response=mock_data,
+        repeat=math.inf,
+    )
+
+    forecasts = mock_data["timeSeries"]
+    sum_precipitation = 0
+    previous_valid_time = datetime(2025, 1, 22, 12, 0, tzinfo=timezone.utc)
+    for forecast in forecasts:
+        start = datetime(2025, 1, 22, 13, 0, tzinfo=timezone.utc)
+        end = datetime(2025, 1, 23, 12, 0, tzinfo=timezone.utc)
+        valid_time = datetime.strptime(forecast["validTime"], "%Y-%m-%dT%H:%M:%S%z")
+        temp_forecast = {
+            parameter["name"]: parameter["values"][0]
+            for parameter in forecast["parameters"]
+        }
+        if start <= valid_time <= end:
+            sum_precipitation += temp_forecast["pmean"] * (
+                (valid_time - previous_valid_time).total_seconds() / 3600
+            )
+            previous_valid_time = valid_time
+
+    async with aiohttp.ClientSession() as session:
+        forecast = SMHIPointForecast("16.123457", "58.123457", session)
+        result = await forecast.async_get_daily_forecast()
+        for result_forecast in result:
+            if result_forecast["valid_time"] == datetime(
+                2025, 1, 23, 12, 0, tzinfo=timezone.utc
+            ):
+                assert result_forecast["total_precipitation"] == round(
+                    sum_precipitation, 2
+                )
