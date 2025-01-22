@@ -43,6 +43,8 @@ pytest = "8.3.4"
 pytest-asyncio = "0.25.2"
 pytest-cov = "6.0.0"
 ruff = "0.9.2"
+pytest-sugar = "1.0.0"
+pytest-github-actions-annotate-failures = "0.2.0"
 safety = "3.2.14"
 yamllint = "1.35.1"
 syrupy = "4.8.1"
@@ -390,13 +392,16 @@ ignore-imports = true
 max-line-length = 88
 
 [tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "DEBUG"
+log_cli_format = "%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
 addopts = "--cov"
 testpaths = [
     "tests",
 ]
 norecursedirs = [
     ".git",
-    "testing_config",
 ]
 log_format = "%(asctime)s.%(msecs)03d %(levelname)-8s %(threadName)s %(name)s:%(filename)s:%(lineno)s %(message)s"
 log_date_format = "%Y-%m-%d %H:%M:%S"
