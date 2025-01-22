@@ -155,6 +155,7 @@ def get_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
     sorted_forecasts = sorted(forecasts, key=lambda x: x["valid_time"])
 
     daily_forecasts = [sorted_forecasts[0]]
+    daily_forecasts[0]["total_precipitation"] = 0
     pmean: list[float] = []
     for forecast in sorted_forecasts[1:]:
         if forecast["valid_time"].hour == 12:
@@ -174,6 +175,7 @@ def get_twice_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
     sorted_forecasts = sorted(forecasts, key=lambda x: x["valid_time"])
 
     daily_forecasts = [sorted_forecasts[0]]
+    daily_forecasts[0]["total_precipitation"] = 0
     pmean: list[float] = []
     for forecast in sorted_forecasts[1:]:
         if forecast["valid_time"].hour in {12, 0}:
