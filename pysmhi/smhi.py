@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+from datetime import datetime, timezone
 from typing import Any
 
 from aiohttp import ClientSession, ClientTimeout
@@ -23,6 +24,8 @@ class SmhiAPI:
         self._session = session if session else ClientSession()
         self._timeout = ClientTimeout(total=timeout)
 
+        self.rate_limit: dict[str, tuple[datetime, dict[str, Any]]] = {}
+
     async def async_get_data(
         self,
         url: str,
@@ -30,6 +33,13 @@ class SmhiAPI:
     ) -> dict[str, Any]:
         """Get data from API asyncronious."""
         LOGGER.debug("Attempting get with url %s", url)
+
+        if url in self.rate_limit:
+            last_update, last_data = self.rate_limit[url]
+            if (datetime.now(timezone.utc) - last_update).total_seconds() < 60:
+                # Return last data if it is less than 60 seconds old
+                return last_data
+
         try:
             async with self._session.get(url, timeout=self._timeout) as resp:
                 resp.raise_for_status()
@@ -46,4 +56,5 @@ class SmhiAPI:
 
             raise SMHIError from error
 
+        self.rate_limit[url] = (datetime.now(timezone.utc), data)
         return data

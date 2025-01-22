@@ -49,6 +49,7 @@ safety = "3.2.14"
 yamllint = "1.35.1"
 syrupy = "4.8.1"
 pylint-per-file-ignores = "1.4.0"
+freezegun="1.5.1"
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/gjohansson-ST/pysmhi/issues"
