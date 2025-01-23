@@ -51,7 +51,7 @@ async def test_api(
         daily_forecast = await forecast.async_get_daily_forecast()
         assert len(daily_forecast) == 11
         twice_daily_forecast = await forecast.async_get_twice_daily_forecast()
-        assert len(twice_daily_forecast) == 20
+        assert len(twice_daily_forecast) == 21
         hourly_forecast = await forecast.async_get_hourly_forecast()
         assert len(hourly_forecast) == 48
 
