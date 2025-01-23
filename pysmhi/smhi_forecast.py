@@ -154,18 +154,52 @@ def get_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
     forecasts = _create_forecast(data)
     sorted_forecasts = sorted(forecasts, key=lambda x: x["valid_time"])
 
-    daily_forecasts = [sorted_forecasts[0]]
-    daily_forecasts[0]["total_precipitation"] = 0
-    pmean: list[float] = []
-    for forecast in sorted_forecasts[1:]:
-        pmean.append(forecast["mean_precipitation"])
-        if forecast["valid_time"].hour == 12:
-            new_forecast = SMHIForecast(**forecast)
-            new_forecast["total_precipitation"] = sum(pmean)
-            daily_forecasts.append(new_forecast)
-            pmean = []
+    daily_forecasts: dict[str, SMHIForecast] = {}
 
-    return daily_forecasts
+    dates = {forecast["valid_time"].date() for forecast in sorted_forecasts}
+
+    total_precipitation = sorted_forecasts[0]["mean_precipitation"]
+    forecast_temp_max = sorted_forecasts[0]["temperature"]
+    forecast_temp_min = sorted_forecasts[0]["temperature"]
+
+    # First in forecast list is current day and time
+    daily_forecasts["current"] = sorted_forecasts[0]
+    daily_forecasts["current"]["total_precipitation"] = total_precipitation
+
+    for date in dates:
+        date_list = [
+            forecast
+            for forecast in sorted_forecasts
+            if forecast["valid_time"].date() == date
+        ]
+        date_list.sort(key=lambda x: x["valid_time"])
+
+        new_forecast = None
+        forecast_temp_min = 100
+        forecast_temp_max = -100
+        total_precipitation = 0
+
+        for forecast in date_list:
+            if (
+                forecast["valid_time"].hour == 12 or forecast["valid_time"].hour > 12
+            ) and new_forecast is None:
+                new_forecast = forecast.copy()
+
+            forecast_temp_min = min(forecast_temp_min, forecast["temperature"])
+            forecast_temp_max = max(forecast_temp_max, forecast["temperature"])
+            total_precipitation += forecast["mean_precipitation"]
+
+        if new_forecast:
+            new_forecast["temperature_max"] = forecast_temp_max
+            new_forecast["temperature_min"] = forecast_temp_min
+            new_forecast["total_precipitation"] = total_precipitation
+            new_forecast["mean_precipitation"] = total_precipitation / 24
+            daily_forecasts[date.isoformat()] = new_forecast
+
+    returned_forecasts = list(daily_forecasts.values())
+    returned_forecasts.sort(key=lambda x: x["valid_time"])
+
+    return returned_forecasts
 
 
 def get_twice_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:

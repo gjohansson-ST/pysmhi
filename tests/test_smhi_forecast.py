@@ -49,7 +49,7 @@ async def test_api(
     async with aiohttp.ClientSession() as session:
         forecast = SMHIPointForecast("16.15035", "58.570784", session)
         daily_forecast = await forecast.async_get_daily_forecast()
-        assert len(daily_forecast) == 10
+        assert len(daily_forecast) == 11
         twice_daily_forecast = await forecast.async_get_twice_daily_forecast()
         assert len(twice_daily_forecast) == 20
         hourly_forecast = await forecast.async_get_hourly_forecast()
@@ -222,8 +222,8 @@ async def test_total_precipitation(
     sum_precipitation = 0
     previous_valid_time = datetime(2025, 1, 22, 12, 0, tzinfo=timezone.utc)
     for forecast in forecasts:
-        start = datetime(2025, 1, 22, 13, 0, tzinfo=timezone.utc)
-        end = datetime(2025, 1, 23, 12, 0, tzinfo=timezone.utc)
+        start = datetime(2025, 1, 22, 0, tzinfo=timezone.utc)
+        end = datetime(2025, 1, 22, 23, tzinfo=timezone.utc)
         valid_time = datetime.strptime(forecast["validTime"], "%Y-%m-%dT%H:%M:%S%z")
         temp_forecast = {
             parameter["name"]: parameter["values"][0]
@@ -240,7 +240,7 @@ async def test_total_precipitation(
         result = await forecast.async_get_daily_forecast()
         for result_forecast in result:
             if result_forecast["valid_time"] == datetime(
-                2025, 1, 23, 12, 0, tzinfo=timezone.utc
+                2025, 1, 22, 12, 0, tzinfo=timezone.utc
             ):
                 assert result_forecast["total_precipitation"] == round(
                     sum_precipitation, 2
