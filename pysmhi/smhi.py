@@ -46,7 +46,8 @@ class SmhiAPI:
                 data: dict[str, Any] = await resp.json()
 
         except Exception as error:
-            LOGGER.debug("Error, status: %s, error: %s", resp.status, str(error))
+            status = resp.status if resp else None
+            LOGGER.debug("Error, status: %s, error: %s", status, str(error))
             if retry > 0:
                 LOGGER.debug(
                     "Retry %d on path %s from error %s", 4 - retry, url, str(error)
