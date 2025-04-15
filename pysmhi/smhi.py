@@ -40,13 +40,14 @@ class SmhiAPI:
                 # Return last data if it is less than 60 seconds old
                 return last_data
 
+        status = None
         try:
             async with self._session.get(url, timeout=self._timeout) as resp:
+                status = resp.status
                 resp.raise_for_status()
                 data: dict[str, Any] = await resp.json()
 
         except Exception as error:
-            status = resp.status if resp else None
             LOGGER.debug("Error, status: %s, error: %s", status, str(error))
             if retry > 0:
                 LOGGER.debug(
