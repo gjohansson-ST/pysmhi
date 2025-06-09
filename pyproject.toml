@@ -492,6 +492,9 @@ known-first-party = ["pysmhi"]
 [tool.ruff.lint.mccabe]
 max-complexity = 25
 
+[tool.codespell]
+skip = '*.json'
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
