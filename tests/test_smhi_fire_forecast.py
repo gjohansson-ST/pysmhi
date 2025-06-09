@@ -34,7 +34,7 @@ async def mock_data() -> tuple[dict[str, Any], dict[str, Any]]:
     return (json_data, json_data2)
 
 
-async def test_api2(
+async def test_api(
     aresponses: ResponsesMockServer,
     mock_data: tuple[dict[str, Any], dict[str, Any]],
     snapshot: SnapshotAssertion,
@@ -42,25 +42,25 @@ async def test_api2(
     """Test api."""
     aresponses.add(
         "opendata-download-metfcst.smhi.se",
-        "/api/category/fwif1g/version/1/daily/geotype/point/lon/16.15035/lat/58.570784/data.json"
+        "/api/category/fwif1g/version/1/daily/geotype/point/lon/16.15035/lat/58.570784/data.json",
         "GET",
         response=mock_data[0],
-        repeat=3,
+        repeat=0,
     )
     aresponses.add(
         "opendata-download-metfcst.smhi.se",
-        "/api/category/fwif1g/version/1/hourly/geotype/point/lon/16.15035/lat/58.570784/data.json"
+        "/api/category/fwif1g/version/1/hourly/geotype/point/lon/16.15035/lat/58.570784/data.json",
         "GET",
         response=mock_data[1],
-        repeat=3,
+        repeat=0,
     )
 
     async with aiohttp.ClientSession() as session:
         forecast = SMHIFirePointForecast("16.15035", "58.570784", session)
         daily_forecast = await forecast.async_get_daily_forecast()
-        assert len(daily_forecast) == 11
+        assert len(daily_forecast) == 5
         hourly_forecast = await forecast.async_get_hourly_forecast()
-        assert len(hourly_forecast) == 48
+        assert len(hourly_forecast) == 41
 
         assert daily_forecast == snapshot(name="daily_forecast")
         assert hourly_forecast == snapshot(name="hourly_forecast")
@@ -113,30 +113,37 @@ async def test_ratelimiting(
 
 
 @pytest.mark.parametrize(
-    ("status", "reason", "match"),
+    ("status", "reason", "match", "match_hourly"),
     [
         (
             500,
             "Internal Server Error",
             "500, message='Internal Server Error', "
             "url='https://opendata-download-metfcst.smhi.se/api/category/fwif1g/version/1/daily/geotype/point/lon/16.15035/lat/58.570784/data.json'",
+            "url='https://opendata-download-metfcst.smhi.se/api/category/fwif1g/version/1/hourly/geotype/point/lon/16.15035/lat/58.570784/data.json'",
         ),
         (
             404,
             "Not found",
             "404, message='Not found', "
             "url='https://opendata-download-metfcst.smhi.se/api/category/fwif1g/version/1/daily/geotype/point/lon/16.15035/lat/58.570784/data.json'",
+            "url='https://opendata-download-metfcst.smhi.se/api/category/fwif1g/version/1/hourly/geotype/point/lon/16.15035/lat/58.570784/data.json'",
         ),
         (
             429,
             "Too Many Requests",
             "429, message='Too Many Requests', "
             "url='https://opendata-download-metfcst.smhi.se/api/category/fwif1g/version/1/daily/geotype/point/lon/16.15035/lat/58.570784/data.json'",
+            "url='https://opendata-download-metfcst.smhi.se/api/category/fwif1g/version/1/hourly/geotype/point/lon/16.15035/lat/58.570784/data.json'",
         ),
     ],
 )
 async def test_api_failure(
-    aresponses: ResponsesMockServer, status: int, reason: str, match: str
+    aresponses: ResponsesMockServer,
+    status: int,
+    reason: str,
+    match: str,
+    match_hourly: str,
 ) -> None:
     """Test api."""
     response = aresponses.Response(status=status, reason=reason)
@@ -157,7 +164,7 @@ async def test_api_failure(
             await forecast.async_get_daily_forecast()
         with pytest.raises(
             SmhiFireForecastException,
-            match=match,
+            match=match_hourly,
         ):
             await forecast.async_get_hourly_forecast()
 
@@ -192,7 +199,7 @@ async def test_six_digits_rounding(
     """Test api."""
     aresponses.add(
         "opendata-download-metfcst.smhi.se",
-        "/api/category/fwif1g/version/1/daily/geotype/point/lon/16.15035/lat/58.570784/data.json",
+        "/api/category/fwif1g/version/1/daily/geotype/point/lon/16.123457/lat/58.123457/data.json",
         "GET",
         response=mock_data[0],
         repeat=math.inf,
