@@ -47,7 +47,7 @@ class SMHIFireForecast(TypedDict, total=False):
     -1 Data missing/outside season
     """
     rn: float
-    forestdry: int
+    forestdry: int | None
     """Index of grass fire risk.
 
     6 Extremely dry
@@ -164,7 +164,7 @@ def _create_forecast(data: dict[str, Any]) -> list[SMHIFireForecast]:
             dc=_forecast["dc"],
             grassfire=_forecast["grassfire"],
             rn=_forecast["rn"],
-            forestdry=_forecast["forestdry"],
+            forestdry=_forecast.get("forestdry"),
             temperature=_forecast["t"],
             wind_direction=_forecast["wd"],
             wind_speed=_forecast["ws"],
