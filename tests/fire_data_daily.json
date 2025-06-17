@@ -1,0 +1,1365 @@
+{
+  "approvedTime": "2025-06-08T10:04:55Z",
+  "referenceTime": "2025-06-06T12:00:00Z",
+  "geometry": { "type": "Point", "coordinates": [[16.15035, 58.570784]] },
+  "timeSeries": [
+    {
+      "validTime": "2025-06-07T12:00:00Z",
+      "parameters": [
+        {
+          "name": "fwiindex",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [3.0]
+        },
+        {
+          "name": "fwi",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [14.9]
+        },
+        {
+          "name": "isi",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [6.6]
+        },
+        {
+          "name": "bui",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [41.9]
+        },
+        {
+          "name": "ffmc",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [83.4]
+        },
+        {
+          "name": "dmc",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [25.0]
+        },
+        {
+          "name": "dc",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [326.8]
+        },
+        {
+          "name": "forestdry",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [3.0]
+        },
+        {
+          "name": "t",
+          "levelType": "hl",
+          "level": 2,
+          "unit": "Cel",
+          "values": [17.9]
+        },
+        {
+          "name": "wd",
+          "levelType": "hl",
+          "level": 10,
+          "unit": "degree",
+          "values": [249]
+        },
+        {
+          "name": "ws",
+          "levelType": "hl",
+          "level": 10,
+          "unit": "m/s",
+          "values": [7.4]
+        },
+        {
+          "name": "r",
+          "levelType": "hl",
+          "level": 2,
+          "unit": "percent",
+          "values": [40]
+        },
+        {
+          "name": "grassfire",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [2.0]
+        },
+        {
+          "name": "rn",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "m min**-1",
+          "values": [0.2]
+        },
+        {
+          "name": "prec1d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [0.0]
+        },
+        {
+          "name": "prec2d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [6.2]
+        },
+        {
+          "name": "prec3d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [8.8]
+        },
+        {
+          "name": "prec5d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [12.1]
+        },
+        {
+          "name": "prec7d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [17.8]
+        },
+        {
+          "name": "prec10d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [18.2]
+        },
+        {
+          "name": "prec14d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [23.1]
+        },
+        {
+          "name": "prec20d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [33.2]
+        },
+        {
+          "name": "prec30d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [39.8]
+        },
+        {
+          "name": "prec40d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [41.2]
+        },
+        {
+          "name": "prec50d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [46.7]
+        },
+        {
+          "name": "prec60d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [47.9]
+        },
+        {
+          "name": "prec24h",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "mm",
+          "values": [0.0]
+        }
+      ]
+    },
+    {
+      "validTime": "2025-06-08T12:00:00Z",
+      "parameters": [
+        {
+          "name": "fwiindex",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [2.0]
+        },
+        {
+          "name": "fwi",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [9.3]
+        },
+        {
+          "name": "isi",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [3.5]
+        },
+        {
+          "name": "bui",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [45.2]
+        },
+        {
+          "name": "ffmc",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [85.6]
+        },
+        {
+          "name": "dmc",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [27.2]
+        },
+        {
+          "name": "dc",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [333.2]
+        },
+        {
+          "name": "forestdry",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [3.0]
+        },
+        {
+          "name": "t",
+          "levelType": "hl",
+          "level": 2,
+          "unit": "Cel",
+          "values": [16.6]
+        },
+        {
+          "name": "wd",
+          "levelType": "hl",
+          "level": 10,
+          "unit": "degree",
+          "values": [300]
+        },
+        {
+          "name": "ws",
+          "levelType": "hl",
+          "level": 10,
+          "unit": "m/s",
+          "values": [2.3]
+        },
+        {
+          "name": "r",
+          "levelType": "hl",
+          "level": 2,
+          "unit": "percent",
+          "values": [52]
+        },
+        {
+          "name": "grassfire",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [2.0]
+        },
+        {
+          "name": "rn",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "m min**-1",
+          "values": [0.0]
+        },
+        {
+          "name": "prec1d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [0.1]
+        },
+        {
+          "name": "prec2d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [0.1]
+        },
+        {
+          "name": "prec3d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [6.2]
+        },
+        {
+          "name": "prec5d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [12.1]
+        },
+        {
+          "name": "prec7d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [16.8]
+        },
+        {
+          "name": "prec10d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [18.2]
+        },
+        {
+          "name": "prec14d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [23.2]
+        },
+        {
+          "name": "prec20d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [33.2]
+        },
+        {
+          "name": "prec30d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [38.5]
+        },
+        {
+          "name": "prec40d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [41.3]
+        },
+        {
+          "name": "prec50d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [45.1]
+        },
+        {
+          "name": "prec60d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [47.9]
+        },
+        {
+          "name": "prec24h",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "mm",
+          "values": [0.0]
+        }
+      ]
+    },
+    {
+      "validTime": "2025-06-09T12:00:00Z",
+      "parameters": [
+        {
+          "name": "fwiindex",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [4.0]
+        },
+        {
+          "name": "fwi",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [20.9]
+        },
+        {
+          "name": "isi",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [9.2]
+        },
+        {
+          "name": "bui",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [49.4]
+        },
+        {
+          "name": "ffmc",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [88.1]
+        },
+        {
+          "name": "dmc",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [30.2]
+        },
+        {
+          "name": "dc",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [339.8]
+        },
+        {
+          "name": "forestdry",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [4.0]
+        },
+        {
+          "name": "t",
+          "levelType": "hl",
+          "level": 2,
+          "unit": "Cel",
+          "values": [17.8]
+        },
+        {
+          "name": "wd",
+          "levelType": "hl",
+          "level": 10,
+          "unit": "degree",
+          "values": [276]
+        },
+        {
+          "name": "ws",
+          "levelType": "hl",
+          "level": 10,
+          "unit": "m/s",
+          "values": [5.7]
+        },
+        {
+          "name": "r",
+          "levelType": "hl",
+          "level": 2,
+          "unit": "percent",
+          "values": [40]
+        },
+        {
+          "name": "grassfire",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [2.0]
+        },
+        {
+          "name": "rn",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "m min**-1",
+          "values": [0.1]
+        },
+        {
+          "name": "prec1d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [0.0]
+        },
+        {
+          "name": "prec2d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [0.1]
+        },
+        {
+          "name": "prec3d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [0.1]
+        },
+        {
+          "name": "prec5d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [8.8]
+        },
+        {
+          "name": "prec7d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [12.2]
+        },
+        {
+          "name": "prec10d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [17.8]
+        },
+        {
+          "name": "prec14d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [19.5]
+        },
+        {
+          "name": "prec20d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [33.2]
+        },
+        {
+          "name": "prec30d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [38.4]
+        },
+        {
+          "name": "prec40d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [41.3]
+        },
+        {
+          "name": "prec50d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [44.3]
+        },
+        {
+          "name": "prec60d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [47.9]
+        },
+        {
+          "name": "prec24h",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "mm",
+          "values": [0.0]
+        }
+      ]
+    },
+    {
+      "validTime": "2025-06-10T12:00:00Z",
+      "parameters": [
+        {
+          "name": "fwiindex",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [1.0]
+        },
+        {
+          "name": "fwi",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [2.1]
+        },
+        {
+          "name": "isi",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [0.9]
+        },
+        {
+          "name": "bui",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [44.4]
+        },
+        {
+          "name": "ffmc",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [69.5]
+        },
+        {
+          "name": "dmc",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [26.5]
+        },
+        {
+          "name": "dc",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [346.0]
+        },
+        {
+          "name": "forestdry",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [3.0]
+        },
+        {
+          "name": "t",
+          "levelType": "hl",
+          "level": 2,
+          "unit": "Cel",
+          "values": [15.6]
+        },
+        {
+          "name": "wd",
+          "levelType": "hl",
+          "level": 10,
+          "unit": "degree",
+          "values": [227]
+        },
+        {
+          "name": "ws",
+          "levelType": "hl",
+          "level": 10,
+          "unit": "m/s",
+          "values": [1.9]
+        },
+        {
+          "name": "r",
+          "levelType": "hl",
+          "level": 2,
+          "unit": "percent",
+          "values": [60]
+        },
+        {
+          "name": "grassfire",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [2.0]
+        },
+        {
+          "name": "rn",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "m min**-1",
+          "values": [0.0]
+        },
+        {
+          "name": "prec1d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [2.6]
+        },
+        {
+          "name": "prec2d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [2.6]
+        },
+        {
+          "name": "prec3d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [2.7]
+        },
+        {
+          "name": "prec5d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [8.8]
+        },
+        {
+          "name": "prec7d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [14.7]
+        },
+        {
+          "name": "prec10d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [20.5]
+        },
+        {
+          "name": "prec14d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [21.2]
+        },
+        {
+          "name": "prec20d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [34.7]
+        },
+        {
+          "name": "prec30d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [41.0]
+        },
+        {
+          "name": "prec40d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [43.9]
+        },
+        {
+          "name": "prec50d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [46.6]
+        },
+        {
+          "name": "prec60d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [50.5]
+        },
+        {
+          "name": "prec24h",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "mm",
+          "values": [2.6]
+        }
+      ]
+    },
+    {
+      "validTime": "2025-06-11T12:00:00Z",
+      "parameters": [
+        {
+          "name": "fwiindex",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [2.0]
+        },
+        {
+          "name": "fwi",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [7.8]
+        },
+        {
+          "name": "isi",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [2.7]
+        },
+        {
+          "name": "bui",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [48.2]
+        },
+        {
+          "name": "ffmc",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [82.5]
+        },
+        {
+          "name": "dmc",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [29.1]
+        },
+        {
+          "name": "dc",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [352.7]
+        },
+        {
+          "name": "forestdry",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [4.0]
+        },
+        {
+          "name": "t",
+          "levelType": "hl",
+          "level": 2,
+          "unit": "Cel",
+          "values": [18.0]
+        },
+        {
+          "name": "wd",
+          "levelType": "hl",
+          "level": 10,
+          "unit": "degree",
+          "values": [297]
+        },
+        {
+          "name": "ws",
+          "levelType": "hl",
+          "level": 10,
+          "unit": "m/s",
+          "values": [3.2]
+        },
+        {
+          "name": "r",
+          "levelType": "hl",
+          "level": 2,
+          "unit": "percent",
+          "values": [48]
+        },
+        {
+          "name": "grassfire",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [2.0]
+        },
+        {
+          "name": "rn",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "m min**-1",
+          "values": [0.1]
+        },
+        {
+          "name": "prec1d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [0.0]
+        },
+        {
+          "name": "prec2d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [2.6]
+        },
+        {
+          "name": "prec3d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [2.6]
+        },
+        {
+          "name": "prec5d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [2.7]
+        },
+        {
+          "name": "prec7d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [11.5]
+        },
+        {
+          "name": "prec10d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [19.4]
+        },
+        {
+          "name": "prec14d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [20.8]
+        },
+        {
+          "name": "prec20d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [32.1]
+        },
+        {
+          "name": "prec30d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [41.0]
+        },
+        {
+          "name": "prec40d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [42.7]
+        },
+        {
+          "name": "prec50d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [46.4]
+        },
+        {
+          "name": "prec60d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [50.5]
+        },
+        {
+          "name": "prec24h",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "mm",
+          "values": [0.0]
+        }
+      ]
+    },
+    {
+      "validTime": "2025-06-12T12:00:00Z",
+      "parameters": [
+        {
+          "name": "fwiindex",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [3.0]
+        },
+        {
+          "name": "fwi",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [11.8]
+        },
+        {
+          "name": "isi",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [4.2]
+        },
+        {
+          "name": "bui",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [52.9]
+        },
+        {
+          "name": "ffmc",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [87.5]
+        },
+        {
+          "name": "dmc",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [32.4]
+        },
+        {
+          "name": "dc",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [359.8]
+        },
+        {
+          "name": "forestdry",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [4.0]
+        },
+        {
+          "name": "t",
+          "levelType": "hl",
+          "level": 2,
+          "unit": "Cel",
+          "values": [20.5]
+        },
+        {
+          "name": "wd",
+          "levelType": "hl",
+          "level": 10,
+          "unit": "degree",
+          "values": [228]
+        },
+        {
+          "name": "ws",
+          "levelType": "hl",
+          "level": 10,
+          "unit": "m/s",
+          "values": [1.8]
+        },
+        {
+          "name": "r",
+          "levelType": "hl",
+          "level": 2,
+          "unit": "percent",
+          "values": [41]
+        },
+        {
+          "name": "grassfire",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [2.0]
+        },
+        {
+          "name": "rn",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "m min**-1",
+          "values": [0.0]
+        },
+        {
+          "name": "prec1d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [0.0]
+        },
+        {
+          "name": "prec2d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [0.0]
+        },
+        {
+          "name": "prec3d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [2.6]
+        },
+        {
+          "name": "prec5d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [2.7]
+        },
+        {
+          "name": "prec7d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [8.8]
+        },
+        {
+          "name": "prec10d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [14.8]
+        },
+        {
+          "name": "prec14d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [20.8]
+        },
+        {
+          "name": "prec20d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [27.5]
+        },
+        {
+          "name": "prec30d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [39.0]
+        },
+        {
+          "name": "prec40d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [42.7]
+        },
+        {
+          "name": "prec50d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [46.0]
+        },
+        {
+          "name": "prec60d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [50.5]
+        },
+        {
+          "name": "prec24h",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "mm",
+          "values": [0.0]
+        }
+      ]
+    },
+    {
+      "validTime": "2025-06-13T12:00:00Z",
+      "parameters": [
+        {
+          "name": "fwiindex",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [3.0]
+        },
+        {
+          "name": "fwi",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [16.7]
+        },
+        {
+          "name": "isi",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [6.1]
+        },
+        {
+          "name": "bui",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [57.6]
+        },
+        {
+          "name": "ffmc",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [88.4]
+        },
+        {
+          "name": "dmc",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [35.8]
+        },
+        {
+          "name": "dc",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [367.2]
+        },
+        {
+          "name": "forestdry",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [4.0]
+        },
+        {
+          "name": "t",
+          "levelType": "hl",
+          "level": 2,
+          "unit": "Cel",
+          "values": [22.5]
+        },
+        {
+          "name": "wd",
+          "levelType": "hl",
+          "level": 10,
+          "unit": "degree",
+          "values": [215]
+        },
+        {
+          "name": "ws",
+          "levelType": "hl",
+          "level": 10,
+          "unit": "m/s",
+          "values": [3.2]
+        },
+        {
+          "name": "r",
+          "levelType": "hl",
+          "level": 2,
+          "unit": "percent",
+          "values": [45]
+        },
+        {
+          "name": "grassfire",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "Numeric",
+          "values": [2.0]
+        },
+        {
+          "name": "rn",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "m min**-1",
+          "values": [0.1]
+        },
+        {
+          "name": "prec1d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [0.0]
+        },
+        {
+          "name": "prec2d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [0.0]
+        },
+        {
+          "name": "prec3d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [0.0]
+        },
+        {
+          "name": "prec5d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [2.6]
+        },
+        {
+          "name": "prec7d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [2.7]
+        },
+        {
+          "name": "prec10d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [14.7]
+        },
+        {
+          "name": "prec14d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [20.5]
+        },
+        {
+          "name": "prec20d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [25.8]
+        },
+        {
+          "name": "prec30d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [39.0]
+        },
+        {
+          "name": "prec40d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [42.5]
+        },
+        {
+          "name": "prec50d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [44.0]
+        },
+        {
+          "name": "prec60d",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "kg m**-2",
+          "values": [49.7]
+        },
+        {
+          "name": "prec24h",
+          "levelType": "hl",
+          "level": 0,
+          "unit": "mm",
+          "values": [0.0]
+        }
+      ]
+    }
+  ]
+}

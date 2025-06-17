@@ -18,3 +18,7 @@ class SMHIError(Exception):
 
 class SmhiForecastException(SMHIError):
     """Exception getting forecast."""
+
+
+class SmhiFireForecastException(SMHIError):
+    """Exception getting fire forecast."""
