@@ -34,6 +34,7 @@ async def mock_data() -> tuple[dict[str, Any], dict[str, Any]]:
     return (json_data, json_data2)
 
 
+@freeze_time("2025-06-09T12:00:00+02:00")
 async def test_api(
     aresponses: ResponsesMockServer,
     mock_data: tuple[dict[str, Any], dict[str, Any]],
