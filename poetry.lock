@@ -687,13 +687,13 @@ typing = ["typing-extensions (>=4.12.2)"]
 
 [[package]]
 name = "freezegun"
-version = "1.5.2"
+version = "1.5.3"
 description = "Let your Python tests travel through time"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "freezegun-1.5.2-py3-none-any.whl", hash = "sha256:5aaf3ba229cda57afab5bd311f0108d86b6fb119ae89d2cd9c43ec8c1733c85b"},
-    {file = "freezegun-1.5.2.tar.gz", hash = "sha256:a54ae1d2f9c02dbf42e02c18a3ab95ab4295818b549a34dac55592d72a905181"},
+    {file = "freezegun-1.5.3-py3-none-any.whl", hash = "sha256:1ce20ee4be61349ba52c3af64f5eaba8d08ff51acfcf1b3ea671f03e54c818f1"},
+    {file = "freezegun-1.5.3.tar.gz", hash = "sha256:d7c6204e33a50affd7c7aa284f4f92e04e96f72d63313b89ceaaf60d9c64bc5e"},
 ]
 
 [package.dependencies]
@@ -2506,4 +2506,4 @@ propcache = ">=0.2.1"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "abdff116c7c926ee23a8be1445c78b24814bfe2d3bbb675888384fa13146ff5a"
+content-hash = "890db6ae87f1a743aba262bb7b236c9f8989d8b568103d3cd0b774bac9488338"
