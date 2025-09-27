@@ -24,8 +24,8 @@ async def mock_sleep() -> AsyncGenerator[None]:
         yield
 
 
-@pytest.fixture
-async def mock_data() -> dict[str, Any]:
+@pytest.fixture(name="mock_data")
+async def get_mock_data() -> dict[str, Any]:
     """Mock web response."""
     data = pathlib.Path("tests/data.json").read_text()  # pylint: disable=unspecified-encoding
     json_data: dict[str, Any] = json.loads(data)
