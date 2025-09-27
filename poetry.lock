@@ -1728,14 +1728,17 @@ testutils = ["gitpython (>3)"]
 
 [[package]]
 name = "pylint-per-file-ignores"
-version = "1.4.0"
+version = "2.0.3"
 description = "A pylint plugin to ignore error codes per file."
 optional = false
-python-versions = "<4.0.0,>=3.8.1"
+python-versions = "<4,>=3.9"
 files = [
-    {file = "pylint_per_file_ignores-1.4.0-py3-none-any.whl", hash = "sha256:0cd82d22551738b4e63a0aa1dab2a1fc4016e8f27f1429159616483711e122fd"},
-    {file = "pylint_per_file_ignores-1.4.0.tar.gz", hash = "sha256:c0de7b3d0169571aefaa1ac3a82a265641b8825b54a0b6f5ef27c3b76b988609"},
+    {file = "pylint_per_file_ignores-2.0.3-py3-none-any.whl", hash = "sha256:72d4a1bae1209b21326ab8b5b958bb72f4d9ae6780fe099553f81580ce566692"},
+    {file = "pylint_per_file_ignores-2.0.3.tar.gz", hash = "sha256:64c1ef586e2f6ec3e12a05118639673e2467fda620fdc55dffc166a3fee3347c"},
 ]
+
+[package.dependencies]
+pylint = ">=3.3,<4.0"
 
 [[package]]
 name = "pytest"
@@ -2527,4 +2530,4 @@ propcache = ">=0.2.1"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "d07029f2ebf5a22d4c659245c0b5fa8976b613a7d69dbaa452391d1e0855a2bf"
+content-hash = "7c01ec08d12d7ba2906c55eb09a7183e508d496701a0579d1dd075bbfd3cb53b"
