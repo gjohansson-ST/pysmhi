@@ -47,7 +47,7 @@ pytest-sugar = "1.1.1"
 pytest-github-actions-annotate-failures = "0.3.0"
 safety = "3.6.2"
 yamllint = "1.37.1"
-syrupy = "4.9.1"
+syrupy = "5.0.0"
 pylint-per-file-ignores = "2.0.3"
 freezegun="1.5.5"
 
