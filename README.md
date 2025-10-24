@@ -34,3 +34,5 @@ async with aiohttp.ClientSession(loop=loop) as session:
     daily_forecast: list[SMHIForecast] = await forecast.async_get_daily_forecast()
     print(daily_forecast)
 ```
+
+Credits to [@helto4real](https://github.com/helto4real) for making the original smhi api package used for Home Assistant to connect to SMHI weather services which this is based upon.
