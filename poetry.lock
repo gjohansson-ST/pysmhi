@@ -2005,13 +2005,13 @@ testutils = ["gitpython (>3)"]
 
 [[package]]
 name = "pylint-per-file-ignores"
-version = "3.1.0"
+version = "3.2.0"
 description = "A pylint plugin to ignore error codes per file."
 optional = false
 python-versions = "<4,>=3.10"
 files = [
-    {file = "pylint_per_file_ignores-3.1.0-py3-none-any.whl", hash = "sha256:57cde138807a28a98f33edf85e687d88df3660d37c8d5d5d46de1f1e6fcc665d"},
-    {file = "pylint_per_file_ignores-3.1.0.tar.gz", hash = "sha256:a11db907f74cfbd8956365c36b0d453daa20448e2aaada1033c52ba6f621c7d7"},
+    {file = "pylint_per_file_ignores-3.2.0-py3-none-any.whl", hash = "sha256:8b995b7486f6652f942cf5721e24c29b72735fa911b6d22b65b2f87bad323590"},
+    {file = "pylint_per_file_ignores-3.2.0.tar.gz", hash = "sha256:5eb30b2b64c49ca616b8940346b8b5b4973eeaa15700840c8b81a4b8ba565a02"},
 ]
 
 [package.dependencies]
@@ -2888,4 +2888,4 @@ propcache = ">=0.2.1"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "5912076010b1206aa4703cd7fa2a6038dea64e1d0d281065f63eae7d9a3b3b20"
+content-hash = "f2ff873889c014f336c79eec6248311ec9c2bf1766a26163f70fdf3664a61e86"
