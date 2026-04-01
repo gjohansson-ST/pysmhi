@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pysmhi"
-version = "0.0.0"
+version = "1.2.0"
 description = "Retrieve open data from SMHI api."
 authors = [
     "G Johansson <goran.johansson@shiftit.se>",
