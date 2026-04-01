@@ -106,8 +106,8 @@ class SMHIPointForecast:
             LOGGER.debug("Error getting daily forecast: %s", str(error))
             raise SmhiForecastException from error
         LOGGER.debug(
-            "Got daily forecast with approved time %s and reference time %s",
-            json_data.get("approvedTime"),
+            "Got daily forecast with created time %s and reference time %s",
+            json_data.get("createdTime"),
             json_data.get("referenceTime"),
         )
         return get_daily_forecast(json_data)
@@ -124,8 +124,8 @@ class SMHIPointForecast:
             raise SmhiForecastException from error
 
         LOGGER.debug(
-            "Got twice daily forecast with approved time %s and reference time %s",
-            json_data.get("approvedTime"),
+            "Got twice daily forecast with created time %s and reference time %s",
+            json_data.get("createdTime"),
             json_data.get("referenceTime"),
         )
         return get_twice_daily_forecast(json_data)
@@ -142,8 +142,8 @@ class SMHIPointForecast:
             raise SmhiForecastException from error
 
         LOGGER.debug(
-            "Got hourly forecast with approved time %s and reference time %s",
-            json_data.get("approvedTime"),
+            "Got hourly forecast with created time %s and reference time %s",
+            json_data.get("createdTime"),
             json_data.get("referenceTime"),
         )
         return get_hourly_forecast(json_data)
@@ -314,20 +314,18 @@ def _create_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
 
     if (
         not data.get("timeSeries")
-        or not data.get("approvedTime")
+        or not data.get("createdTime")
         or not data.get("referenceTime")
     ):
-        LOGGER.debug("No time series, approved time or reference time in data")
+        LOGGER.debug("No time series, created time or reference time in data")
         raise SmhiForecastException(
-            "No time series, approved time or reference time in data"
+            "No time series, created time or reference time in data"
         )
 
     for forecast in data["timeSeries"]:
-        valid_time = datetime.strptime(forecast["validTime"], "%Y-%m-%dT%H:%M:%S%z")
-        temp_forecast = {
-            parameter["name"]: parameter["values"][0]
-            for parameter in forecast["parameters"]
-        }
+        valid_time = datetime.strptime(forecast["time"], "%Y-%m-%dT%H:%M:%S%z")
+        temp_forecast = forecast["data"]
+
         if previous_valid_time:
             hours_between_forecast: int = round(
                 (valid_time - previous_valid_time).total_seconds() / 3600
@@ -336,37 +334,49 @@ def _create_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
             hours_between_forecast = 1
 
         forecast = SMHIForecast(
-            temperature=float(temp_forecast["t"]),
-            temperature_max=float(temp_forecast["t"]),
-            temperature_min=float(temp_forecast["t"]),
-            humidity=int(temp_forecast["r"]),
-            pressure=float(temp_forecast["msl"]),
-            thunder=int(temp_forecast["tstm"]),
-            total_cloud=round(100 * temp_forecast["tcc_mean"] / 8),
-            low_cloud=round(100 * temp_forecast["lcc_mean"] / 8),
-            medium_cloud=round(100 * temp_forecast["mcc_mean"] / 8),
-            high_cloud=round(100 * temp_forecast["hcc_mean"] / 8),
-            precipitation_category=int(temp_forecast["pcat"]),
-            wind_direction=int(temp_forecast["wd"]),
-            wind_speed=float(temp_forecast["ws"]),
-            visibility=float(temp_forecast["vis"]),
-            wind_gust=float(temp_forecast["gust"]),
+            temperature=float(temp_forecast["air_temperature"]),
+            temperature_max=float(temp_forecast["air_temperature"]),
+            temperature_min=float(temp_forecast["air_temperature"]),
+            humidity=int(temp_forecast["relative_humidity"]),
+            pressure=float(temp_forecast["air_pressure_at_mean_sea_level"]),
+            thunder=int(temp_forecast["thunderstorm_probability"]),
+            total_cloud=round(100 * temp_forecast["cloud_area_fraction"] / 8),
+            low_cloud=round(100 * temp_forecast["low_type_cloud_area_fraction"] / 8),
+            medium_cloud=round(
+                100 * temp_forecast["medium_type_cloud_area_fraction"] / 8
+            ),
+            high_cloud=round(100 * temp_forecast["high_type_cloud_area_fraction"] / 8),
+            precipitation_category=int(
+                temp_forecast["predominant_precipitation_type_at_surface"]
+            ),
+            wind_direction=int(temp_forecast["wind_from_direction"]),
+            wind_speed=float(temp_forecast["wind_speed"]),
+            visibility=float(temp_forecast["visibility_in_air"]),
+            wind_gust=float(temp_forecast["wind_speed_of_gust"]),
             min_precipitation=round(
-                float(temp_forecast["pmin"]) * hours_between_forecast, 2
+                float(temp_forecast["precipitation_amount_min"])
+                * hours_between_forecast,
+                2,
             ),
             mean_precipitation=round(
-                float(temp_forecast["pmean"]) * hours_between_forecast, 2
+                float(temp_forecast["precipitation_amount_mean"])
+                * hours_between_forecast,
+                2,
             ),
             median_precipitation=round(
-                float(temp_forecast["pmedian"]) / hours_between_forecast, 2
+                float(temp_forecast["precipitation_amount_median"])
+                / hours_between_forecast,
+                2,
             ),
             max_precipitation=round(
-                float(temp_forecast["pmax"]) * hours_between_forecast, 2
+                float(temp_forecast["precipitation_amount_max"])
+                * hours_between_forecast,
+                2,
             ),
-            frozen_precipitation=temp_forecast["spp"]
-            if temp_forecast["spp"] != -9
+            frozen_precipitation=temp_forecast["precipitation_frozen_part"]
+            if temp_forecast["precipitation_frozen_part"] != -9
             else 0,
-            symbol=int(temp_forecast["Wsymb2"]),
+            symbol=int(temp_forecast["symbol_code"]),
             valid_time=valid_time,
         )
         forecasts.append(forecast)
