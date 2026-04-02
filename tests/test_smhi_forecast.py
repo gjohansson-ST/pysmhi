@@ -40,7 +40,7 @@ async def test_api(
     """Test api."""
     aresponses.add(
         "opendata-download-metfcst.smhi.se",
-        "/api/category/pmp3g/version/2/geotype/point/lon/16.15035/lat/58.570784/data.json",
+        "/api/category/snow1g/version/1/geotype/point/lon/16.15035/lat/58.570784/data.json",
         "GET",
         response=mock_data,
         repeat=3,
@@ -49,11 +49,11 @@ async def test_api(
     async with aiohttp.ClientSession() as session:
         forecast = SMHIPointForecast("16.15035", "58.570784", session)
         daily_forecast = await forecast.async_get_daily_forecast()
-        assert len(daily_forecast) == 11
+        assert len(daily_forecast) == 12
         twice_daily_forecast = await forecast.async_get_twice_daily_forecast()
-        assert len(twice_daily_forecast) == 21
+        assert len(twice_daily_forecast) == 23
         hourly_forecast = await forecast.async_get_hourly_forecast()
-        assert len(hourly_forecast) == 48
+        assert len(hourly_forecast) == 60
 
         assert daily_forecast == snapshot(name="daily_forecast")
         assert twice_daily_forecast == snapshot(name="twice_daily_forecast")
@@ -67,14 +67,14 @@ async def test_ratelimiting(
     """Test api."""
     aresponses.add(
         "opendata-download-metfcst.smhi.se",
-        "/api/category/pmp3g/version/2/geotype/point/lon/16.15035/lat/58.570784/data.json",
+        "/api/category/snow1g/version/1/geotype/point/lon/16.15035/lat/58.570784/data.json",
         "GET",
         response=mock_data,
         repeat=math.inf,
     )
     aresponses.add(
         "opendata-download-metfcst.smhi.se",
-        "/api/category/pmp3g/version/2/geotype/point/lon/17.15035/lat/58.570784/data.json",
+        "/api/category/snow1g/version/1/geotype/point/lon/17.15035/lat/58.570784/data.json",
         "GET",
         response=mock_data,
         repeat=math.inf,
@@ -113,19 +113,19 @@ async def test_ratelimiting(
             500,
             "Internal Server Error",
             "500, message='Internal Server Error', "
-            "url='https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/16.15035/lat/58.570784/data.json'",
+            "url='https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.15035/lat/58.570784/data.json'",
         ),
         (
             404,
             "Not found",
             "404, message='Not found', "
-            "url='https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/16.15035/lat/58.570784/data.json'",
+            "url='https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.15035/lat/58.570784/data.json'",
         ),
         (
             429,
             "Too Many Requests",
             "429, message='Too Many Requests', "
-            "url='https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/16.15035/lat/58.570784/data.json'",
+            "url='https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.15035/lat/58.570784/data.json'",
         ),
     ],
 )
@@ -136,7 +136,7 @@ async def test_api_failure(
     response = aresponses.Response(status=status, reason=reason)
     aresponses.add(
         "opendata-download-metfcst.smhi.se",
-        "/api/category/pmp3g/version/2/geotype/point/lon/16.15035/lat/58.570784/data.json",
+        "/api/category/snow1g/version/1/geotype/point/lon/16.15035/lat/58.570784/data.json",
         "GET",
         response=response,
         repeat=math.inf,
@@ -169,7 +169,7 @@ async def test_malformed_data(
     mock_data["referenceTime"] = ""
     aresponses.add(
         "opendata-download-metfcst.smhi.se",
-        "/api/category/pmp3g/version/2/geotype/point/lon/16.15035/lat/58.570784/data.json",
+        "/api/category/snow1g/version/1/geotype/point/lon/16.15035/lat/58.570784/data.json",
         "GET",
         response=mock_data,
         repeat=1,
@@ -179,7 +179,7 @@ async def test_malformed_data(
         forecast = SMHIPointForecast("16.15035", "58.570784", session)
         with pytest.raises(
             SmhiForecastException,
-            match="No time series, approved time or reference time in data",
+            match="No time series, created time or reference time in data",
         ):
             await forecast.async_get_daily_forecast()
 
@@ -191,7 +191,7 @@ async def test_six_digits_rounding(
     """Test api."""
     aresponses.add(
         "opendata-download-metfcst.smhi.se",
-        "/api/category/pmp3g/version/2/geotype/point/lon/16.123457/lat/58.123457/data.json",
+        "/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
         "GET",
         response=mock_data,
         repeat=math.inf,
@@ -212,7 +212,7 @@ async def test_total_precipitation(
     """Test api."""
     aresponses.add(
         "opendata-download-metfcst.smhi.se",
-        "/api/category/pmp3g/version/2/geotype/point/lon/16.123457/lat/58.123457/data.json",
+        "/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
         "GET",
         response=mock_data,
         repeat=math.inf,
@@ -222,15 +222,12 @@ async def test_total_precipitation(
     sum_precipitation = 0
     previous_valid_time = datetime(2025, 1, 22, 12, 0, tzinfo=timezone.utc)
     for forecast in forecasts:
-        start = datetime(2025, 1, 22, 0, tzinfo=timezone.utc)
-        end = datetime(2025, 1, 22, 23, tzinfo=timezone.utc)
-        valid_time = datetime.strptime(forecast["validTime"], "%Y-%m-%dT%H:%M:%S%z")
-        temp_forecast = {
-            parameter["name"]: parameter["values"][0]
-            for parameter in forecast["parameters"]
-        }
+        start = datetime(2026, 4, 2, 0, tzinfo=timezone.utc)
+        end = datetime(2026, 4, 2, 23, tzinfo=timezone.utc)
+        valid_time = datetime.strptime(forecast["time"], "%Y-%m-%dT%H:%M:%S%z")
+        temp_forecast = forecast["data"]
         if start <= valid_time <= end:
-            sum_precipitation += temp_forecast["pmean"] * (
+            sum_precipitation += temp_forecast["precipitation_amount_mean"] * (
                 (valid_time - previous_valid_time).total_seconds() / 3600
             )
             previous_valid_time = valid_time
@@ -240,8 +237,8 @@ async def test_total_precipitation(
         result = await forecast.async_get_daily_forecast()
         for result_forecast in result:
             if result_forecast["valid_time"] == datetime(
-                2025, 1, 22, 12, 0, tzinfo=timezone.utc
+                2026, 4, 2, 12, 0, tzinfo=timezone.utc
             ):
-                assert result_forecast["total_precipitation"] == round(
+                assert round(result_forecast["total_precipitation"], 2) == round(
                     sum_precipitation, 2
                 )

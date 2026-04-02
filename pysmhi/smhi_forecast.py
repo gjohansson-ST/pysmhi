@@ -192,7 +192,7 @@ def get_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
         if new_forecast:
             new_forecast["temperature_max"] = forecast_temp_max
             new_forecast["temperature_min"] = forecast_temp_min
-            new_forecast["total_precipitation"] = total_precipitation
+            new_forecast["total_precipitation"] = round(total_precipitation, 2)
             new_forecast["mean_precipitation"] = round(total_precipitation / 24, 2)
             daily_forecasts[date.isoformat()] = new_forecast
 
@@ -264,7 +264,9 @@ def get_twice_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
         if first_new_forecast:
             first_new_forecast["temperature_max"] = first_forecast_temp_max
             first_new_forecast["temperature_min"] = first_forecast_temp_min
-            first_new_forecast["total_precipitation"] = first_total_precipitation
+            first_new_forecast["total_precipitation"] = round(
+                first_total_precipitation, 2
+            )
             first_new_forecast["mean_precipitation"] = round(
                 first_total_precipitation / 12, 2
             )
@@ -272,7 +274,9 @@ def get_twice_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
         if second_new_forecast:
             second_new_forecast["temperature_max"] = second_forecast_temp_max
             second_new_forecast["temperature_min"] = second_forecast_temp_min
-            second_new_forecast["total_precipitation"] = second_total_precipitation
+            second_new_forecast["total_precipitation"] = round(
+                second_total_precipitation, 2
+            )
             second_new_forecast["mean_precipitation"] = round(
                 second_total_precipitation / 12, 2
             )
