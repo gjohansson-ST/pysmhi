@@ -6,7 +6,7 @@ import logging
 
 API_POINT_FORECAST = (
     "https://opendata-download-metfcst.smhi.se/api/category"
-    "/pmp3g/version/2/geotype/point/lon/{}/lat/{}/data.json"
+    "/snow1g/version/1/geotype/point/lon/{}/lat/{}/data.json"
 )
 API_FIRE_FORECAST = (
     "https://opendata-download-metfcst.smhi.se/api/category"
