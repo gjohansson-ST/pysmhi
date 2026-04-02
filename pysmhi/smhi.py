@@ -21,7 +21,7 @@ class SmhiAPI:
         timeout: int = DEFAULT_TIMEOUT,
     ) -> None:
         """Init the API with or without session."""
-        self._session = session if session else ClientSession()
+        self._session = session or ClientSession()
         self._timeout = ClientTimeout(total=timeout)
 
         self.rate_limit: dict[str, tuple[datetime, dict[str, Any]]] = {}
