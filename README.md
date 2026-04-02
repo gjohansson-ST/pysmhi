@@ -12,15 +12,17 @@
 
 # pysmhi
 
-python module for communicating with [Nord Pool](https://data.nordpoolgroup.com/auction/day-ahead/prices)
+python module for communicating with [SMHI](https://opendata.smhi.se/)
 
-**Supports**
+## Supported applications
 
-- Daily forecast
-- Hourly forecast
-- Bi-daily forecast
+- Daily weather forecast
+- Hourly weather forecast
+- Bi-daily weather forecast
+- Daily fire risk
+- Hourly fire risk
 
-## Code example
+## Code examples
 
 ### Get daily forecast
 
