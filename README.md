@@ -12,26 +12,28 @@
 
 # pysmhi
 
-python module for communicating with [Nord Pool](https://data.nordpoolgroup.com/auction/day-ahead/prices)
+python module for communicating with [SMHI](https://opendata.smhi.se/)
 
-**Supports**
+## Supported applications
 
-- Daily forecast
-- Hourly forecast
-- Bi-daily forecast
+- Daily weather forecast
+- Hourly weather forecast
+- Bi-daily weather forecast
+- Daily fire risk
+- Hourly fire risk
 
-## Code example
+## Code examples
 
 ### Get daily forecast
 
-Hourly rates from provided date
+Retrieves the daily forecast for the specified location
 
 ```python
 from pysmhi import SMHIForecast, SMHIPointForecast
 
 async with aiohttp.ClientSession(loop=loop) as session:
     client = SMHIPointForecast("16.15035", "58.570784", session)
-    daily_forecast: list[SMHIForecast] = await forecast.async_get_daily_forecast()
+    daily_forecast = await client.async_get_daily_forecast()
     print(daily_forecast)
 ```
 
