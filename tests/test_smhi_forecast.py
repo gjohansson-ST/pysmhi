@@ -112,20 +112,26 @@ async def test_ratelimiting(
         (
             500,
             "Internal Server Error",
-            "500, message='Internal Server Error', "
-            "url='https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.15035/lat/58.570784/data.json'",
+            (
+                "500, message='Internal Server Error', "
+                "url='https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.15035/lat/58.570784/data.json'"
+            ),
         ),
         (
             404,
             "Not found",
-            "404, message='Not found', "
-            "url='https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.15035/lat/58.570784/data.json'",
+            (
+                "404, message='Not found', "
+                "url='https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.15035/lat/58.570784/data.json'"
+            ),
         ),
         (
             429,
             "Too Many Requests",
-            "429, message='Too Many Requests', "
-            "url='https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.15035/lat/58.570784/data.json'",
+            (
+                "429, message='Too Many Requests', "
+                "url='https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.15035/lat/58.570784/data.json'"
+            ),
         ),
     ],
 )
