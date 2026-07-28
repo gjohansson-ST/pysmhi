@@ -4,7 +4,7 @@ import json
 import math
 import pathlib
 from collections.abc import AsyncGenerator
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import Any
 from unittest.mock import patch
 
@@ -86,7 +86,7 @@ async def test_ratelimiting(
         response=mock_data[0],
         repeat=math.inf,
     )
-    initial_datetime = datetime(2025, 1, 20, 18, 29, 54, tzinfo=timezone.utc)
+    initial_datetime = datetime(2025, 1, 20, 18, 29, 54, tzinfo=UTC)
     with freeze_time(initial_datetime) as frozen_datetime:
         async with aiohttp.ClientSession() as session:
             forecast = SMHIFirePointForecast("16.15035", "58.570784", session)
