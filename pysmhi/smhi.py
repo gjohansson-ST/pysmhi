@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 from aiohttp import ClientSession, ClientTimeout
@@ -36,7 +36,7 @@ class SmhiAPI:
 
         if url in self.rate_limit:
             last_update, last_data = self.rate_limit[url]
-            if (datetime.now(timezone.utc) - last_update).total_seconds() < 60:
+            if (datetime.now(UTC) - last_update).total_seconds() < 60:
                 # Return last data if it is less than 60 seconds old
                 return last_data
 
@@ -58,5 +58,5 @@ class SmhiAPI:
 
             raise SMHIError from error
 
-        self.rate_limit[url] = (datetime.now(timezone.utc), data)
+        self.rate_limit[url] = (datetime.now(UTC), data)
         return data

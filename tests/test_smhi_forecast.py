@@ -4,7 +4,7 @@ import json
 import math
 import pathlib
 from collections.abc import AsyncGenerator
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import Any
 from unittest.mock import patch
 
@@ -79,7 +79,7 @@ async def test_ratelimiting(
         response=mock_data,
         repeat=math.inf,
     )
-    initial_datetime = datetime(2025, 1, 20, 18, 29, 54, tzinfo=timezone.utc)
+    initial_datetime = datetime(2025, 1, 20, 18, 29, 54, tzinfo=UTC)
     with freeze_time(initial_datetime) as frozen_datetime:
         async with aiohttp.ClientSession() as session:
             forecast = SMHIPointForecast("16.15035", "58.570784", session)
@@ -226,10 +226,10 @@ async def test_total_precipitation(
 
     forecasts = mock_data["timeSeries"]
     sum_precipitation = 0
-    previous_valid_time = datetime(2025, 1, 22, 12, 0, tzinfo=timezone.utc)
+    previous_valid_time = datetime(2025, 1, 22, 12, 0, tzinfo=UTC)
     for forecast in forecasts:
-        start = datetime(2026, 4, 2, 0, tzinfo=timezone.utc)
-        end = datetime(2026, 4, 2, 23, tzinfo=timezone.utc)
+        start = datetime(2026, 4, 2, 0, tzinfo=UTC)
+        end = datetime(2026, 4, 2, 23, tzinfo=UTC)
         valid_time = datetime.strptime(forecast["time"], "%Y-%m-%dT%H:%M:%S%z")
         temp_forecast = forecast["data"]
         if start <= valid_time <= end:
@@ -242,9 +242,7 @@ async def test_total_precipitation(
         forecast = SMHIPointForecast("16.123457", "58.123457", session)
         result = await forecast.async_get_daily_forecast()
         for result_forecast in result:
-            if result_forecast["valid_time"] == datetime(
-                2026, 4, 2, 12, 0, tzinfo=timezone.utc
-            ):
+            if result_forecast["valid_time"] == datetime(2026, 4, 2, 12, 0, tzinfo=UTC):
                 assert round(result_forecast["total_precipitation"], 2) == round(
                     sum_precipitation, 2
                 )
