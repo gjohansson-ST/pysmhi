@@ -1,11 +1,9 @@
-[tool.poetry]
+[project]
 name = "pysmhi"
 version = "0.0.0"
 description = "Retrieve open data from SMHI api."
-authors = [
-    "G Johansson <goran.johansson@shiftit.se>",
-]
-maintainers = ["G Johansson <goran.johansson@shiftit.se>"]
+authors = [{"name" = "G Johansson", "email" = "goran.johansson@shiftit.se"}]
+maintainers = [{ "name" = "G Johansson", "email" = "goran.johansson@shiftit.se" }]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/gjohansson-ST/pysmhi"
@@ -25,10 +23,16 @@ classifiers = [
 packages = [
     { include = "pysmhi", from = "." },
 ]
+requires-python = ">=3.11"
+dependencies = [
+  "aiohttp>=3.9.2"
+]
 
-[tool.poetry.dependencies]
-python = "^3.11"
-aiohttp = ">=3.9.2"
+[project.urls]
+Homepage = "https://github.com/gjohansson-ST/pysmhi"
+Repository = "https://github.com/gjohansson-ST/pysmhi"
+Documentation = "https://github.com/gjohansson-ST/pysmhi"
+Issues = "https://github.com/gjohansson-ST/pysmhi/issues"
 
 [tool.poetry.group.dev.dependencies]
 aresponses = "3.0.0"
@@ -48,12 +52,8 @@ pytest-github-actions-annotate-failures = "0.4.2"
 safety = "3.8.1"
 yamllint = "1.38.0"
 syrupy = "5.5.3"
-pylint-per-file-ignores = "3.2.1"
+pylint-per-file-ignores = {version = "3.2.1", markers = "python_version >= '3.11' and python_version < '4'"}
 freezegun="1.5.5"
-
-[tool.poetry.urls]
-"Bug Tracker" = "https://github.com/gjohansson-ST/pysmhi/issues"
-Changelog = "https://github.com/gjohansson-ST/pysmhi/releases"
 
 [tool.coverage.report]
 show_missing = true
