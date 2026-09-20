@@ -22,3 +22,7 @@ class SmhiForecastException(SMHIError):
 
 class SmhiFireForecastException(SMHIError):
     """Exception getting fire forecast."""
+
+
+class SmhiWarningException(SMHIError):
+    """Exception getting warnings."""
