@@ -246,3 +246,43 @@ async def test_total_precipitation(
                 assert round(result_forecast["total_precipitation"], 2) == round(
                     sum_precipitation, 2
                 )
+
+
+async def test_total_precipitation_with_different_date(
+    aresponses: ResponsesMockServer,
+    mock_data: dict[str, Any],
+) -> None:
+    """Test api."""
+    aresponses.add(
+        "opendata-download-metfcst.smhi.se",
+        "/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
+        "GET",
+        response=mock_data,
+        repeat=math.inf,
+    )
+
+    forecasts = mock_data["timeSeries"]
+    all_precipitation = {}
+    for forecast in forecasts:
+        start = datetime.strptime(
+            forecast["intervalParametersStartTime"], "%Y-%m-%dT%H:%M:%S%z"
+        )
+        _prec = forecast["data"]["precipitation_amount_mean"]
+        all_precipitation[start] = _prec
+
+    get_dates = {_date.date(): 0 for _date in all_precipitation}
+
+    for _date in get_dates:
+        for forecast_date, precipitation in all_precipitation.items():
+            if forecast_date.date() == _date:
+                get_dates[_date] += precipitation
+
+    async with aiohttp.ClientSession() as session:
+        forecast = SMHIPointForecast("16.123457", "58.123457", session)
+        result = await forecast.async_get_daily_forecast()
+        for result_forecast in result[1:]:
+            calculated = get_dates.get(result_forecast["valid_time"].date(), 0)
+
+            assert round(result_forecast["total_precipitation"], 2) == round(
+                calculated, 2
+            )
