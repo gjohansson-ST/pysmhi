@@ -30,7 +30,7 @@ class SmhiAPI:
         self,
         url: str,
         retry: int = 3,
-    ) -> dict[str, Any]:
+    ) -> dict[str, Any] | list[dict[str, Any]]:
         """Get data from API asyncronious."""
         LOGGER.debug("Attempting get with url %s", url)
 
@@ -45,7 +45,7 @@ class SmhiAPI:
             async with self._session.get(url, timeout=self._timeout) as resp:
                 status = resp.status
                 resp.raise_for_status()
-                data: dict[str, Any] = await resp.json()
+                data: dict[str, Any] | list[dict[str, Any]] = await resp.json()
 
         except Exception as error:
             LOGGER.debug("Error, status: %s, error: %s", status, str(error))

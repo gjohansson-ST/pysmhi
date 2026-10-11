@@ -12,6 +12,10 @@ API_FIRE_FORECAST = (
     "https://opendata-download-metfcst.smhi.se/api/category"
     "/fwif1g/version/1/{}/geotype/point/lon/{}/lat/{}/data.json"
 )
+API_PUBLIC_WARNINGS = (
+    "https://opendata-download-warnings.smhi.se/ibww/api/version/1/warning.json"
+)
+
 
 LOGGER = logging.getLogger(__package__)
 
