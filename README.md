@@ -59,7 +59,7 @@ async def main() -> None:
         client = SMHIRadarImage("17.92", "63.81", session)
         radar = await client.async_get_radar()
         print(radar)
-        image = await client.async_get_image()  # PNG image as bytes
+        image = await client.async_get_image()  # PNG image on a map as bytes
 
 
 asyncio.run(main())
@@ -78,5 +78,10 @@ Result:
 
 The `dbz` is `None` if there is no echo, and the precipitation is then 0. Both are
 `None` if there is no radar data at the location, e.g. outside Sweden.
+
+The radar image from SMHI only contains the radar echoes, so `async_get_image()` returns
+it on a background map of Sweden with the location marked by a red dot. The map is
+drawn from [Natural Earth](https://www.naturalearthdata.com/) (public domain) by
+`script/generate_radar_basemap.py`. The `image_url` is the radar image without a map.
 
 Credits to [@helto4real](https://github.com/helto4real) for making the original smhi api package used for Home Assistant to connect to SMHI weather services which this is based upon.
