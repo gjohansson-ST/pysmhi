@@ -51,7 +51,7 @@ async def test_api(
         daily_forecast = await forecast.async_get_daily_forecast()
         assert len(daily_forecast) == 12
         twice_daily_forecast = await forecast.async_get_twice_daily_forecast()
-        assert len(twice_daily_forecast) == 23
+        assert len(twice_daily_forecast) == 22
         hourly_forecast = await forecast.async_get_hourly_forecast()
         assert len(hourly_forecast) == 60
 
@@ -332,9 +332,10 @@ async def test_total_precipitation_twice_daily(
     for result_forecast in result[1:]:
         valid_time = result_forecast["valid_time"]
         period = valid_time.replace(hour=valid_time.hour - valid_time.hour % 12)
-        assert result_forecast["total_precipitation"] == round(
-            expected.get(period, 0), 2
-        )
+        assert result_forecast["total_precipitation"] == round(expected[period], 2)
+
+    # The last forecast at 12:00 has no data for the afternoon after it
+    assert result[-1]["valid_time"] == datetime(2026, 4, 12, 0, tzinfo=UTC)
 
 
 async def test_hourly_precipitation(
