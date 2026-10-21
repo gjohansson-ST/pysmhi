@@ -250,12 +250,16 @@ def get_twice_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
                     forecast_temp_max, forecast["temperature"]
                 )
 
+        # Half days start at 00:00 and 12:00 also when the forecast starts
+        # within the half day, so night and day can be told apart by the hour
         if first_new_forecast:
+            first_new_forecast["valid_time"] = start
             first_new_forecast["temperature_max"] = first_forecast_temp_max
             first_new_forecast["temperature_min"] = first_forecast_temp_min
             _set_precipitation(first_new_forecast, intervals, start, midday)
             twice_daily_forecasts[date.isoformat() + "0"] = first_new_forecast
         if second_new_forecast:
+            second_new_forecast["valid_time"] = midday
             second_new_forecast["temperature_max"] = second_forecast_temp_max
             second_new_forecast["temperature_min"] = second_forecast_temp_min
             _set_precipitation(
@@ -263,10 +267,12 @@ def get_twice_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
             )
             twice_daily_forecasts[date.isoformat() + "12"] = second_new_forecast
 
+    # Current is kept first as a half day may now start before it
+    current = twice_daily_forecasts.pop("current")
     returned_forecasts = list(twice_daily_forecasts.values())
     returned_forecasts.sort(key=lambda x: x["valid_time"])
 
-    return returned_forecasts
+    return [current, *returned_forecasts]
 
 
 def get_hourly_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
