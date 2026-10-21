@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import UTC, datetime, timedelta
 from typing import Any, TypedDict
 
 from aiohttp import ClientSession
@@ -151,20 +151,15 @@ class SMHIPointForecast:
 
 def get_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
     """Get daily forecast."""
-    forecasts = _create_forecast(data)
-    sorted_forecasts = sorted(forecasts, key=lambda x: x["valid_time"])
+    intervals = _create_forecast(data)
+    sorted_forecasts = [forecast for _, forecast in intervals]
 
     daily_forecasts: dict[str, SMHIForecast] = {}
 
     dates = {forecast["valid_time"].date() for forecast in sorted_forecasts}
 
-    total_precipitation = sorted_forecasts[0]["mean_precipitation"]
-    forecast_temp_max = sorted_forecasts[0]["temperature"]
-    forecast_temp_min = sorted_forecasts[0]["temperature"]
-
     # First in forecast list is current day and time
     daily_forecasts["current"] = sorted_forecasts[0]
-    daily_forecasts["current"]["total_precipitation"] = total_precipitation
 
     for date in dates:
         date_list = [
@@ -172,28 +167,25 @@ def get_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
             for forecast in sorted_forecasts
             if forecast["valid_time"].date() == date
         ]
-        date_list.sort(key=lambda x: x["valid_time"])
 
         new_forecast = None
         forecast_temp_min = 100.0
         forecast_temp_max = -100.0
-        total_precipitation = 0.0
 
         for forecast in date_list:
-            if (
-                forecast["valid_time"].hour == 12 or forecast["valid_time"].hour > 12
-            ) and new_forecast is None:
+            if forecast["valid_time"].hour >= 12 and new_forecast is None:
                 new_forecast = forecast.copy()
 
             forecast_temp_min = min(forecast_temp_min, forecast["temperature"])
             forecast_temp_max = max(forecast_temp_max, forecast["temperature"])
-            total_precipitation += forecast["mean_precipitation"]
 
         if new_forecast:
+            start = datetime.combine(date, datetime.min.time(), tzinfo=UTC)
             new_forecast["temperature_max"] = forecast_temp_max
             new_forecast["temperature_min"] = forecast_temp_min
-            new_forecast["total_precipitation"] = round(total_precipitation, 2)
-            new_forecast["mean_precipitation"] = round(total_precipitation / 24, 2)
+            _set_precipitation(
+                new_forecast, intervals, start, start + timedelta(days=1)
+            )
             daily_forecasts[date.isoformat()] = new_forecast
 
     returned_forecasts = list(daily_forecasts.values())
@@ -204,20 +196,18 @@ def get_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
 
 def get_twice_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
     """Get bi-daily forecast."""
-    forecasts = _create_forecast(data)
-    sorted_forecasts = sorted(forecasts, key=lambda x: x["valid_time"])
+    intervals = _create_forecast(data)
+    sorted_forecasts = [forecast for _, forecast in intervals]
 
     twice_daily_forecasts: dict[str, SMHIForecast] = {}
 
     dates = {forecast["valid_time"].date() for forecast in sorted_forecasts}
 
-    total_precipitation = sorted_forecasts[0]["mean_precipitation"]
     forecast_temp_max = sorted_forecasts[0]["temperature"]
     forecast_temp_min = sorted_forecasts[0]["temperature"]
 
     # First in forecast list is current day and time
     twice_daily_forecasts["current"] = sorted_forecasts[0]
-    twice_daily_forecasts["current"]["total_precipitation"] = total_precipitation
 
     for date in dates:
         date_list = [
@@ -227,14 +217,15 @@ def get_twice_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
         ]
         date_list.sort(key=lambda x: x["valid_time"])
 
+        start = datetime.combine(date, datetime.min.time(), tzinfo=UTC)
+        midday = start + timedelta(hours=12)
+
         first_new_forecast = None
         first_forecast_temp_min = 100.0
         first_forecast_temp_max = -100.0
-        first_total_precipitation = 0.0
         second_new_forecast = None
         second_forecast_temp_min = 100.0
         second_forecast_temp_max = -100.0
-        second_total_precipitation = 0.0
 
         for forecast in date_list:
             if (
@@ -247,7 +238,6 @@ def get_twice_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
                 first_forecast_temp_max = max(
                     forecast_temp_max, forecast["temperature"]
                 )
-                first_total_precipitation += forecast["mean_precipitation"]
 
             if (
                 forecast["valid_time"].hour == 12 or forecast["valid_time"].hour > 12
@@ -259,26 +249,17 @@ def get_twice_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
                 second_forecast_temp_max = max(
                     forecast_temp_max, forecast["temperature"]
                 )
-                second_total_precipitation += forecast["mean_precipitation"]
 
         if first_new_forecast:
             first_new_forecast["temperature_max"] = first_forecast_temp_max
             first_new_forecast["temperature_min"] = first_forecast_temp_min
-            first_new_forecast["total_precipitation"] = round(
-                first_total_precipitation, 2
-            )
-            first_new_forecast["mean_precipitation"] = round(
-                first_total_precipitation / 12, 2
-            )
+            _set_precipitation(first_new_forecast, intervals, start, midday)
             twice_daily_forecasts[date.isoformat() + "0"] = first_new_forecast
         if second_new_forecast:
             second_new_forecast["temperature_max"] = second_forecast_temp_max
             second_new_forecast["temperature_min"] = second_forecast_temp_min
-            second_new_forecast["total_precipitation"] = round(
-                second_total_precipitation, 2
-            )
-            second_new_forecast["mean_precipitation"] = round(
-                second_total_precipitation / 12, 2
+            _set_precipitation(
+                second_new_forecast, intervals, midday, start + timedelta(days=1)
             )
             twice_daily_forecasts[date.isoformat() + "12"] = second_new_forecast
 
@@ -290,8 +271,7 @@ def get_twice_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
 
 def get_hourly_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
     """Get hourly forecast."""
-    forecasts = _create_forecast(data)
-    sorted_forecasts = sorted(forecasts, key=lambda x: x["valid_time"])
+    sorted_forecasts = [forecast for _, forecast in _create_forecast(data)]
 
     hourly_forecasts = [sorted_forecasts[0]]
     previous_valid_time = sorted_forecasts[0]["valid_time"]
@@ -309,12 +289,40 @@ def get_hourly_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
     return hourly_forecasts
 
 
-def _create_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
-    """Convert json data to a list of forecasts."""
+def _set_precipitation(
+    forecast: SMHIForecast,
+    intervals: list[tuple[datetime, SMHIForecast]],
+    start: datetime,
+    end: datetime,
+) -> None:
+    """Set total and mean precipitation for a period on a forecast.
 
-    forecasts: list[SMHIForecast] = []
+    Each precipitation amount from SMHI covers the interval from its start time up
+    to its valid time, so an amount belongs to the period its interval starts in.
+    """
+    total_precipitation = 0.0
+    hours = 0.0
+    for interval_start, interval in intervals:
+        if start <= interval_start < end:
+            total_precipitation += interval["total_precipitation"]
+            hours += (interval["valid_time"] - interval_start).total_seconds() / 3600
 
-    previous_valid_time = None
+    forecast["total_precipitation"] = round(total_precipitation, 2)
+    forecast["mean_precipitation"] = (
+        round(total_precipitation / hours, 2) if hours else 0.0
+    )
+
+
+def _create_forecast(data: dict[str, Any]) -> list[tuple[datetime, SMHIForecast]]:
+    """Convert json data to a sorted list of (interval start, forecast).
+
+    SMHI precipitation values are amounts (mm) accumulated over the interval from
+    intervalParametersStartTime to time, which is 1 hour in the near term and
+    up to 12 hours further ahead. Per forecast, total_precipitation is the amount
+    for the interval and min/mean/median/max are converted to mm/h.
+    """
+
+    forecasts: list[tuple[datetime, SMHIForecast]] = []
 
     if (
         not data.get("timeSeries")
@@ -330,12 +338,13 @@ def _create_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
         valid_time = datetime.strptime(forecast["time"], "%Y-%m-%dT%H:%M:%S%z")
         temp_forecast = forecast["data"]
 
-        if previous_valid_time:
-            hours_between_forecast: int = round(
-                (valid_time - previous_valid_time).total_seconds() / 3600
+        if interval_start_time := forecast.get("intervalParametersStartTime"):
+            interval_start = datetime.strptime(
+                interval_start_time, "%Y-%m-%dT%H:%M:%S%z"
             )
         else:
-            hours_between_forecast = 1
+            interval_start = valid_time - timedelta(hours=1)
+        interval_hours = max((valid_time - interval_start).total_seconds() / 3600, 1.0)
 
         forecast = SMHIForecast(
             temperature=float(temp_forecast["air_temperature"]),
@@ -358,33 +367,30 @@ def _create_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
             visibility=float(temp_forecast["visibility_in_air"]),
             wind_gust=float(temp_forecast["wind_speed_of_gust"]),
             min_precipitation=round(
-                float(temp_forecast["precipitation_amount_min"])
-                * hours_between_forecast,
+                float(temp_forecast["precipitation_amount_min"]) / interval_hours,
                 2,
             ),
             mean_precipitation=round(
-                float(temp_forecast["precipitation_amount_mean"])
-                * hours_between_forecast,
+                float(temp_forecast["precipitation_amount_mean"]) / interval_hours,
                 2,
             ),
             median_precipitation=round(
-                float(temp_forecast["precipitation_amount_median"])
-                / hours_between_forecast,
+                float(temp_forecast["precipitation_amount_median"]) / interval_hours,
                 2,
             ),
             max_precipitation=round(
-                float(temp_forecast["precipitation_amount_max"])
-                * hours_between_forecast,
+                float(temp_forecast["precipitation_amount_max"]) / interval_hours,
                 2,
             ),
+            total_precipitation=float(temp_forecast["precipitation_amount_mean"]),
             frozen_precipitation=temp_forecast["precipitation_frozen_part"]
             if temp_forecast["precipitation_frozen_part"] != -9
             else 0,
             symbol=int(temp_forecast["symbol_code"]),
             valid_time=valid_time,
         )
-        forecasts.append(forecast)
-        previous_valid_time = valid_time
+        forecasts.append((interval_start, forecast))
 
+    forecasts.sort(key=lambda x: x[1]["valid_time"])
     LOGGER.debug("Returning forecasts with length: %s", len(forecasts))
     return forecasts
