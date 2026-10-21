@@ -197,6 +197,26 @@ yarl = ">=1.25.1,<2.0"
 speedups = ["Brotli (>=1.2) ; platform_python_implementation == \"CPython\" and sys_platform != \"android\" and sys_platform != \"ios\"", "aiodns (>=3.3.0) ; sys_platform != \"android\" and sys_platform != \"ios\"", "backports.zstd ; platform_python_implementation == \"CPython\" and python_version < \"3.14\" and sys_platform != \"android\" and sys_platform != \"ios\"", "brotlicffi (>=1.2) ; platform_python_implementation != \"CPython\""]
 
 [[package]]
+name = "aiointercept"
+version = "1.0.0"
+description = "aiohttp mock library that routes requests through a real test server"
+optional = false
+python-versions = ">=3.11"
+groups = ["dev"]
+files = [
+    {file = "aiointercept-1.0.0-py3-none-any.whl", hash = "sha256:1c6b5543a611d29cc899f6c9b117ad61cb657dd2fb8c95ab8199cb8a5842b616"},
+    {file = "aiointercept-1.0.0.tar.gz", hash = "sha256:99c52ba2d6c282f1e0cbeba2225279eca581cf24b6a3c893929bacf8774e8f70"},
+]
+
+[package.dependencies]
+aiohttp = ">=3.13.3,<4.0.0"
+multidict = ">=6.0,<8.0"
+yarl = ">=1.23.0,<2.0.0"
+
+[package.extras]
+pytest-asyncio = ["pytest-asyncio (>=0.24.0)"]
+
+[[package]]
 name = "aiosignal"
 version = "1.4.0"
 description = "aiosignal: a list of registered asynchronous callbacks"
@@ -254,25 +274,6 @@ typing_extensions = {version = ">=4.16.0", markers = "python_version < \"3.15\""
 
 [package.extras]
 trio = ["trio (>=0.32.0)"]
-
-[[package]]
-name = "aresponses"
-version = "3.0.0"
-description = "Asyncio response mocking. Similar to the responses library used for 'requests'"
-optional = false
-python-versions = ">=3.7"
-groups = ["dev"]
-files = [
-    {file = "aresponses-3.0.0-py3-none-any.whl", hash = "sha256:8093ab4758eb4aba91c765a50295b269ecfc0a9e7c7158954760bc0c23503970"},
-    {file = "aresponses-3.0.0.tar.gz", hash = "sha256:8731d0609fe4c954e21f17753dc868dca9e2e002b020a33dc9212004599b11e7"},
-]
-
-[package.dependencies]
-aiohttp = [
-    {version = ">=3.7.0", markers = "python_version >= \"3.10\" and python_version < \"3.12\""},
-    {version = ">=3.7.0,<3.8.dev0 || >=3.9.dev0", markers = "python_version >= \"3.12\""},
-]
-pytest-asyncio = {version = ">=0.17.0", markers = "python_version >= \"3.7\""}
 
 [[package]]
 name = "ast-serialize"
@@ -3341,4 +3342,4 @@ propcache = ">=0.2.1"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11"
-content-hash = "65f4a2cc85f3f6a3baece20a2823fcdc6940b3ab952d10464ab73c592729515c"
+content-hash = "621664480e6cb51a3953cd52e72a1c16dd6495b7e54a1cf48a214df21610c7b8"
