@@ -250,21 +250,23 @@ def get_twice_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
                     forecast_temp_max, forecast["temperature"]
                 )
 
-        # Half days start at 00:00 and 12:00 also when the forecast starts
-        # within the half day, so night and day can be told apart by the hour
-        if first_new_forecast:
+        # Skip half days the forecast does not cover, e.g. the last forecast
+        # at 12:00 has no data for the afternoon after it. Half days start at
+        # 00:00 and 12:00 also when the forecast starts within the half day,
+        # so night and day can be told apart by the hour
+        if first_new_forecast and _set_precipitation(
+            first_new_forecast, intervals, start, midday
+        ):
             first_new_forecast["valid_time"] = start
             first_new_forecast["temperature_max"] = first_forecast_temp_max
             first_new_forecast["temperature_min"] = first_forecast_temp_min
-            _set_precipitation(first_new_forecast, intervals, start, midday)
             twice_daily_forecasts[date.isoformat() + "0"] = first_new_forecast
-        if second_new_forecast:
+        if second_new_forecast and _set_precipitation(
+            second_new_forecast, intervals, midday, start + timedelta(days=1)
+        ):
             second_new_forecast["valid_time"] = midday
             second_new_forecast["temperature_max"] = second_forecast_temp_max
             second_new_forecast["temperature_min"] = second_forecast_temp_min
-            _set_precipitation(
-                second_new_forecast, intervals, midday, start + timedelta(days=1)
-            )
             twice_daily_forecasts[date.isoformat() + "12"] = second_new_forecast
 
     # Current is kept first as a half day may now start before it
@@ -300,11 +302,12 @@ def _set_precipitation(
     intervals: list[tuple[datetime, SMHIForecast]],
     start: datetime,
     end: datetime,
-) -> None:
+) -> float:
     """Set total and mean precipitation for a period on a forecast.
 
     Each precipitation amount from SMHI covers the interval from its start time up
     to its valid time, so an amount belongs to the period its interval starts in.
+    Returns the number of hours in the period covered by the forecast.
     """
     total_precipitation = 0.0
     hours = 0.0
@@ -317,6 +320,7 @@ def _set_precipitation(
     forecast["mean_precipitation"] = (
         round(total_precipitation / hours, 2) if hours else 0.0
     )
+    return hours
 
 
 def _create_forecast(data: dict[str, Any]) -> list[tuple[datetime, SMHIForecast]]:
