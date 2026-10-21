@@ -338,7 +338,9 @@ def _create_forecast(data: dict[str, Any]) -> list[tuple[datetime, SMHIForecast]
             "No time series, created time or reference time in data"
         )
 
-    for forecast in data["timeSeries"]:
+    previous_valid_time: datetime | None = None
+
+    for forecast in sorted(data["timeSeries"], key=lambda x: x["time"]):
         valid_time = datetime.strptime(forecast["time"], "%Y-%m-%dT%H:%M:%S%z")
         temp_forecast = forecast["data"]
 
@@ -347,7 +349,9 @@ def _create_forecast(data: dict[str, Any]) -> list[tuple[datetime, SMHIForecast]
                 interval_start_time, "%Y-%m-%dT%H:%M:%S%z"
             )
         else:
-            interval_start = valid_time - timedelta(hours=1)
+            # Without a start time the interval runs from the previous forecast
+            interval_start = previous_valid_time or valid_time - timedelta(hours=1)
+        previous_valid_time = valid_time
         interval_hours = max((valid_time - interval_start).total_seconds() / 3600, 1.0)
 
         forecast = SMHIForecast(

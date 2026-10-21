@@ -1,5 +1,6 @@
 """Tests for SMHI forecast."""
 
+import copy
 import json
 import pathlib
 from collections.abc import AsyncGenerator
@@ -14,6 +15,7 @@ from freezegun import freeze_time
 from syrupy.assertion import SnapshotAssertion
 
 from pysmhi import SmhiForecastException, SMHIPointForecast
+from pysmhi.smhi_forecast import get_daily_forecast, get_twice_daily_forecast
 
 from .conftest import request_count
 
@@ -397,3 +399,65 @@ async def test_twice_daily_temperature(
         period = valid_time.replace(hour=valid_time.hour - valid_time.hour % 12)
         assert result_forecast["temperature_max"] == max(temperatures[period])
         assert result_forecast["temperature_min"] == min(temperatures[period])
+
+
+async def test_daily_skips_day_without_afternoon(
+    mock_aiointercept: aiointercept,
+    mock_data: dict[str, Any],
+) -> None:
+    """Test daily forecast skips a last day that ends before 12:00."""
+    mock_data["timeSeries"] = [
+        forecast
+        for forecast in mock_data["timeSeries"]
+        if forecast["time"] <= "2026-04-09T00:00:00Z"
+    ]
+    mock_aiointercept.get(
+        "https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
+        payload=mock_data,
+    )
+
+    async with aiohttp.ClientSession() as session:
+        forecast = SMHIPointForecast("16.123457", "58.123457", session)
+        result = await forecast.async_get_daily_forecast()
+
+    assert result[-1]["valid_time"] == datetime(2026, 4, 8, 12, tzinfo=UTC)
+
+
+async def test_hourly_forecast_without_gap(
+    mock_aiointercept: aiointercept,
+    mock_data: dict[str, Any],
+) -> None:
+    """Test hourly forecast returns all forecasts when all are one hour apart."""
+    mock_data["timeSeries"] = [
+        forecast
+        for forecast in mock_data["timeSeries"]
+        if forecast["time"] < "2026-04-05T00:00:00Z"
+    ]
+    mock_aiointercept.get(
+        "https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
+        payload=mock_data,
+    )
+
+    async with aiohttp.ClientSession() as session:
+        forecast = SMHIPointForecast("16.123457", "58.123457", session)
+        result = await forecast.async_get_hourly_forecast()
+
+    assert len(result) == len(mock_data["timeSeries"]) == 60
+    assert result[-1]["valid_time"] == datetime(2026, 4, 4, 22, tzinfo=UTC)
+
+
+async def test_precipitation_without_interval_start(
+    mock_data: dict[str, Any],
+) -> None:
+    """Test intervals run from the previous forecast without a start time."""
+    without_start = copy.deepcopy(mock_data)
+    for forecast in without_start["timeSeries"]:
+        del forecast["intervalParametersStartTime"]
+
+    # In the data each interval starts at the previous forecast, and the first
+    # interval is one hour, so the results are the same with or without it.
+    # A wrong interval length would change the mean of the 6 and 12 hour steps
+    assert get_daily_forecast(without_start) == get_daily_forecast(mock_data)
+    assert get_twice_daily_forecast(without_start) == get_twice_daily_forecast(
+        mock_data
+    )
