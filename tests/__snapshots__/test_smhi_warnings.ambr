@@ -1,0 +1,117 @@
+# serializer version: 1
+# name: test_api[warnings]
+  list([
+    dict({
+      'area_name': None,
+      'classification': 'MET',
+      'descriptions': dict({
+      }),
+      'event': 'Medelvind till havs',
+      'event_code': <SMHIWarningEvents.WIND_SEA: 'wind_sea'>,
+      'id': 3372,
+      'probability_normal': True,
+      'warning_areas': list([
+        dict({
+          'affected_areas': list([
+            'Sydöstra Östersjön',
+          ]),
+          'approximate_end': datetime.datetime(2026, 10, 22, 9, 0, tzinfo=datetime.timezone.utc),
+          'approximate_start': datetime.datetime(2026, 10, 21, 19, 0, tzinfo=datetime.timezone.utc),
+          'area_name': 'Sydöstra Östersjön',
+          'descriptions': dict({
+            <SMHIWarningDescription.AFFECT: 'affect'>: '''
+              Förbered besättning och fartyg för mycket vind och sjö, och överväg om det är lämpligt att ge sig ut till sjöss.
+              Tänk på att byvinden ofta är betydligt högre än medelvinden.
+            ''',
+            <SMHIWarningDescription.INCIDENT: 'incident'>: 'Onsdag kväll sydost 14-17 m/s. Torsdag förmiddag avtagande.',
+            <SMHIWarningDescription.WHERE: 'where'>: 'Sydöstra Östersjön',
+          }),
+          'event_description': <SMHIWarningEventDescription.GALE_LOW: 'gale_low'>,
+          'id': 10684,
+          'probability_normal': True,
+          'published': datetime.datetime(2026, 10, 21, 7, 28, 49, 531000, tzinfo=datetime.timezone.utc),
+          'warning_level': <SMHIWarningClassifications.YELLOW: 'yellow'>,
+        }),
+        dict({
+          'affected_areas': list([
+            'Mellersta Östersjön',
+          ]),
+          'approximate_end': datetime.datetime(2026, 10, 22, 8, 0, tzinfo=datetime.timezone.utc),
+          'approximate_start': datetime.datetime(2026, 10, 22, 4, 0, tzinfo=datetime.timezone.utc),
+          'area_name': 'Mellersta Östersjön',
+          'descriptions': dict({
+            <SMHIWarningDescription.AFFECT: 'affect'>: '''
+              Förbered besättning och fartyg för mycket vind och sjö, och överväg om det är lämpligt att ge sig ut till sjöss.
+              Tänk på att byvinden ofta är betydligt högre än medelvinden.
+            ''',
+            <SMHIWarningDescription.INCIDENT: 'incident'>: 'Torsdag morgon sydost 14-17 m/s. Torsdag förmiddag avtagande.',
+            <SMHIWarningDescription.WHERE: 'where'>: 'Mellersta Östersjön',
+          }),
+          'event_description': <SMHIWarningEventDescription.GALE_LOW: 'gale_low'>,
+          'id': 10685,
+          'probability_normal': True,
+          'published': datetime.datetime(2026, 10, 21, 14, 17, 3, 438000, tzinfo=datetime.timezone.utc),
+          'warning_level': <SMHIWarningClassifications.YELLOW: 'yellow'>,
+        }),
+      ]),
+    }),
+  ])
+# ---
+# name: test_api[warnings_en]
+  list([
+    dict({
+      'area_name': None,
+      'classification': 'MET',
+      'descriptions': dict({
+      }),
+      'event': 'Wind at sea',
+      'event_code': <SMHIWarningEvents.WIND_SEA: 'wind_sea'>,
+      'id': 3372,
+      'probability_normal': True,
+      'warning_areas': list([
+        dict({
+          'affected_areas': list([
+            'Southeastern Baltic',
+          ]),
+          'approximate_end': datetime.datetime(2026, 10, 22, 9, 0, tzinfo=datetime.timezone.utc),
+          'approximate_start': datetime.datetime(2026, 10, 21, 19, 0, tzinfo=datetime.timezone.utc),
+          'area_name': 'Southeastern Baltic',
+          'descriptions': dict({
+            <SMHIWarningDescription.AFFECT: 'affect'>: '''
+              Pay close attention to the marine forecast and prepare crew and vessel for high winds and seas.
+              Keep in mind that the wind gusts are often significantly higher than the average wind.
+            ''',
+            <SMHIWarningDescription.INCIDENT: 'incident'>: 'Wednesday evening southeast 14-17 m/s. Thursday late morning decreasing.',
+            <SMHIWarningDescription.WHERE: 'where'>: 'Southeastern Baltic',
+          }),
+          'event_description': <SMHIWarningEventDescription.GALE_LOW: 'gale_low'>,
+          'id': 10684,
+          'probability_normal': True,
+          'published': datetime.datetime(2026, 10, 21, 7, 28, 49, 531000, tzinfo=datetime.timezone.utc),
+          'warning_level': <SMHIWarningClassifications.YELLOW: 'yellow'>,
+        }),
+        dict({
+          'affected_areas': list([
+            'Central Baltic',
+          ]),
+          'approximate_end': datetime.datetime(2026, 10, 22, 8, 0, tzinfo=datetime.timezone.utc),
+          'approximate_start': datetime.datetime(2026, 10, 22, 4, 0, tzinfo=datetime.timezone.utc),
+          'area_name': 'Central Baltic',
+          'descriptions': dict({
+            <SMHIWarningDescription.AFFECT: 'affect'>: '''
+              Pay close attention to the marine forecast and prepare crew and vessel for high winds and seas.
+              Keep in mind that the wind gusts are often significantly higher than the average wind.
+            ''',
+            <SMHIWarningDescription.INCIDENT: 'incident'>: 'Thursday morning southeast 14-17 m/s. Thursday late morning decreasing.',
+            <SMHIWarningDescription.WHERE: 'where'>: 'Central Baltic',
+          }),
+          'event_description': <SMHIWarningEventDescription.GALE_LOW: 'gale_low'>,
+          'id': 10685,
+          'probability_normal': True,
+          'published': datetime.datetime(2026, 10, 21, 14, 17, 3, 438000, tzinfo=datetime.timezone.utc),
+          'warning_level': <SMHIWarningClassifications.YELLOW: 'yellow'>,
+        }),
+      ]),
+    }),
+  ])
+# ---
