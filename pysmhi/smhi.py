@@ -24,14 +24,17 @@ class SmhiAPI:
         self._session = session or ClientSession()
         self._timeout = ClientTimeout(total=timeout)
 
-        self.rate_limit: dict[str, tuple[datetime, dict[str, Any]]] = {}
+        self.rate_limit: dict[str, tuple[datetime, Any]] = {}
 
     async def async_get_data(
         self,
         url: str,
         retry: int = 3,
-    ) -> dict[str, Any] | list[dict[str, Any]]:
-        """Get data from API asyncronious."""
+    ) -> Any:
+        """Get data from API asyncronious.
+
+        Returns the decoded JSON, an object for forecasts and a list for warnings.
+        """
         LOGGER.debug("Attempting get with url %s", url)
 
         if url in self.rate_limit:
@@ -45,7 +48,7 @@ class SmhiAPI:
             async with self._session.get(url, timeout=self._timeout) as resp:
                 status = resp.status
                 resp.raise_for_status()
-                data: dict[str, Any] | list[dict[str, Any]] = await resp.json()
+                data = await resp.json()
 
         except Exception as error:
             LOGGER.debug("Error, status: %s, error: %s", status, str(error))
