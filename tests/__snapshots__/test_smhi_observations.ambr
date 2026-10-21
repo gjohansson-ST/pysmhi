@@ -1,0 +1,50 @@
+# serializer version: 1
+# name: test_api
+  dict({
+    'distance': 5.62,
+    'height': 19.757,
+    'latitude': 55.5715,
+    'longitude': 13.0708,
+    'observations': dict({
+      <SMHIObservationParameter.HUMIDITY: 6>: dict({
+        'quality': <SMHIObservationQuality.GREEN: 'G'>,
+        'time': datetime.datetime(2026, 10, 21, 20, 0, tzinfo=datetime.timezone.utc),
+        'value': 91.0,
+      }),
+      <SMHIObservationParameter.PRESENT_WEATHER: 13>: dict({
+        'quality': <SMHIObservationQuality.GREEN: 'G'>,
+        'time': datetime.datetime(2026, 10, 21, 20, 0, tzinfo=datetime.timezone.utc),
+        'value': 100.0,
+        'weather': <SMHIPresentWeather.NO_SIGNIFICANT_WEATHER: 'no_significant_weather'>,
+      }),
+      <SMHIObservationParameter.TEMPERATURE: 45>: dict({
+        'quality': <SMHIObservationQuality.GREEN: 'G'>,
+        'time': datetime.datetime(2026, 10, 21, 20, 47, tzinfo=datetime.timezone.utc),
+        'value': 12.625361,
+      }),
+      <SMHIObservationParameter.PRECIPITATION: 46>: dict({
+        'quality': <SMHIObservationQuality.GREEN: 'G'>,
+        'time': datetime.datetime(2026, 10, 21, 20, 47, tzinfo=datetime.timezone.utc),
+        'value': 0.0,
+      }),
+      <SMHIObservationParameter.WIND_SPEED: 47>: dict({
+        'quality': <SMHIObservationQuality.GREEN: 'G'>,
+        'time': datetime.datetime(2026, 10, 21, 20, 47, tzinfo=datetime.timezone.utc),
+        'value': 3.058909,
+      }),
+      <SMHIObservationParameter.WIND_DIRECTION: 48>: dict({
+        'quality': <SMHIObservationQuality.GREEN: 'G'>,
+        'time': datetime.datetime(2026, 10, 21, 20, 47, tzinfo=datetime.timezone.utc),
+        'value': 118.791992,
+      }),
+      <SMHIObservationParameter.VISIBILITY: 51>: dict({
+        'quality': <SMHIObservationQuality.GREEN: 'G'>,
+        'time': datetime.datetime(2026, 10, 21, 20, 47, tzinfo=datetime.timezone.utc),
+        'value': 24094.0,
+      }),
+      <SMHIObservationParameter.SNOW_DEPTH: 52>: None,
+    }),
+    'station_id': '52350',
+    'station_name': 'Malmö A',
+  })
+# ---
