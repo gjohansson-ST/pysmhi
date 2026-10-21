@@ -392,3 +392,32 @@ async def test_twice_daily_starts_at_half_day(
     for result_forecast in result[1:]:
         assert result_forecast["valid_time"].hour in (0, 12)
         assert result_forecast["valid_time"].minute == 0
+
+
+async def test_twice_daily_temperature(
+    aresponses: ResponsesMockServer,
+    mock_data: dict[str, Any],
+) -> None:
+    """Test twice daily min and max temperature covers each half day."""
+    aresponses.add(
+        "opendata-download-metfcst.smhi.se",
+        "/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
+        "GET",
+        response=mock_data,
+        repeat=math.inf,
+    )
+    temperatures: dict[datetime, list[float]] = {}
+    for forecast in mock_data["timeSeries"]:
+        valid_time = datetime.strptime(forecast["time"], "%Y-%m-%dT%H:%M:%S%z")
+        period = valid_time.replace(hour=valid_time.hour - valid_time.hour % 12)
+        temperatures.setdefault(period, []).append(forecast["data"]["air_temperature"])
+
+    async with aiohttp.ClientSession() as session:
+        forecast = SMHIPointForecast("16.123457", "58.123457", session)
+        result = await forecast.async_get_twice_daily_forecast()
+
+    for result_forecast in result[1:]:
+        valid_time = result_forecast["valid_time"]
+        period = valid_time.replace(hour=valid_time.hour - valid_time.hour % 12)
+        assert result_forecast["temperature_max"] == max(temperatures[period])
+        assert result_forecast["temperature_min"] == min(temperatures[period])
