@@ -21,6 +21,7 @@ python module for communicating with [SMHI](https://opendata.smhi.se/)
 - Bi-daily weather forecast
 - Daily fire risk
 - Hourly fire risk
+- Radar image and precipitation at a location
 
 ## Code examples
 
@@ -36,5 +37,46 @@ async with aiohttp.ClientSession(loop=loop) as session:
     daily_forecast = await client.async_get_daily_forecast()
     print(daily_forecast)
 ```
+
+### Get radar
+
+Retrieves the latest [radar](https://opendata.smhi.se/radar/introduction) image of
+Sweden, updated every 5 minutes, and the precipitation at the specified location.
+
+The reflectivity (`dbz`) at the location is read from the radar image and converted to
+precipitation in mm/h. Reflectivities below 5 dBZ are not counted as precipitation.
+
+```python
+import asyncio
+
+import aiohttp
+
+from pysmhi import SMHIRadarImage
+
+
+async def main() -> None:
+    async with aiohttp.ClientSession() as session:
+        client = SMHIRadarImage("17.92", "63.81", session)
+        radar = await client.async_get_radar()
+        print(radar)
+        image = await client.async_get_image()  # PNG image as bytes
+
+
+asyncio.run(main())
+```
+
+Result:
+
+```python
+{
+    "valid_time": datetime(2026, 10, 21, 18, 55, tzinfo=UTC),
+    "image_url": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/latest.png",
+    "dbz": 48.8,
+    "precipitation": 52.4,
+}
+```
+
+The `dbz` is `None` if there is no echo, and the precipitation is then 0. Both are
+`None` if there is no radar data at the location, e.g. outside Sweden.
 
 Credits to [@helto4real](https://github.com/helto4real) for making the original smhi api package used for Home Assistant to connect to SMHI weather services which this is based upon.
