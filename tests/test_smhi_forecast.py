@@ -211,11 +211,29 @@ async def test_six_digits_rounding(
         assert len(aresponses.history) == 1
 
 
-async def test_total_precipitation(
+def _expected_precipitation(
+    mock_data: dict[str, Any], hours_per_period: int
+) -> dict[datetime, float]:
+    """Sum precipitation amounts per period by the start of their interval."""
+    expected: dict[datetime, float] = {}
+    for forecast in mock_data["timeSeries"]:
+        start = datetime.strptime(
+            forecast["intervalParametersStartTime"], "%Y-%m-%dT%H:%M:%S%z"
+        )
+        period = start.replace(
+            hour=start.hour - start.hour % hours_per_period, minute=0, second=0
+        )
+        expected[period] = (
+            expected.get(period, 0) + forecast["data"]["precipitation_amount_mean"]
+        )
+    return expected
+
+
+async def test_total_precipitation_daily(
     aresponses: ResponsesMockServer,
     mock_data: dict[str, Any],
 ) -> None:
-    """Test api."""
+    """Test daily total precipitation sums the amounts for each day."""
     aresponses.add(
         "opendata-download-metfcst.smhi.se",
         "/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
@@ -223,29 +241,34 @@ async def test_total_precipitation(
         response=mock_data,
         repeat=math.inf,
     )
-
-    forecasts = mock_data["timeSeries"]
-    sum_precipitation = 0
-    previous_valid_time = datetime(2025, 1, 22, 12, 0, tzinfo=UTC)
-    for forecast in forecasts:
-        start = datetime(2026, 4, 2, 0, tzinfo=UTC)
-        end = datetime(2026, 4, 2, 23, tzinfo=UTC)
-        valid_time = datetime.strptime(forecast["time"], "%Y-%m-%dT%H:%M:%S%z")
-        temp_forecast = forecast["data"]
-        if start <= valid_time <= end:
-            sum_precipitation += temp_forecast["precipitation_amount_mean"] * (
-                (valid_time - previous_valid_time).total_seconds() / 3600
-            )
-            previous_valid_time = valid_time
+    expected = _expected_precipitation(mock_data, 24)
 
     async with aiohttp.ClientSession() as session:
         forecast = SMHIPointForecast("16.123457", "58.123457", session)
         result = await forecast.async_get_daily_forecast()
-        for result_forecast in result:
-            if result_forecast["valid_time"] == datetime(2026, 4, 2, 12, 0, tzinfo=UTC):
-                assert round(result_forecast["total_precipitation"], 2) == round(
-                    sum_precipitation, 2
-                )
+
+    # First forecast is the current one
+    assert result[0]["total_precipitation"] == 0.0
+    for result_forecast in result[1:]:
+        period = result_forecast["valid_time"].replace(hour=0)
+        assert result_forecast["total_precipitation"] == round(expected[period], 2)
+
+    totals = {
+        f["valid_time"].date().isoformat(): f["total_precipitation"] for f in result[1:]
+    }
+    assert totals == {
+        "2026-04-02": 1.1,
+        "2026-04-03": 3.5,
+        "2026-04-04": 3.0,
+        "2026-04-05": 3.1,
+        "2026-04-06": 0.6,
+        "2026-04-07": 0.0,
+        "2026-04-08": 0.0,
+        "2026-04-09": 0.7,
+        "2026-04-10": 0.6,
+        "2026-04-11": 1.5,
+        "2026-04-12": 0.6,
+    }
 
 
 async def test_total_precipitation_with_different_date(
@@ -286,3 +309,52 @@ async def test_total_precipitation_with_different_date(
             assert round(result_forecast["total_precipitation"], 2) == round(
                 calculated, 2
             )
+
+
+async def test_total_precipitation_twice_daily(
+    aresponses: ResponsesMockServer,
+    mock_data: dict[str, Any],
+) -> None:
+    """Test twice daily total precipitation sums the amounts for each half day."""
+    aresponses.add(
+        "opendata-download-metfcst.smhi.se",
+        "/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
+        "GET",
+        response=mock_data,
+        repeat=math.inf,
+    )
+    expected = _expected_precipitation(mock_data, 12)
+
+    async with aiohttp.ClientSession() as session:
+        forecast = SMHIPointForecast("16.123457", "58.123457", session)
+        result = await forecast.async_get_twice_daily_forecast()
+
+    for result_forecast in result[1:]:
+        valid_time = result_forecast["valid_time"]
+        period = valid_time.replace(hour=valid_time.hour - valid_time.hour % 12)
+        assert result_forecast["total_precipitation"] == round(
+            expected.get(period, 0), 2
+        )
+
+
+async def test_hourly_precipitation(
+    aresponses: ResponsesMockServer,
+    mock_data: dict[str, Any],
+) -> None:
+    """Test hourly precipitation is the amount for each hour."""
+    aresponses.add(
+        "opendata-download-metfcst.smhi.se",
+        "/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
+        "GET",
+        response=mock_data,
+        repeat=math.inf,
+    )
+
+    async with aiohttp.ClientSession() as session:
+        forecast = SMHIPointForecast("16.123457", "58.123457", session)
+        result = await forecast.async_get_hourly_forecast()
+
+    for result_forecast, data in zip(result, mock_data["timeSeries"], strict=False):
+        amount = data["data"]["precipitation_amount_mean"]
+        assert result_forecast["mean_precipitation"] == amount
+        assert result_forecast["total_precipitation"] == amount
