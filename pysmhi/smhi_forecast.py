@@ -203,9 +203,6 @@ def get_twice_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
 
     dates = {forecast["valid_time"].date() for forecast in sorted_forecasts}
 
-    forecast_temp_max = sorted_forecasts[0]["temperature"]
-    forecast_temp_min = sorted_forecasts[0]["temperature"]
-
     # First in forecast list is current day and time
     twice_daily_forecasts["current"] = sorted_forecasts[0]
 
@@ -228,26 +225,23 @@ def get_twice_daily_forecast(data: dict[str, Any]) -> list[SMHIForecast]:
         second_forecast_temp_max = -100.0
 
         for forecast in date_list:
-            if (
-                forecast["valid_time"].hour == 0 or forecast["valid_time"].hour < 12
-            ) and first_new_forecast is None:
-                first_new_forecast = forecast.copy()
+            if forecast["valid_time"].hour < 12:
+                if first_new_forecast is None:
+                    first_new_forecast = forecast.copy()
                 first_forecast_temp_min = min(
-                    forecast_temp_min, forecast["temperature"]
+                    first_forecast_temp_min, forecast["temperature"]
                 )
                 first_forecast_temp_max = max(
-                    forecast_temp_max, forecast["temperature"]
+                    first_forecast_temp_max, forecast["temperature"]
                 )
-
-            if (
-                forecast["valid_time"].hour == 12 or forecast["valid_time"].hour > 12
-            ) and second_new_forecast is None:
-                second_new_forecast = forecast.copy()
+            else:
+                if second_new_forecast is None:
+                    second_new_forecast = forecast.copy()
                 second_forecast_temp_min = min(
-                    forecast_temp_min, forecast["temperature"]
+                    second_forecast_temp_min, forecast["temperature"]
                 )
                 second_forecast_temp_max = max(
-                    forecast_temp_max, forecast["temperature"]
+                    second_forecast_temp_max, forecast["temperature"]
                 )
 
         # Skip half days the forecast does not cover, e.g. the last forecast
