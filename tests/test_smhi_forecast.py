@@ -358,3 +358,36 @@ async def test_hourly_precipitation(
         amount = data["data"]["precipitation_amount_mean"]
         assert result_forecast["mean_precipitation"] == amount
         assert result_forecast["total_precipitation"] == amount
+
+
+async def test_twice_daily_starts_at_half_day(
+    aresponses: ResponsesMockServer,
+    mock_data: dict[str, Any],
+) -> None:
+    """Test twice daily forecasts start at 00:00 and 12:00.
+
+    The forecast starts at 13:00 so the first afternoon is only partly covered.
+    """
+    mock_data["timeSeries"] = [
+        forecast
+        for forecast in mock_data["timeSeries"]
+        if forecast["time"] >= "2026-04-02T13:00:00Z"
+    ]
+    aresponses.add(
+        "opendata-download-metfcst.smhi.se",
+        "/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
+        "GET",
+        response=mock_data,
+        repeat=math.inf,
+    )
+
+    async with aiohttp.ClientSession() as session:
+        forecast = SMHIPointForecast("16.123457", "58.123457", session)
+        result = await forecast.async_get_twice_daily_forecast()
+
+    assert result[0]["valid_time"] == datetime(2026, 4, 2, 13, tzinfo=UTC)
+    assert result[1]["valid_time"] == datetime(2026, 4, 2, 12, tzinfo=UTC)
+    assert result[2]["valid_time"] == datetime(2026, 4, 3, 0, tzinfo=UTC)
+    for result_forecast in result[1:]:
+        assert result_forecast["valid_time"].hour in (0, 12)
+        assert result_forecast["valid_time"].minute == 0
