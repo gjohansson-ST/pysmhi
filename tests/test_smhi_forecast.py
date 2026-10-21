@@ -1,7 +1,6 @@
 """Tests for SMHI forecast."""
 
 import json
-import math
 import pathlib
 from collections.abc import AsyncGenerator
 from datetime import UTC, datetime, timedelta
@@ -10,11 +9,13 @@ from unittest.mock import patch
 
 import aiohttp
 import pytest
-from aresponses import ResponsesMockServer
+from aiointercept import aiointercept
 from freezegun import freeze_time
 from syrupy.assertion import SnapshotAssertion
 
 from pysmhi import SmhiForecastException, SMHIPointForecast
+
+from .conftest import request_count
 
 
 @pytest.fixture(autouse=True)
@@ -33,16 +34,14 @@ async def get_mock_data() -> dict[str, Any]:
 
 
 async def test_api(
-    aresponses: ResponsesMockServer,
+    mock_aiointercept: aiointercept,
     mock_data: dict[str, Any],
     snapshot: SnapshotAssertion,
 ) -> None:
     """Test api."""
-    aresponses.add(
-        "opendata-download-metfcst.smhi.se",
-        "/api/category/snow1g/version/1/geotype/point/lon/16.15035/lat/58.570784/data.json",
-        "GET",
-        response=mock_data,
+    mock_aiointercept.get(
+        "https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.15035/lat/58.570784/data.json",
+        payload=mock_data,
         repeat=3,
     )
 
@@ -61,34 +60,30 @@ async def test_api(
 
 
 async def test_ratelimiting(
-    aresponses: ResponsesMockServer,
+    mock_aiointercept: aiointercept,
     mock_data: dict[str, Any],
 ) -> None:
     """Test api."""
-    aresponses.add(
-        "opendata-download-metfcst.smhi.se",
-        "/api/category/snow1g/version/1/geotype/point/lon/16.15035/lat/58.570784/data.json",
-        "GET",
-        response=mock_data,
-        repeat=math.inf,
+    mock_aiointercept.get(
+        "https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.15035/lat/58.570784/data.json",
+        payload=mock_data,
+        repeat=True,
     )
-    aresponses.add(
-        "opendata-download-metfcst.smhi.se",
-        "/api/category/snow1g/version/1/geotype/point/lon/17.15035/lat/58.570784/data.json",
-        "GET",
-        response=mock_data,
-        repeat=math.inf,
+    mock_aiointercept.get(
+        "https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/17.15035/lat/58.570784/data.json",
+        payload=mock_data,
+        repeat=True,
     )
     initial_datetime = datetime(2025, 1, 20, 18, 29, 54, tzinfo=UTC)
     with freeze_time(initial_datetime) as frozen_datetime:
         async with aiohttp.ClientSession() as session:
             forecast = SMHIPointForecast("16.15035", "58.570784", session)
             await forecast.async_get_daily_forecast()
-            assert len(aresponses.history) == 1
+            assert request_count(mock_aiointercept) == 1
 
             forecast2 = SMHIPointForecast("17.15035", "58.570784", session)
             await forecast2.async_get_daily_forecast()
-            assert len(aresponses.history) == 2
+            assert request_count(mock_aiointercept) == 2
 
             initial_rate_limit = forecast._api.rate_limit.copy()  # noqa: SLF001
 
@@ -96,14 +91,14 @@ async def test_ratelimiting(
             frozen_datetime.tick(timedelta(seconds=5))
             await forecast.async_get_daily_forecast()
             await forecast2.async_get_daily_forecast()
-            assert len(aresponses.history) == 2
+            assert request_count(mock_aiointercept) == 2
 
             assert forecast._api.rate_limit == initial_rate_limit  # noqa:SLF001
 
             # New call after 60 seconds should make a new request
             frozen_datetime.tick(timedelta(seconds=60))
             await forecast.async_get_daily_forecast()
-            assert len(aresponses.history) == 3
+            assert request_count(mock_aiointercept) == 3
 
 
 @pytest.mark.parametrize(
@@ -136,16 +131,14 @@ async def test_ratelimiting(
     ],
 )
 async def test_api_failure(
-    aresponses: ResponsesMockServer, status: int, reason: str, match: str
+    mock_aiointercept: aiointercept, status: int, reason: str, match: str
 ) -> None:
     """Test api."""
-    response = aresponses.Response(status=status, reason=reason)
-    aresponses.add(
-        "opendata-download-metfcst.smhi.se",
-        "/api/category/snow1g/version/1/geotype/point/lon/16.15035/lat/58.570784/data.json",
-        "GET",
-        response=response,
-        repeat=math.inf,
+    mock_aiointercept.get(
+        "https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.15035/lat/58.570784/data.json",
+        status=status,
+        reason=reason,
+        repeat=True,
     )
 
     async with aiohttp.ClientSession() as session:
@@ -168,17 +161,14 @@ async def test_api_failure(
 
 
 async def test_malformed_data(
-    aresponses: ResponsesMockServer,
+    mock_aiointercept: aiointercept,
     mock_data: dict[str, Any],
 ) -> None:
     """Test api."""
     mock_data["referenceTime"] = ""
-    aresponses.add(
-        "opendata-download-metfcst.smhi.se",
-        "/api/category/snow1g/version/1/geotype/point/lon/16.15035/lat/58.570784/data.json",
-        "GET",
-        response=mock_data,
-        repeat=1,
+    mock_aiointercept.get(
+        "https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.15035/lat/58.570784/data.json",
+        payload=mock_data,
     )
 
     async with aiohttp.ClientSession() as session:
@@ -191,16 +181,14 @@ async def test_malformed_data(
 
 
 async def test_six_digits_rounding(
-    aresponses: ResponsesMockServer,
+    mock_aiointercept: aiointercept,
     mock_data: dict[str, Any],
 ) -> None:
     """Test api."""
-    aresponses.add(
-        "opendata-download-metfcst.smhi.se",
-        "/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
-        "GET",
-        response=mock_data,
-        repeat=math.inf,
+    mock_aiointercept.get(
+        "https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
+        payload=mock_data,
+        repeat=True,
     )
 
     async with aiohttp.ClientSession() as session:
@@ -208,7 +196,7 @@ async def test_six_digits_rounding(
         assert forecast._latitude == "58.123457"  # noqa: SLF001
         assert forecast._longitude == "16.123457"  # noqa: SLF001
         await forecast.async_get_daily_forecast()
-        assert len(aresponses.history) == 1
+        assert request_count(mock_aiointercept) == 1
 
 
 def _expected_precipitation(
@@ -230,16 +218,14 @@ def _expected_precipitation(
 
 
 async def test_total_precipitation_daily(
-    aresponses: ResponsesMockServer,
+    mock_aiointercept: aiointercept,
     mock_data: dict[str, Any],
 ) -> None:
     """Test daily total precipitation sums the amounts for each day."""
-    aresponses.add(
-        "opendata-download-metfcst.smhi.se",
-        "/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
-        "GET",
-        response=mock_data,
-        repeat=math.inf,
+    mock_aiointercept.get(
+        "https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
+        payload=mock_data,
+        repeat=True,
     )
     expected = _expected_precipitation(mock_data, 24)
 
@@ -272,16 +258,14 @@ async def test_total_precipitation_daily(
 
 
 async def test_total_precipitation_with_different_date(
-    aresponses: ResponsesMockServer,
+    mock_aiointercept: aiointercept,
     mock_data: dict[str, Any],
 ) -> None:
     """Test api."""
-    aresponses.add(
-        "opendata-download-metfcst.smhi.se",
-        "/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
-        "GET",
-        response=mock_data,
-        repeat=math.inf,
+    mock_aiointercept.get(
+        "https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
+        payload=mock_data,
+        repeat=True,
     )
 
     forecasts = mock_data["timeSeries"]
@@ -312,16 +296,14 @@ async def test_total_precipitation_with_different_date(
 
 
 async def test_total_precipitation_twice_daily(
-    aresponses: ResponsesMockServer,
+    mock_aiointercept: aiointercept,
     mock_data: dict[str, Any],
 ) -> None:
     """Test twice daily total precipitation sums the amounts for each half day."""
-    aresponses.add(
-        "opendata-download-metfcst.smhi.se",
-        "/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
-        "GET",
-        response=mock_data,
-        repeat=math.inf,
+    mock_aiointercept.get(
+        "https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
+        payload=mock_data,
+        repeat=True,
     )
     expected = _expected_precipitation(mock_data, 12)
 
@@ -339,16 +321,14 @@ async def test_total_precipitation_twice_daily(
 
 
 async def test_hourly_precipitation(
-    aresponses: ResponsesMockServer,
+    mock_aiointercept: aiointercept,
     mock_data: dict[str, Any],
 ) -> None:
     """Test hourly precipitation is the amount for each hour."""
-    aresponses.add(
-        "opendata-download-metfcst.smhi.se",
-        "/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
-        "GET",
-        response=mock_data,
-        repeat=math.inf,
+    mock_aiointercept.get(
+        "https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
+        payload=mock_data,
+        repeat=True,
     )
 
     async with aiohttp.ClientSession() as session:
@@ -362,7 +342,7 @@ async def test_hourly_precipitation(
 
 
 async def test_twice_daily_starts_at_half_day(
-    aresponses: ResponsesMockServer,
+    mock_aiointercept: aiointercept,
     mock_data: dict[str, Any],
 ) -> None:
     """Test twice daily forecasts start at 00:00 and 12:00.
@@ -374,12 +354,10 @@ async def test_twice_daily_starts_at_half_day(
         for forecast in mock_data["timeSeries"]
         if forecast["time"] >= "2026-04-02T13:00:00Z"
     ]
-    aresponses.add(
-        "opendata-download-metfcst.smhi.se",
-        "/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
-        "GET",
-        response=mock_data,
-        repeat=math.inf,
+    mock_aiointercept.get(
+        "https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
+        payload=mock_data,
+        repeat=True,
     )
 
     async with aiohttp.ClientSession() as session:
@@ -395,16 +373,14 @@ async def test_twice_daily_starts_at_half_day(
 
 
 async def test_twice_daily_temperature(
-    aresponses: ResponsesMockServer,
+    mock_aiointercept: aiointercept,
     mock_data: dict[str, Any],
 ) -> None:
     """Test twice daily min and max temperature covers each half day."""
-    aresponses.add(
-        "opendata-download-metfcst.smhi.se",
-        "/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
-        "GET",
-        response=mock_data,
-        repeat=math.inf,
+    mock_aiointercept.get(
+        "https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/16.123457/lat/58.123457/data.json",
+        payload=mock_data,
+        repeat=True,
     )
     temperatures: dict[datetime, list[float]] = {}
     for forecast in mock_data["timeSeries"]:
