@@ -1,0 +1,397 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [15.901346, 59.028873] },
+      "properties": {
+        "power": 9.01,
+        "tb": 348.9,
+        "confidence": 8,
+        "observation_time": "2026-09-01T13:27:01",
+        "anomaly": 0,
+        "tb_celcius": 75.7,
+        "id": "20260901-1",
+        "platform_name": "Suomi-NPP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [17.348232, 62.118557] },
+      "properties": {
+        "power": 4.96,
+        "tb": 332.9,
+        "confidence": 8,
+        "observation_time": "2026-09-02T12:32:31",
+        "anomaly": 0,
+        "tb_celcius": 59.7,
+        "id": "20260902-1",
+        "platform_name": "NOAA-21"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [17.347137, 62.119438] },
+      "properties": {
+        "power": 2.67,
+        "tb": 329.5,
+        "confidence": 8,
+        "observation_time": "2026-09-02T13:08:05",
+        "anomaly": 0,
+        "tb_celcius": 56.4,
+        "id": "20260902-2",
+        "platform_name": "Suomi-NPP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [15.817588, 57.517971] },
+      "properties": {
+        "power": 4.03,
+        "tb": 344.2,
+        "confidence": 8,
+        "observation_time": "2026-09-02T13:26:35",
+        "anomaly": 0,
+        "tb_celcius": 71,
+        "id": "20260902-3",
+        "platform_name": "NOAA-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [15.237771, 57.722809] },
+      "properties": {
+        "power": 4.3,
+        "tb": 336.4,
+        "confidence": 8,
+        "observation_time": "2026-09-06T13:33:23",
+        "anomaly": 0,
+        "tb_celcius": 63.2,
+        "id": "20260906-1",
+        "platform_name": "Suomi-NPP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [15.16326, 58.54707] },
+      "properties": {
+        "power": 1.86,
+        "tb": 338.7,
+        "confidence": 8,
+        "observation_time": "2026-09-06T13:33:23",
+        "anomaly": 0,
+        "tb_celcius": 65.5,
+        "id": "20260906-2",
+        "platform_name": "Suomi-NPP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.47301, 58.538265] },
+      "properties": {
+        "power": 3.55,
+        "tb": 342.7,
+        "confidence": 8,
+        "observation_time": "2026-09-06T13:33:23",
+        "anomaly": 0,
+        "tb_celcius": 69.5,
+        "id": "20260906-3",
+        "platform_name": "Suomi-NPP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [11.606512, 58.285271] },
+      "properties": {
+        "power": 2.27,
+        "tb": 327.2,
+        "confidence": 8,
+        "observation_time": "2026-09-09T12:56:32",
+        "anomaly": 0,
+        "tb_celcius": 54.1,
+        "id": "20260909-1",
+        "platform_name": "NOAA-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [11.605124, 58.285366] },
+      "properties": {
+        "power": 3.36,
+        "tb": 326,
+        "confidence": 8,
+        "observation_time": "2026-09-09T12:56:32",
+        "anomaly": 0,
+        "tb_celcius": 52.9,
+        "id": "20260909-2",
+        "platform_name": "NOAA-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [11.60183, 58.283993] },
+      "properties": {
+        "power": 4.22,
+        "tb": 332.2,
+        "confidence": 8,
+        "observation_time": "2026-09-09T14:17:38",
+        "anomaly": 0,
+        "tb_celcius": 59.1,
+        "id": "20260909-3",
+        "platform_name": "Suomi-NPP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [11.605195, 58.28318] },
+      "properties": {
+        "power": 4.2,
+        "tb": 330.3,
+        "confidence": 8,
+        "observation_time": "2026-09-09T14:36:08",
+        "anomaly": 0,
+        "tb_celcius": 57.2,
+        "id": "20260909-4",
+        "platform_name": "NOAA-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.449897, 57.577366] },
+      "properties": {
+        "power": 0.56,
+        "tb": 314,
+        "confidence": 8,
+        "observation_time": "2026-09-10T01:48:57",
+        "anomaly": 0,
+        "tb_celcius": 40.8,
+        "id": "20260910-1",
+        "platform_name": "NOAA-21"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [17.197447, 59.344181] },
+      "properties": {
+        "power": 4.28,
+        "tb": 303.3,
+        "confidence": 8,
+        "observation_time": "2026-09-11T01:30:02",
+        "anomaly": 0,
+        "tb_celcius": 30.1,
+        "id": "20260910-2",
+        "platform_name": "NOAA-21"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [17.206873, 59.346092] },
+      "properties": {
+        "power": 1.09,
+        "tb": 316.9,
+        "confidence": 8,
+        "observation_time": "2026-09-11T02:05:36",
+        "anomaly": 0,
+        "tb_celcius": 43.8,
+        "id": "20260911-1",
+        "platform_name": "Suomi-NPP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [17.206907, 59.340145] },
+      "properties": {
+        "power": 1.09,
+        "tb": 312.9,
+        "confidence": 8,
+        "observation_time": "2026-09-11T02:05:36",
+        "anomaly": 0,
+        "tb_celcius": 39.8,
+        "id": "20260911-2",
+        "platform_name": "Suomi-NPP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [17.200674, 59.3456] },
+      "properties": {
+        "power": 1.75,
+        "tb": 309.7,
+        "confidence": 8,
+        "observation_time": "2026-09-11T02:25:31",
+        "anomaly": 0,
+        "tb_celcius": 36.5,
+        "id": "20260911-3",
+        "platform_name": "NOAA-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [17.210339, 59.345116] },
+      "properties": {
+        "power": 1.79,
+        "tb": 304.3,
+        "confidence": 8,
+        "observation_time": "2026-09-11T02:25:31",
+        "anomaly": 0,
+        "tb_celcius": 31.1,
+        "id": "20260911-4",
+        "platform_name": "NOAA-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [17.20459, 59.341606] },
+      "properties": {
+        "power": 3.65,
+        "tb": 328.6,
+        "confidence": 8,
+        "observation_time": "2026-09-11T03:11:02",
+        "anomaly": 0,
+        "tb_celcius": 55.4,
+        "id": "20260911-5",
+        "platform_name": "NOAA-21"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [17.204943, 59.343853] },
+      "properties": {
+        "power": 1.41,
+        "tb": 322.2,
+        "confidence": 8,
+        "observation_time": "2026-09-11T03:46:36",
+        "anomaly": 0,
+        "tb_celcius": 49,
+        "id": "20260911-6",
+        "platform_name": "Suomi-NPP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [17.208147, 59.345772] },
+      "properties": {
+        "power": 0.51,
+        "tb": 298.9,
+        "confidence": 8,
+        "observation_time": "2026-09-11T04:06:31",
+        "anomaly": 0,
+        "tb_celcius": 25.8,
+        "id": "20260911-7",
+        "platform_name": "NOAA-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [17.206011, 59.343319] },
+      "properties": {
+        "power": 1,
+        "tb": 306.9,
+        "confidence": 8,
+        "observation_time": "2026-09-11T04:06:31",
+        "anomaly": 0,
+        "tb_celcius": 33.7,
+        "id": "20260911-8",
+        "platform_name": "NOAA-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [12.393164, 58.562569] },
+      "properties": {
+        "power": 0.68,
+        "tb": 296.1,
+        "confidence": 8,
+        "observation_time": "2026-09-17T02:58:29",
+        "anomaly": 0,
+        "tb_celcius": 23,
+        "id": "20260917-1",
+        "platform_name": "NOAA-21"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [12.395496, 58.563751] },
+      "properties": {
+        "power": 1.57,
+        "tb": 326.3,
+        "confidence": 8,
+        "observation_time": "2026-09-17T03:35:30",
+        "anomaly": 0,
+        "tb_celcius": 53.2,
+        "id": "20260917-2",
+        "platform_name": "Suomi-NPP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [12.402264, 58.562828] },
+      "properties": {
+        "power": 1.57,
+        "tb": 297.3,
+        "confidence": 8,
+        "observation_time": "2026-09-17T03:35:30",
+        "anomaly": 0,
+        "tb_celcius": 24.2,
+        "id": "20260917-3",
+        "platform_name": "Suomi-NPP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [12.400535, 58.565121] },
+      "properties": {
+        "power": 1.05,
+        "tb": 295,
+        "confidence": 8,
+        "observation_time": "2026-09-17T03:53:59",
+        "anomaly": 0,
+        "tb_celcius": 21.9,
+        "id": "20260917-4",
+        "platform_name": "NOAA-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [12.39824, 58.561878] },
+      "properties": {
+        "power": 1.05,
+        "tb": 321,
+        "confidence": 8,
+        "observation_time": "2026-09-17T03:53:59",
+        "anomaly": 0,
+        "tb_celcius": 47.9,
+        "id": "20260917-5",
+        "platform_name": "NOAA-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.185374, 55.446774] },
+      "properties": {
+        "power": 3.7,
+        "tb": 334,
+        "confidence": 8,
+        "observation_time": "2026-09-22T12:56:39",
+        "anomaly": 0,
+        "tb_celcius": 60.9,
+        "id": "20260922-1",
+        "platform_name": "NOAA-21"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [20.670113, 64.250923] },
+      "properties": {
+        "power": 3.02,
+        "tb": 326.4,
+        "confidence": 8,
+        "observation_time": "2026-09-30T12:07:41",
+        "anomaly": 0,
+        "tb_celcius": 53.3,
+        "id": "20260930-1",
+        "platform_name": "NOAA-21"
+      }
+    }
+  ]
+}

@@ -21,6 +21,7 @@ python module for communicating with [SMHI](https://opendata.smhi.se/)
 - Bi-daily weather forecast
 - Daily fire risk
 - Hourly fire risk
+- Satellite fire detections near a location
 
 ## Code examples
 
@@ -36,5 +37,55 @@ async with aiohttp.ClientSession(loop=loop) as session:
     daily_forecast = await client.async_get_daily_forecast()
     print(daily_forecast)
 ```
+
+### Get fire detections
+
+Retrieves the [satellite fire detections](https://opendata.smhi.se/satellite/firedetections/introduction)
+near the specified location, newest first.
+
+Only detections within `radius` km from the location during the last `days` days are
+included. The defaults are 50 km and 7 days.
+
+```python
+import asyncio
+
+import aiohttp
+
+from pysmhi import SMHIFireDetections
+
+
+async def main() -> None:
+    async with aiohttp.ClientSession() as session:
+        client = SMHIFireDetections("17.1413", "60.6749", session)
+        detections = await client.async_get_fire_detections(radius=150, days=30)
+        print(detections)
+
+
+asyncio.run(main())
+```
+
+Result, showing the first detection:
+
+```python
+[
+    {
+        "id": "20261007-1",
+        "observation_time": datetime(2026, 10, 7, 10, 31, 42, tzinfo=UTC),
+        "longitude": 17.202057,
+        "latitude": 60.60487,
+        "distance": 8.46,
+        "power": 2.1,
+        "brightness_temperature": 329.2,
+        "brightness_temperature_celsius": 56,
+        "confidence": SMHIFireDetectionConfidence.NOMINAL,
+        "anomaly": SMHIFireDetectionAnomaly.NONE,
+        "platform_name": "NOAA-20",
+    },
+    ...,
+]
+```
+
+The observation time is converted from Swedish time to UTC. The `anomaly` tells if the
+detection is at a known persistent heat source, e.g. a gas flare or a solar panel.
 
 Credits to [@helto4real](https://github.com/helto4real) for making the original smhi api package used for Home Assistant to connect to SMHI weather services which this is based upon.
