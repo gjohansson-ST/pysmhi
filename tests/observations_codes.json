@@ -1,0 +1,468 @@
+{
+  "entry": [
+    {
+      "key": 0,
+      "value": "Molnens utveckling har icke kunnat observeras eller icke observerats"
+    },
+    {
+      "key": 1,
+      "value": "Moln har upplösts helt eller avtagit i utsträckning, i mäktighet eller i täthet"
+    },
+    { "key": 2, "value": "Molnhimlen i stort sett oförändrad" },
+    {
+      "key": 3,
+      "value": "Moln har bildats eller tilltagit i utsträckning, i mäktighet eller i täthet"
+    },
+    { "key": 4, "value": "Sikten nedsatt av brandrök eller fabriksrök" },
+    { "key": 5, "value": "Torrdis (solrök)" },
+    {
+      "key": 6,
+      "value": "Stoft svävar i luften, men uppvirvlas ej av vinden vid observationsterminen ."
+    },
+    {
+      "key": 7,
+      "value": "Stoft eller sand uppvirvlas av vinden men ingen utpräglad sandvirvel och ingen sandstorm inom synhåll"
+    },
+    {
+      "key": 8,
+      "value": "Utpräglad stoft- eller sandvirvel vid obsterminen eller under senaste timmen meningen sandstorm"
+    },
+    {
+      "key": 9,
+      "value": "Sandstorm under senaste timmen eller inom synhåll vid obs-terminen"
+    },
+    { "key": 10, "value": "Fuktdis med sikt 1-10 km" },
+    {
+      "key": 11,
+      "value": "Låg dimma i bankar på stationen, skiktets mäktighet överstiger ej 2 m på land eller 10 m till sjöss"
+    },
+    {
+      "key": 12,
+      "value": "Mer eller mindre sammanhängande låg dimma på stationen, skiktets mäktighet överstiger ej 2 m på land eller 10 m till sjöss"
+    },
+    { "key": 13, "value": "Kornblixt" },
+    {
+      "key": 14,
+      "value": "Nederbörd inom synhåll, som ej når marken eller havsytan (fallstrimmor)"
+    },
+    {
+      "key": 15,
+      "value": "Nederbörd, som når marken eller havsytaninom synhåll på ett avstånd större än 5 km från stationen"
+    },
+    {
+      "key": 16,
+      "value": "Nederbörd, som når marken eller havsytan inom synhåll på ett avstånd mindre än 5 km, men ej på stationen"
+    },
+    {
+      "key": 17,
+      "value": "Åska vid observationsterminen men ingen nederbörd på stationen"
+    },
+    {
+      "key": 18,
+      "value": "Utpräglade starka vindbyar på stationen eller inom synhåll vid obs-terminen eller under senaste timmen"
+    },
+    {
+      "key": 19,
+      "value": "Skydrag eller tromb på stationen eller inom synhåll vid obs-terminen eller under senaste timmen"
+    },
+    {
+      "key": 20,
+      "value": "Duggregn eller kornsnö under senaste timmen men ej vid observationsterterminen"
+    },
+    {
+      "key": 21,
+      "value": "Regn under senaste timmen men ej vid observationsterterminen"
+    },
+    {
+      "key": 22,
+      "value": "Snöfall under senaste timmen men ej vid observationsterterminen"
+    },
+    {
+      "key": 23,
+      "value": "Snöblandat regn eller iskorn under senaste timmen men ej vid observationsterterminen"
+    },
+    {
+      "key": 24,
+      "value": "Underkylt regn eller duggregn under senaste timmen men ej vid observationsterterminen"
+    },
+    {
+      "key": 25,
+      "value": "Regnskura runder senaste timmen men ej vid observationsterterminen"
+    },
+    {
+      "key": 26,
+      "value": "Byar av snö eller snöblandat regn under senaste timmen men ej vid observationsterterminen"
+    },
+    {
+      "key": 27,
+      "value": "Byar av hagel med eller utan regn under senaste timmen men ej vid observationsterterminen"
+    },
+    {
+      "key": 28,
+      "value": "Dimma under senaste timmen men ej vid observationsterterminen"
+    },
+    {
+      "key": 29,
+      "value": "Åska (med eller utan nederbörd) under senaste timmen men ej vid observationsterterminen"
+    },
+    {
+      "key": 30,
+      "value": "Lätt eller måttlig sandstorm har avtagit istyrka under senaste timmen"
+    },
+    {
+      "key": 31,
+      "value": "Lätt eller måttlig sandstorm utan märkbar förändring under senaste timmen"
+    },
+    {
+      "key": 32,
+      "value": "Lätt eller måttlig sandstorm har börjat eller tilltagit i styrka under senaste timmen"
+    },
+    {
+      "key": 33,
+      "value": "Kraftig sandstorm har avtagit i styrka under senaste timmen"
+    },
+    {
+      "key": 34,
+      "value": "Kraftig sandstorm utan märkbar förändring under senaste timmen"
+    },
+    {
+      "key": 35,
+      "value": "Kraftig sandstorm har börjat eller tilltagit i styrka under senaste timmen"
+    },
+    { "key": 36, "value": "Lågt och lätt eller måttligt snödrev" },
+    { "key": 37, "value": "Lågt men tätt snödrev" },
+    { "key": 38, "value": "Högt men lätt eller måttligt snödrev" },
+    { "key": 39, "value": "Högt och tätt snödrev" },
+    {
+      "key": 40,
+      "value": "Dimma inom synhåll vid observationsterminen, nående över ögonhöjd (dock ej dimma på stationen under senaste timmen) (VV ?10)"
+    },
+    { "key": 41, "value": "Dimma i bankar på stationen (VV< 10)" },
+    {
+      "key": 42,
+      "value": "Dimma, med skymt av himlen, har blivit lättare under senaste timmen"
+    },
+    {
+      "key": 43,
+      "value": "Dimma, utan skymt av himlen, har blivit lättare under senaste timmen"
+    },
+    {
+      "key": 44,
+      "value": "Dimma, med skymt av himlen, oförändrad under senaste timmen"
+    },
+    {
+      "key": 45,
+      "value": "Dimma, utan skymt av himlen, oförändrad under senaste timmen"
+    },
+    {
+      "key": 46,
+      "value": "Dimma, med skymt av himlen, har börjat eller tätnat under senaste timmen"
+    },
+    {
+      "key": 47,
+      "value": "Dimma, utan skymt av himlen, har börjat eller tätnat under senaste timmen"
+    },
+    { "key": 48, "value": "Underkyld dimma, med skymt av himlen" },
+    { "key": 49, "value": "Underkyld dimma, utan skymt av himlen" },
+    { "key": 50, "value": "Lätt duggregn med avbrott" },
+    { "key": 51, "value": "Lätt duggregn, ihållande" },
+    { "key": 52, "value": "Måttligt duggregn med avbrott" },
+    { "key": 53, "value": "Måttligt duggregn, ihållande" },
+    { "key": 54, "value": "Tätt duggregn med avbrott" },
+    { "key": 55, "value": "Tätt duggregn, ihållande" },
+    { "key": 56, "value": "Lätt underkylt duggregn " },
+    { "key": 57, "value": "Måttligt eller tätt underkylt duggregn " },
+    { "key": 58, "value": "Lätt duggregn tillsammans med regn" },
+    { "key": 59, "value": "Måttligt eller tätt duggregn tillsammans med regn" },
+    { "key": 60, "value": "Lätt regn med avbrott" },
+    { "key": 61, "value": "Lätt regn, ihållande" },
+    { "key": 62, "value": "Måttligt regn med avbrott" },
+    { "key": 63, "value": "Måttligt regn, ihållande" },
+    { "key": 64, "value": "Starkt regn med avbrott" },
+    { "key": 65, "value": "Starkt regn ihållande" },
+    { "key": 66, "value": "Lätt underkylt regn" },
+    { "key": 67, "value": "Måttligt eller starkt underkylt regn" },
+    { "key": 68, "value": "Lätt regn eller duggregn tillsammans med snö" },
+    {
+      "key": 69,
+      "value": "Måttligt eller starkt regn eller duggregn tillsammans med snö"
+    },
+    { "key": 70, "value": "Lätt snöfall med avbrott" },
+    { "key": 71, "value": "Lätt snöfall, ihållande" },
+    { "key": 72, "value": "Måttligt snöfall med avbrott" },
+    { "key": 73, "value": "Måttligt snöfall, ihållande" },
+    { "key": 74, "value": "Tätt snöfall med avbrott" },
+    { "key": 75, "value": "Tätt snöfall, ihållande" },
+    { "key": 76, "value": "Isnålar (med el. utan dimma)" },
+    { "key": 77, "value": "Kornsnö (med el. utan dimma)" },
+    { "key": 78, "value": "Enstaka snöstjärnor (med el. utan dimma)" },
+    { "key": 79, "value": "Iskorn" },
+    { "key": 80, "value": "Lätta regnskurar" },
+    { "key": 81, "value": "Måttliga eller kraftiga regnskurar" },
+    { "key": 82, "value": "Mycket kraftiga regnskurar (skyfall)" },
+    { "key": 83, "value": "Lätt snöblandat regn i byar" },
+    { "key": 84, "value": "Måttligt eller kraftigt snöblandat regn i byar" },
+    { "key": 85, "value": "Lätta snöbyar" },
+    { "key": 86, "value": "Måttliga eller kraftiga snöbyar" },
+    {
+      "key": 87,
+      "value": "Lätta byar av småhagel eller snöhagel (trindsnö) med eller utan regn eller snöblandat regn"
+    },
+    {
+      "key": 88,
+      "value": "Måttliga eller kraftiga byar av småhagel eller snöhagel (trindsnö) med eller utan regn eller snöblandat regn"
+    },
+    {
+      "key": 89,
+      "value": "Lätta byar av ishagel med eller utan regn eller snöblandat regn, utan åska "
+    },
+    {
+      "key": 90,
+      "value": "Måttliga eller kraftiga byar av ishagel med eller utan regn eller snöblandat regn, utan åska "
+    },
+    {
+      "key": 91,
+      "value": "Lätt regn vid observationsterminen, åskväder under senaste timmen men ej vid observationsterminen"
+    },
+    {
+      "key": 92,
+      "value": "Måttligt el. starkt regn vid observationsterminen, åskväder under senaste timmen men ej vid observationsterminen"
+    },
+    {
+      "key": 93,
+      "value": "Lätt snöfall, snöblandat regn eller hagel vid observationsterminen, åskväder under senaste timmen men ej vid observationsterminen"
+    },
+    {
+      "key": 94,
+      "value": "Måttligt el. starkt snöfall, snöblandat regn eller hagel vid observationsterminen, åskväder under senaste timmen men ej vid observationsterminen"
+    },
+    {
+      "key": 95,
+      "value": "Svagt eller måttligt  åskväder vid observationsterminen utan hagel men med regn eller snö"
+    },
+    {
+      "key": 96,
+      "value": "Svagt eller måttligt  åskväder vid observationsterminen med hagel"
+    },
+    {
+      "key": 97,
+      "value": "Kraftigt åskväder vid observationsterminen utan hagel men med regn eller snö"
+    },
+    {
+      "key": 98,
+      "value": "Kraftigt åskväder vid observationsterminen med sandstorm"
+    },
+    {
+      "key": 99,
+      "value": "Kraftigt åskväder vid observationsterminen med hagel"
+    },
+    { "key": 100, "value": "Inget signifikant väder observerat" },
+    {
+      "key": 101,
+      "value": "Moln har upplösts helt eller avtagit i utsträckning, i mäktighet eller i täthet, under senste timmen"
+    },
+    {
+      "key": 102,
+      "value": "Molnhimlen i stort sett oförändrad under senste timmen"
+    },
+    {
+      "key": 103,
+      "value": "Moln har bildats eller tilltagit i utsträckning, i mäktighet eller i täthet, under senste timmen"
+    },
+    {
+      "key": 104,
+      "value": "Dis eller rök, eller stoft som är spritt i luften, sikt större eller lika med 1 km"
+    },
+    {
+      "key": 105,
+      "value": "Dis eller rök, eller stoft som är spritt i luften, sikt mindre än 1 km"
+    },
+    { "key": 110, "value": "Fuktdis med sikt 1-10 km" },
+    { "key": 111, "value": "Isnålar" },
+    { "key": 112, "value": "Blixt på avstånd" },
+    { "key": 118, "value": "Utpräglade starka vindbyar" },
+    { "key": 120, "value": "Dimma" },
+    { "key": 121, "value": "Nederbörd" },
+    { "key": 122, "value": "Duggregn eller kornsnö" },
+    { "key": 123, "value": "Regn" },
+    { "key": 124, "value": "Snöfall" },
+    { "key": 125, "value": "Underkylt duggregn eller regn" },
+    { "key": 126, "value": "Åskväder (med eller utan nederbörd)" },
+    { "key": 127, "value": "Snödrev eller sandstorm" },
+    {
+      "key": 128,
+      "value": "Snödrev eller sandstorm, sikt större eller lika med 1 km"
+    },
+    { "key": 129, "value": "Snödrev eller sandstorm, sikt mindre än 1 km" },
+    { "key": 130, "value": "Dimma" },
+    { "key": 131, "value": "Dimma i bankar på stationen" },
+    { "key": 132, "value": "Dimma, har blivit lättare under senaste timmen" },
+    { "key": 133, "value": "Dimma, oförändrad under senaste timmen" },
+    {
+      "key": 134,
+      "value": "Dimma, har börjat eller tätnat under senaste timmen"
+    },
+    { "key": 135, "value": "Underkyld dimma" },
+    { "key": 140, "value": "Nederbörd" },
+    { "key": 141, "value": "Lätt eller måttlig nederbörd" },
+    { "key": 142, "value": "Kraftig nederbörd" },
+    { "key": 143, "value": "Flytande nederbörd, lätt eller måttlig" },
+    { "key": 144, "value": "Flytande nederbörd, kraftig" },
+    { "key": 145, "value": "Fast nederbörd, lätt eller måttlig" },
+    { "key": 146, "value": "Fast nederbörd, kraftig" },
+    { "key": 147, "value": "Lätt eller måttlig underkyld nederbörd" },
+    { "key": 148, "value": "Kraftig underkyld nederbörd" },
+    { "key": 150, "value": "Duggregn" },
+    { "key": 151, "value": "Lätt duggregn" },
+    { "key": 152, "value": "Måttligt duggregn" },
+    { "key": 153, "value": "Tätt duggregn" },
+    { "key": 154, "value": "Lätt underkylt duggregn " },
+    { "key": 155, "value": "Måttligt underkylt duggregn " },
+    { "key": 156, "value": "Tätt duggregn " },
+    { "key": 157, "value": "Lätt duggregn tillsammans med regn" },
+    {
+      "key": 158,
+      "value": "Måttligt eller tätt duggregn tillsammans med regn"
+    },
+    { "key": 160, "value": "Regn" },
+    { "key": 161, "value": "Lätt regn" },
+    { "key": 162, "value": "Måttligt regn" },
+    { "key": 163, "value": "Starkt regn" },
+    { "key": 164, "value": "Lätt underkylt regn" },
+    { "key": 165, "value": "Måttligt underkylt regn" },
+    { "key": 166, "value": "Starkt underkylt regn" },
+    { "key": 167, "value": "Lätt regn eller duggregn tillsammans med snö" },
+    {
+      "key": 168,
+      "value": "Måttligt eller starkt regn eller duggregn tillsammans med snö"
+    },
+    { "key": 170, "value": "Snöfall" },
+    { "key": 171, "value": "Lätt snöfall" },
+    { "key": 172, "value": "Måttligt snöfall" },
+    { "key": 173, "value": "Tätt snöfall" },
+    { "key": 174, "value": "Lätt småhagel" },
+    { "key": 175, "value": "Måttligt småhagel" },
+    { "key": 176, "value": "Kraftigt småhagel" },
+    { "key": 177, "value": "Kornsnö" },
+    { "key": 178, "value": "Isnålar" },
+    { "key": 180, "value": "Regnskurar" },
+    { "key": 181, "value": "Lätta regnskurar" },
+    { "key": 182, "value": "Måttliga regnskurar" },
+    { "key": 183, "value": "Kraftiga regnskurar" },
+    { "key": 184, "value": "Mycket kraftiga regnskurar (skyfall)" },
+    { "key": 185, "value": "Lätta snöbyar" },
+    { "key": 186, "value": "Måttliga snöbyar" },
+    { "key": 187, "value": "Kraftiga snöbyar" },
+    { "key": 189, "value": "Hagel" },
+    { "key": 190, "value": "Åskväder" },
+    { "key": 191, "value": "Svagt eller måttligt  åskväder utan nederbörd" },
+    {
+      "key": 192,
+      "value": "Svagt eller måttligt  åskväder med regnskurar eller snöbyar"
+    },
+    { "key": 193, "value": "Svagt eller måttligt  åskväder med hagel" },
+    { "key": 194, "value": "Kraftigt åskväder utan nederbörd" },
+    { "key": 195, "value": "Kraftigt åskväder med regnskurar eller snöbyar" },
+    { "key": 196, "value": "Kraftigt åskväder med hagel" },
+    { "key": 199, "value": "Tromb eller Tornado" },
+    { "key": 204, "value": "Vulkanaska som spridits högt upp i luften" },
+    { "key": 206, "value": "Tjockt stoftdis, sikt mindre än 1 km" },
+    { "key": 207, "value": "Vattenstänk vid station pga blåst" },
+    { "key": 208, "value": "Drivande stoft (eller sand)" },
+    {
+      "key": 209,
+      "value": "Kraftig stoft- eller sandstorm på avstånd (Haboob)"
+    },
+    { "key": 210, "value": "Snödis" },
+    {
+      "key": 211,
+      "value": "Snöstorm eller kraftigt snödrev som ger extremt dålig sikt"
+    },
+    { "key": 213, "value": "Blixt mellan moln och marken" },
+    { "key": 217, "value": "Åska utan regnskur" },
+    {
+      "key": 219,
+      "value": "Tromb eller tornado (förödande) vid stationen eller inom synhåll under den senaste timmen"
+    },
+    { "key": 220, "value": "Avlagring av vulkanaska" },
+    { "key": 221, "value": "Avlagring av stoft eller sand" },
+    { "key": 222, "value": "Dagg" },
+    { "key": 223, "value": "Utfällning av blöt snö" },
+    { "key": 224, "value": "Lätt eller måttlig dimfrost" },
+    { "key": 225, "value": "Kraftig dimfrost" },
+    { "key": 226, "value": "Rimfrost" },
+    { "key": 227, "value": "Kraftig isbeläggning pga underkyld nederbörd" },
+    { "key": 228, "value": "Isskorpa" },
+    {
+      "key": 230,
+      "value": "Stoft- eller sandstorm med temperatur under fryspunkten"
+    },
+    { "key": 239, "value": "Kraftigt snödrev och/eller snöfall" },
+    { "key": 241, "value": "Dimma till havs" },
+    { "key": 242, "value": "Dimma i dalgång" },
+    { "key": 243, "value": "Sjörök i Arktis eller vid Antarktis" },
+    { "key": 244, "value": "Advektionsdimma (över vatten)" },
+    { "key": 245, "value": "Advektionsdimma (över land)" },
+    { "key": 246, "value": "Dimma över is eller snö" },
+    { "key": 247, "value": "Tät dimma, sikt 60-90 m" },
+    { "key": 248, "value": "Tät dimma, sikt 30-60 m" },
+    { "key": 249, "value": "Tät dimma, sikt mindre än 30 m" },
+    { "key": 250, "value": "Duggregn, intensitet mindre än 0,10 mm/timme" },
+    { "key": 251, "value": "Duggregn, intensitet 0,10-0,19 mm/timme" },
+    { "key": 252, "value": "Duggregn, intensitet 0,20-0,39 mm/timme" },
+    { "key": 253, "value": "Duggregn, intensitet 0,40-0,79 mm/timme" },
+    { "key": 254, "value": "Duggregn, intensitet 0,80-1,59 mm/timme" },
+    { "key": 255, "value": "Duggregn, intensitet 1,60-3,19 mm/timme" },
+    { "key": 256, "value": "Duggregn, intensitet 3,20-6,39 mm/timme" },
+    { "key": 257, "value": "Duggregn, intensitet större än 6,40 mm/timme" },
+    { "key": 259, "value": "Duggregn och snöfall" },
+    { "key": 260, "value": "Regn, intensitet mindre än 1,0 mm/timme" },
+    { "key": 261, "value": "Regn, intensitet 1,0-1,9 mm/timme" },
+    { "key": 262, "value": "Regn, intensitet 2,0-3,9 mm/timme" },
+    { "key": 263, "value": "Regn, intensitet 4,0-7,9 mm/timme" },
+    { "key": 264, "value": "Regn, intensitet 8,0-15,9 mm/timme" },
+    { "key": 265, "value": "Regn, intensitet 16,0-31,9 mm/timme" },
+    { "key": 266, "value": "Regn, intensitet 32,0-63,9 mm/timme" },
+    { "key": 267, "value": "Regn, intensitet större än 64,0 mm/timme" },
+    { "key": 270, "value": "Snö, intensitet mindre än 1,0 cm/timme" },
+    { "key": 271, "value": "Snö, intensitet 1,0-1,9 cm/timme" },
+    { "key": 272, "value": "Snö, intensitet 2,0-3,9 cm/timme" },
+    { "key": 273, "value": "Snö, intensitet 4,0-7,9 cm/timme" },
+    { "key": 274, "value": "Snö, intensitet 8,0-15,9 cm/timme" },
+    { "key": 275, "value": "Snö, intensitet 16,0-31,9 cm/timme" },
+    { "key": 276, "value": "Snö, intensitet 32,0-63,9 cm/timme" },
+    { "key": 277, "value": "Snö, intensitet större än 64,0 cm/timme" },
+    { "key": 278, "value": "Snöfall eller isnålar från en klar himmel" },
+    { "key": 279, "value": "Frysande blötsnö" },
+    { "key": 280, "value": "Regn" },
+    { "key": 281, "value": "Underkylt regn" },
+    { "key": 282, "value": "Snöblandat regn" },
+    { "key": 283, "value": "Snöfall" },
+    { "key": 284, "value": "Småhagel eller snöhagel" },
+    { "key": 285, "value": "Småhagel eller snöhagel tillsammans med regn" },
+    {
+      "key": 286,
+      "value": "Småhagel eller snöhagel tillsammans med snöblandat regn"
+    },
+    { "key": 287, "value": "Småhagel eller snöhagel tillsammans med snö" },
+    { "key": 288, "value": "Hagel" },
+    { "key": 289, "value": "Hagel tillsammans med regn" },
+    { "key": 290, "value": "Hagel tillsammans med snöblandat regn" },
+    { "key": 291, "value": "Hagel tillsammans med snö" },
+    { "key": 292, "value": "Skurar eller åska till havs" },
+    { "key": 293, "value": "Skurar eller åska över berg" },
+    {
+      "key": 508,
+      "value": "Inga signifikanta fenomen att rapportera, rådande och gammalt väder utelämnas"
+    },
+    {
+      "key": 509,
+      "value": "Ingen observation, data ej tillgängligt, rådande och gammalt väder utelämnas"
+    },
+    {
+      "key": 510,
+      "value": "Rådande och gammalt väder saknas men förväntades."
+    },
+    { "key": 511, "value": "Saknat värde" }
+  ]
+}
