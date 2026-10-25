@@ -20,6 +20,7 @@ API_OBSERVATIONS_ALL_STATIONS = (
     "https://opendata-download-metobs.smhi.se/api/version/latest"
     "/parameter/{}/station-set/all/period/latest-hour/data.json"
 )
+API_RADAR = "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp"
 
 LOGGER = logging.getLogger(__package__)
 

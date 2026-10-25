@@ -8,6 +8,7 @@ from .exceptions import (
     SmhiForecastException,
     SmhiNotFoundException,
     SmhiObservationException,
+    SmhiRadarException,
 )
 from .smhi import SmhiAPI
 from .smhi_fire_forecast import SMHIFireForecast, SMHIFirePointForecast
@@ -21,6 +22,7 @@ from .smhi_observations import (
     SMHIStation,
     SMHIStationObservations,
 )
+from .smhi_radar import SMHIRadar, SMHIRadarImage
 
 __all__ = [
     "SMHIError",
@@ -33,6 +35,8 @@ __all__ = [
     "SMHIPointForecast",
     "SMHIPointObservations",
     "SMHIPresentWeather",
+    "SMHIRadar",
+    "SMHIRadarImage",
     "SMHIStation",
     "SMHIStationObservations",
     "SmhiAPI",
@@ -40,4 +44,5 @@ __all__ = [
     "SmhiForecastException",
     "SmhiNotFoundException",
     "SmhiObservationException",
+    "SmhiRadarException",
 ]

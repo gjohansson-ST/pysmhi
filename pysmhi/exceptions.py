@@ -30,3 +30,7 @@ class SmhiNotFoundException(SMHIError):
 
 class SmhiObservationException(SMHIError):
     """Exception getting observations."""
+
+
+class SmhiRadarException(SMHIError):
+    """Exception getting radar."""
