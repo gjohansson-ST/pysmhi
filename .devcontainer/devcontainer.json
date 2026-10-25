@@ -1,59 +1,59 @@
 {
-    "containerEnv": {
-      "POETRY_VIRTUALENVS_IN_PROJECT": "true"
+  "containerEnv": {
+    "POETRY_VIRTUALENVS_IN_PROJECT": "true"
+  },
+  "runArgs": ["-e", "GIT_EDITOR=code --wait"],
+  "customizations": {
+    "codespaces": {
+      "openFiles": ["README.md"]
     },
-    "runArgs": ["-e", "GIT_EDITOR=code --wait"],
-    "customizations": {
-      "codespaces": {
-        "openFiles": ["README.md"]
-      },
-      "vscode": {
-        "extensions": [
-          "ms-python.python",
-          "redhat.vscode-yaml",
-          "esbenp.prettier-vscode",
-          "GitHub.vscode-pull-request-github",
-          "charliermarsh.ruff",
-          "GitHub.vscode-github-actions",
-          "ryanluker.vscode-coverage-gutters",
-          "GitHub.copilot",
-          "ms-python.vscode-pylance",
-          "charliermarsh.ruff",
-          "ms-python.pylint",
-          "visualstudioexptteam.vscodeintellicode"
-        ],
-        "settings": {
-          "[python]": {
-            "editor.defaultFormatter": "charliermarsh.ruff"
-          },
-          "python.experiments.optOutFrom": ["pythonTestAdapter"],
-          "python.defaultInterpreterPath": ".venv/bin/python",
-          "python.pythonPath": ".venv/bin/python",
-          "python.terminal.activateEnvInCurrentTerminal": true,
-          "python.testing.pytestArgs": ["--no-cov"],
-          "pylint.importStrategy": "fromEnvironment",
-          "editor.formatOnPaste": false,
-          "editor.formatOnSave": true,
-          "editor.formatOnType": true,
-          "files.trimTrailingWhitespace": true,
-          "terminal.integrated.profiles.linux": {
-            "zsh": {
-              "path": "/usr/bin/zsh"
-            }
-          },
-          "terminal.integrated.defaultProfile.linux": "zsh"
-        }
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "redhat.vscode-yaml",
+        "esbenp.prettier-vscode",
+        "GitHub.vscode-pull-request-github",
+        "charliermarsh.ruff",
+        "GitHub.vscode-github-actions",
+        "ryanluker.vscode-coverage-gutters",
+        "GitHub.copilot",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "ms-python.pylint",
+        "visualstudioexptteam.vscodeintellicode"
+      ],
+      "settings": {
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff"
+        },
+        "python.experiments.optOutFrom": ["pythonTestAdapter"],
+        "python.defaultInterpreterPath": ".venv/bin/python",
+        "python.pythonPath": ".venv/bin/python",
+        "python.terminal.activateEnvInCurrentTerminal": true,
+        "python.testing.pytestArgs": ["--no-cov"],
+        "pylint.importStrategy": "fromEnvironment",
+        "editor.formatOnPaste": false,
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "files.trimTrailingWhitespace": true,
+        "terminal.integrated.profiles.linux": {
+          "zsh": {
+            "path": "/usr/bin/zsh"
+          }
+        },
+        "terminal.integrated.defaultProfile.linux": "zsh"
       }
-    },
-    "features": {
-      "ghcr.io/devcontainers-extra/features/poetry:2": {},
-      "ghcr.io/devcontainers/features/github-cli:1": {},
-      "ghcr.io/devcontainers/features/node:2": {},
-      "ghcr.io/devcontainers/features/python:1": {
-        "installTools": false
-      }
-    },
-    "image": "mcr.microsoft.com/devcontainers/python:3-3.14",
-    "name": "pysmhi",
-    "updateContentCommand": ". ${NVM_DIR}/nvm.sh && nvm install node && nvm use node && npm install && poetry install && poetry check"
-  }
+    }
+  },
+  "features": {
+    "ghcr.io/devcontainers-extra/features/poetry:2": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/node:2": {},
+    "ghcr.io/devcontainers/features/python:1": {
+      "installTools": false
+    }
+  },
+  "image": "mcr.microsoft.com/devcontainers/python:3-3.14",
+  "name": "pysmhi",
+  "updateContentCommand": ". ${NVM_DIR}/nvm.sh && nvm install node && nvm use node && npm install && poetry install && poetry check"
+}
