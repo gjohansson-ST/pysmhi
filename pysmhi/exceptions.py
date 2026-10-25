@@ -34,3 +34,7 @@ class SmhiObservationException(SMHIError):
 
 class SmhiRadarException(SMHIError):
     """Exception getting radar."""
+
+
+class SmhiWarningException(SMHIError):
+    """Exception getting warnings."""

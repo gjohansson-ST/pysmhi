@@ -31,10 +31,12 @@ class SmhiAPI:
         self,
         url: str,
         retry: int = 3,
-    ) -> dict[str, Any]:
-        """Get data from API asyncronious."""
-        data: dict[str, Any] = await self._async_get(url, retry, as_json=True)
-        return data
+    ) -> Any:
+        """Get data from API asyncronious.
+
+        Returns the decoded JSON, an object for forecasts and a list for warnings.
+        """
+        return await self._async_get(url, retry, as_json=True)
 
     async def async_get_bytes(
         self,

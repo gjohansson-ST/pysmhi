@@ -283,12 +283,13 @@ class SMHIPointObservations:
     async def _async_get_all_stations(self) -> dict[str, Any]:
         """Return the temperature during the latest hour for all stations."""
         try:
-            return await self._api.async_get_data(
+            data: dict[str, Any] = await self._api.async_get_data(
                 API_OBSERVATIONS_ALL_STATIONS.format(STATION_PARAMETER)
             )
         except SMHIError as error:
             LOGGER.debug("Error getting observations: %s", str(error))
             raise SmhiObservationException from error
+        return data
 
     async def _async_get_parameter(
         self, parameter: SMHIObservationParameter, station_id: str
@@ -298,7 +299,7 @@ class SMHIPointObservations:
         Returns None if the station doesn't observe the parameter.
         """
         try:
-            return await self._api.async_get_data(
+            data: dict[str, Any] = await self._api.async_get_data(
                 API_OBSERVATIONS.format(parameter, station_id)
             )
         except SmhiNotFoundException:
@@ -307,6 +308,7 @@ class SMHIPointObservations:
         except SMHIError as error:
             LOGGER.debug("Error getting observations: %s", str(error))
             raise SmhiObservationException from error
+        return data
 
 
 def get_stations(

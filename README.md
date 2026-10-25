@@ -21,6 +21,7 @@ python module for communicating with [SMHI](https://opendata.smhi.se/)
 - Bi-daily weather forecast
 - Daily fire risk
 - Hourly fire risk
+- Weather warnings for a location
 - Radar image and precipitation at a location
 - Latest observations from the nearest weather station
 
@@ -37,6 +38,75 @@ async with aiohttp.ClientSession(loop=loop) as session:
     client = SMHIPointForecast("16.15035", "58.570784", session)
     daily_forecast = await client.async_get_daily_forecast()
     print(daily_forecast)
+```
+
+### Get warnings
+
+Retrieves the [impact based weather warnings](https://opendata.smhi.se/warnings/introduction)
+for the specified location.
+
+A warning is included if any of its warning areas covers the location, and only the
+warning areas covering the location are returned. Warning areas drawn as lines, e.g.
+along a coast or a watercourse, are not included.
+
+```python
+import asyncio
+
+import aiohttp
+
+from pysmhi import SMHIPublicWarnings
+
+
+async def main() -> None:
+    async with aiohttp.ClientSession() as session:
+        client = SMHIPublicWarnings("13.0038", "55.605", session)
+        warnings = await client.async_get_warnings()
+        print(warnings)
+
+
+asyncio.run(main())
+```
+
+Texts are in Swedish by default. Use `language="en"` for English, which falls back to
+Swedish for texts SMHI only provides in Swedish, e.g. some area names.
+
+```python
+client = SMHIPublicWarnings("13.0038", "55.605", session, language="en")
+```
+
+Result, with the descriptions shortened:
+
+```python
+[
+    {
+        "id": 3122,
+        "event_code": SMHIWarningEvents.WATER_SHORTAGE,
+        "event": "Risk för vattenbrist",
+        "classification": "HYD",
+        "probability_normal": True,
+        "area_name": None,
+        "warning_areas": [
+            {
+                "id": 9873,
+                "area_name": "Skåne län",
+                "approximate_start": datetime(2026, 4, 20, 22, 0, tzinfo=UTC),
+                "approximate_end": None,
+                "published": datetime(2026, 8, 11, 12, 16, 48, 421000, tzinfo=UTC),
+                "probability_normal": True,
+                "warning_level": SMHIWarningClassifications.MESSAGE,
+                "event_description": (
+                    SMHIWarningEventDescription.WATERCOURSES_GROUNDWATER_MINOR_MAJOR
+                ),
+                "affected_areas": ["Skåne län"],
+                "descriptions": {
+                    SMHIWarningDescription.INCIDENT: "Låga grundvattennivåer. ...",
+                    SMHIWarningDescription.AFFECT: "...",
+                },
+            }
+        ],
+        "descriptions": {},
+    }
+]
 ```
 
 ### Get radar
