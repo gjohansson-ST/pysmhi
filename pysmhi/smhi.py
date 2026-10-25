@@ -4,12 +4,13 @@ from __future__ import annotations
 
 import asyncio
 from datetime import UTC, datetime
+from http import HTTPStatus
 from typing import Any
 
 from aiohttp import ClientSession, ClientTimeout
 
 from .const import DEFAULT_TIMEOUT, LOGGER
-from .exceptions import SMHIError
+from .exceptions import SMHIError, SmhiNotFoundException
 
 
 class SmhiAPI:
@@ -68,6 +69,9 @@ class SmhiAPI:
 
         except Exception as error:
             LOGGER.debug("Error, status: %s, error: %s", status, str(error))
+            # Missing data doesn't appear by retrying
+            if status == HTTPStatus.NOT_FOUND:
+                raise SmhiNotFoundException from error
             if retry > 0:
                 LOGGER.debug(
                     "Retry %d on path %s from error %s", 4 - retry, url, str(error)
