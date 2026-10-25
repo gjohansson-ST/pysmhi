@@ -1,0 +1,164 @@
+{
+  "key": "comp",
+  "updated": "2026-10-21T19:11:39Z",
+  "timeZone": "UTC",
+  "firstFiles": [
+    {
+      "key": "radar_sweden_comp_202610201915",
+      "valid": "2026-10-20 19:15",
+      "updated": "2026-10-20T19:15:53Z",
+      "formats": [
+        {
+          "key": "h5",
+          "updated": "2026-10-20T19:15:53Z",
+          "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2026/10/20/radar_sweden_comp_202610201915.h5"
+        }
+      ]
+    },
+    {
+      "key": "radar_0810010000",
+      "valid": "2008-10-01 00:00",
+      "updated": "2015-05-29T14:47:35Z",
+      "formats": [
+        {
+          "key": "png",
+          "updated": "2015-05-29T14:47:35Z",
+          "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2008/10/01/radar_0810010000.png"
+        },
+        {
+          "key": "tif",
+          "updated": "2015-05-29T14:47:35Z",
+          "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2008/10/01/radar_0810010000.tif"
+        }
+      ]
+    }
+  ],
+  "lastFiles": [
+    {
+      "key": "radar_2610211910",
+      "valid": "2026-10-21 19:10",
+      "updated": "2026-10-21T19:11:39Z",
+      "formats": [
+        {
+          "key": "png",
+          "updated": "2026-10-21T19:11:39Z",
+          "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/latest.png"
+        },
+        {
+          "key": "tif",
+          "updated": "2026-10-21T19:11:39Z",
+          "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/latest.tif"
+        }
+      ]
+    },
+    {
+      "key": "radar_sweden_comp_202610211910",
+      "valid": "2026-10-21 19:10",
+      "updated": "2026-10-21T19:10:55Z",
+      "formats": [
+        {
+          "key": "h5",
+          "updated": "2026-10-21T19:10:55Z",
+          "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/latest.h5"
+        }
+      ]
+    }
+  ],
+  "years": [
+    {
+      "key": "2008",
+      "updated": "2015-05-30T17:35:10Z",
+      "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2008"
+    },
+    {
+      "key": "2009",
+      "updated": "2015-05-31T07:29:45Z",
+      "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2009"
+    },
+    {
+      "key": "2010",
+      "updated": "2015-06-01T07:03:59Z",
+      "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2010"
+    },
+    {
+      "key": "2011",
+      "updated": "2015-06-01T11:34:51Z",
+      "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2011"
+    },
+    {
+      "key": "2012",
+      "updated": "2015-06-12T10:21:01Z",
+      "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2012"
+    },
+    {
+      "key": "2013",
+      "updated": "2015-06-12T06:30:45Z",
+      "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2013"
+    },
+    {
+      "key": "2014",
+      "updated": "2015-06-11T14:06:58Z",
+      "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2014"
+    },
+    {
+      "key": "2015",
+      "updated": "2015-12-31T23:56:40Z",
+      "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2015"
+    },
+    {
+      "key": "2016",
+      "updated": "2016-12-31T23:56:41Z",
+      "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2016"
+    },
+    {
+      "key": "2017",
+      "updated": "2017-12-31T23:56:39Z",
+      "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2017"
+    },
+    {
+      "key": "2018",
+      "updated": "2018-12-31T23:56:43Z",
+      "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2018"
+    },
+    {
+      "key": "2019",
+      "updated": "2019-12-31T23:56:17Z",
+      "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2019"
+    },
+    {
+      "key": "2020",
+      "updated": "2020-12-31T23:56:07Z",
+      "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2020"
+    },
+    {
+      "key": "2021",
+      "updated": "2021-12-31T23:56:10Z",
+      "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2021"
+    },
+    {
+      "key": "2022",
+      "updated": "2022-12-31T23:56:07Z",
+      "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2022"
+    },
+    {
+      "key": "2023",
+      "updated": "2023-12-31T23:56:04Z",
+      "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2023"
+    },
+    {
+      "key": "2024",
+      "updated": "2024-12-31T23:56:03Z",
+      "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2024"
+    },
+    {
+      "key": "2025",
+      "updated": "2025-12-31T23:58:01Z",
+      "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2025"
+    },
+    {
+      "key": "2026",
+      "updated": "2026-10-21T19:11:39Z",
+      "link": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/2026"
+    }
+  ]
+}
