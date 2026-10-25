@@ -12,6 +12,10 @@ API_FIRE_FORECAST = (
     "https://opendata-download-metfcst.smhi.se/api/category"
     "/fwif1g/version/1/{}/geotype/point/lon/{}/lat/{}/data.json"
 )
+API_FIRE_DETECTIONS = (
+    "https://opendata-download-satellite.smhi.se/api/category"
+    "/firedetections/version/1/year/{}/month/{:02d}/data.json"
+)
 API_OBSERVATIONS = (
     "https://opendata-download-metobs.smhi.se/api/version/latest"
     "/parameter/{}/station/{}/period/latest-hour/data.json"
