@@ -22,6 +22,9 @@ python module for communicating with [SMHI](https://opendata.smhi.se/)
 - Daily fire risk
 - Hourly fire risk
 - Satellite fire detections near a location
+- Weather warnings for a location
+- Radar image and precipitation at a location
+- Latest observations from the nearest weather station
 
 ## Code examples
 
@@ -87,5 +90,207 @@ Result, showing the first detection:
 
 The observation time is converted from Swedish time to UTC. The `anomaly` tells if the
 detection is at a known persistent heat source, e.g. a gas flare or a solar panel.
+
+### Get warnings
+
+Retrieves the [impact based weather warnings](https://opendata.smhi.se/warnings/introduction)
+for the specified location.
+
+A warning is included if any of its warning areas covers the location, and only the
+warning areas covering the location are returned. Warning areas drawn as lines, e.g.
+along a coast or a watercourse, are not included.
+
+```python
+import asyncio
+
+import aiohttp
+
+from pysmhi import SMHIPublicWarnings
+
+
+async def main() -> None:
+    async with aiohttp.ClientSession() as session:
+        client = SMHIPublicWarnings("13.0038", "55.605", session)
+        warnings = await client.async_get_warnings()
+        print(warnings)
+
+
+asyncio.run(main())
+```
+
+Texts are in Swedish by default. Use `language="en"` for English, which falls back to
+Swedish for texts SMHI only provides in Swedish, e.g. some area names.
+
+```python
+client = SMHIPublicWarnings("13.0038", "55.605", session, language="en")
+```
+
+Result, with the descriptions shortened:
+
+```python
+[
+    {
+        "id": 3122,
+        "event_code": SMHIWarningEvents.WATER_SHORTAGE,
+        "event": "Risk för vattenbrist",
+        "classification": "HYD",
+        "probability_normal": True,
+        "area_name": None,
+        "warning_areas": [
+            {
+                "id": 9873,
+                "area_name": "Skåne län",
+                "approximate_start": datetime(2026, 4, 20, 22, 0, tzinfo=UTC),
+                "approximate_end": None,
+                "published": datetime(2026, 8, 11, 12, 16, 48, 421000, tzinfo=UTC),
+                "probability_normal": True,
+                "warning_level": SMHIWarningClassifications.MESSAGE,
+                "event_description": (
+                    SMHIWarningEventDescription.WATERCOURSES_GROUNDWATER_MINOR_MAJOR
+                ),
+                "affected_areas": ["Skåne län"],
+                "descriptions": {
+                    SMHIWarningDescription.INCIDENT: "Låga grundvattennivåer. ...",
+                    SMHIWarningDescription.AFFECT: "...",
+                },
+            }
+        ],
+        "descriptions": {},
+    }
+]
+```
+
+### Get radar
+
+Retrieves the latest [radar](https://opendata.smhi.se/radar/introduction) image of
+Sweden, updated every 5 minutes, and the precipitation at the specified location.
+
+The reflectivity (`dbz`) at the location is read from the radar image and converted to
+precipitation in mm/h. Reflectivities below 5 dBZ are not counted as precipitation.
+
+```python
+import asyncio
+
+import aiohttp
+
+from pysmhi import SMHIRadarImage
+
+
+async def main() -> None:
+    async with aiohttp.ClientSession() as session:
+        client = SMHIRadarImage("17.92", "63.81", session)
+        radar = await client.async_get_radar()
+        print(radar)
+        image = await client.async_get_image()  # PNG image on a map as bytes
+
+
+asyncio.run(main())
+```
+
+Result:
+
+```python
+{
+    "valid_time": datetime(2026, 10, 21, 18, 55, tzinfo=UTC),
+    "image_url": "https://opendata-download-radar.smhi.se/api/version/latest/area/sweden/product/comp/latest.png",
+    "dbz": 48.8,
+    "precipitation": 52.4,
+}
+```
+
+The `dbz` is `None` if there is no echo, and the precipitation is then 0. Both are
+`None` if there is no radar data at the location, e.g. outside Sweden.
+
+The radar image from SMHI only contains the radar echoes, so `async_get_image()` returns
+it on a background map of Sweden with the location marked by a red dot. The map is
+drawn from [Natural Earth](https://www.naturalearthdata.com/) (public domain) by
+`script/generate_radar_basemap.py`. The `image_url` is the radar image without a map.
+
+### Get observations
+
+Retrieves the [observations](https://opendata.smhi.se/metobs/introduction) during the
+latest hour of the given parameters from a weather station. By default the station
+nearest the specified location, which had a temperature observation during the latest
+hour, is used.
+
+The API serves one parameter per request, so the parameters are requested in parallel.
+Parameters without an observation, e.g. as the station doesn't observe them, are `None`.
+
+```python
+import asyncio
+
+import aiohttp
+
+from pysmhi import SMHIObservationParameter, SMHIPointObservations
+
+
+async def main() -> None:
+    async with aiohttp.ClientSession() as session:
+        client = SMHIPointObservations("13.0038", "55.605", session)
+        observations = await client.async_get_observations(
+            [
+                SMHIObservationParameter.TEMPERATURE,
+                SMHIObservationParameter.WIND_SPEED,
+                SMHIObservationParameter.PRESENT_WEATHER,
+            ]
+        )
+        print(observations)
+
+
+asyncio.run(main())
+```
+
+Result:
+
+```python
+{
+    "station_id": "52350",
+    "station_name": "Malmö A",
+    "longitude": 13.0708,
+    "latitude": 55.5715,
+    "height": 19.757,
+    "distance": 5.62,
+    "observations": {
+        SMHIObservationParameter.TEMPERATURE: {
+            "value": 12.574771,
+            "time": datetime(2026, 10, 21, 20, 37, tzinfo=UTC),
+            "quality": SMHIObservationQuality.GREEN,
+        },
+        SMHIObservationParameter.WIND_SPEED: {
+            "value": 2.713146,
+            "time": datetime(2026, 10, 21, 20, 37, tzinfo=UTC),
+            "quality": SMHIObservationQuality.GREEN,
+        },
+        SMHIObservationParameter.PRESENT_WEATHER: {
+            "value": 100.0,
+            "time": datetime(2026, 10, 21, 20, 0, tzinfo=UTC),
+            "quality": SMHIObservationQuality.GREEN,
+            "weather": SMHIPresentWeather.NO_SIGNIFICANT_WEATHER,
+        },
+    },
+}
+```
+
+To use another station, e.g. one observing more parameters, list the stations nearest
+the location and give the id or name of a station. With an id, only the parameters are
+requested.
+
+```python
+stations = await client.async_get_stations()
+# [{"station_id": "52350", "station_name": "Malmö A", ..., "distance": 5.62}, ...]
+parameters = [SMHIObservationParameter.TEMPERATURE]
+observations = await client.async_get_observations(parameters, "52350")
+observations = await client.async_get_observations(parameters, "Malmö A")
+```
+
+The parameters are humidity and present weather, observed every hour, and temperature,
+precipitation, wind speed, wind direction, visibility and snow depth, observed every
+minute. The latest observation is given for each parameter.
+
+The quality is green if the observation is checked and approved, and yellow if it's
+suspect, aggregated or not checked.
+
+The present weather is a code, which is also given as `weather`, e.g.
+`SMHIPresentWeather.RAIN` for code 123 and `SMHIPresentWeather.LIGHT_RAIN` for code 161.
 
 Credits to [@helto4real](https://github.com/helto4real) for making the original smhi api package used for Home Assistant to connect to SMHI weather services which this is based upon.

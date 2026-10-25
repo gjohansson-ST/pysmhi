@@ -26,3 +26,19 @@ class SmhiFireForecastException(SMHIError):
 
 class SmhiFireDetectionException(SMHIError):
     """Exception getting fire detections."""
+
+
+class SmhiNotFoundException(SMHIError):
+    """Exception when the requested data doesn't exist."""
+
+
+class SmhiObservationException(SMHIError):
+    """Exception getting observations."""
+
+
+class SmhiRadarException(SMHIError):
+    """Exception getting radar."""
+
+
+class SmhiWarningException(SMHIError):
+    """Exception getting warnings."""

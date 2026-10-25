@@ -26,7 +26,9 @@ packages = [
 ]
 requires-python = ">=3.11"
 dependencies = [
-  "aiohttp>=3.13.0"
+  "aiohttp>=3.13.0",
+  "pillow>=11.3.0",
+  "shapely>=2.1.2"
 ]
 
 [project.urls]
