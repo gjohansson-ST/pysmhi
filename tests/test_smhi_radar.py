@@ -114,7 +114,7 @@ def test_image_wrong_size(caplog: pytest.LogCaptureFixture) -> None:
         (HEAVY_RAIN, (49.2, 55.72)),
         (OSTERSUND, (8.8, 0.11)),
         ((15.6, 62.0), (4.4, 0.0)),
-        (STOCKHOLM, (None, 0.0)),
+        (STOCKHOLM, (-30.0, 0.0)),
         ((24.94, 60.17), (None, None)),
         ((5.32, 60.39), (None, None)),
     ],

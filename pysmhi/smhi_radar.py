@@ -58,7 +58,7 @@ class SMHIRadar(TypedDict):
 
     valid_time: datetime
     image_url: str  # PNG image of the radar composite for Sweden without a map
-    dbz: float | None  # None if no echo or no data
+    dbz: float | None  # -30 if no echo, None if no data
     precipitation: float | None  # mm/h, 0 if no echo, None if no data
 
 
@@ -150,8 +150,8 @@ def get_radar_values(
 ) -> tuple[float | None, float | None]:
     """Get the dBZ and the precipitation in mm/h at a location from a radar GeoTIFF.
 
-    The dBZ is None if there is no echo. Both are None if there is no data or the
-    location is outside the image.
+    The dBZ is -30, the bottom of the scale, if there is no echo. Both are None if
+    there is no data or the location is outside the image.
     """
     with TiffImagePlugin.TiffImageFile(BytesIO(image)) as tif:
         # The GeoTIFF has one band with 8-bit values
@@ -170,7 +170,7 @@ def get_radar_values(
     if value == NO_DATA:
         return None, None
     if value == NO_ECHO:
-        return None, 0.0
+        return OFFSET, 0.0
     dbz = round(value * GAIN + OFFSET, 1)
     return dbz, _precipitation(dbz)
 
