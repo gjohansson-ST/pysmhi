@@ -198,8 +198,8 @@ Result:
 }
 ```
 
-The `dbz` is `None` if there is no echo, and the precipitation is then 0. Both are
-`None` if there is no radar data at the location, e.g. outside Sweden.
+The `dbz` is -30, the bottom of the scale, if there is no echo, and the precipitation is
+then 0. Both are `None` if there is no radar data at the location, e.g. outside Sweden.
 
 The radar image from SMHI only contains the radar echoes, so `async_get_image()` returns
 it on a background map of Sweden with the location marked by a red dot. The map is
