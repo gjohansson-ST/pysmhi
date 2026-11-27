@@ -55,7 +55,7 @@ pytest-sugar = "1.1.1"
 pytest-github-actions-annotate-failures = "0.4.2"
 safety = "3.8.1"
 yamllint = "1.38.0"
-syrupy = "6.1.1"
+syrupy = "7.0.3"
 pylint-per-file-ignores = {version = "4.0.0", markers = "python_version >= '3.11' and python_version < '4'"}
 freezegun="1.5.5"
 
